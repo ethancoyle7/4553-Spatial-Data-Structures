@@ -10,7 +10,7 @@
 | [06](./A06) | [A06](./A06) | [Assignment 6](./A06) |
 | [07](./A07) | [A07](./A07) | [Assignment 7](./A07) |
 | [08](./A08) | [A08](./A08) | [Assignment 8](./A08) |
-| [00](./P01) | [P01](./P01) | [Project   #1](./P01) |
-| [01](./P02) | [P02](./P02) | [Project   #2](./P02) |
+| [09](./P01) | [P01](./P01) | [Project   #1](./P01) |
+| [10](./P02) | [P02](./P02) | [Project   #2](./P02) |
 
 #### these links above will redirect to respective folders
