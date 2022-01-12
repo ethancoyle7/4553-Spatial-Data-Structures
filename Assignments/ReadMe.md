@@ -16,4 +16,3 @@
 | [10](./P02) | [P02](./P02) | [Project   #2](./P02) |
 
 #### these links above will redirect to respective folders
-
