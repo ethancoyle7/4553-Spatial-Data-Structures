@@ -1,4 +1,11 @@
 # 4553 - Spatial Data Structures
+## Ethan Coyle
+#### Repo: 4553 Spatial Data Strutures Repo
+#### Email: ejcoyle0912@my.msutexas.edu
+#### Website: https://github.com/ethancoyle7
+
+![text if link is broke](MyPicture.jpg)
+
 
 ### Roster for the Class
 
@@ -50,7 +57,7 @@
   - [ ] Astar
 
 
-## Grading is As Follows for the Course
+
 
 
 | Categories            |       |  \|   | Grade |          |
