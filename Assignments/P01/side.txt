@@ -1,19 +1,5 @@
-######################################################
-## Student - Ethan Coyle                            ##
-## Instr.  - Dr. Griffin                            ##
-## Class   - Spatial Data Structures                ##
-## Assign. - Project 1                              ##
-##Overview - The purpose of this program is to      ##
-##           Read in a json file containing cities  ##
-##           with long,lats, growth and convert to  ##
-##           a geojson format for mapping out       ##
-##         find highest population state order(1-49)##
-##   sort cities west to east on the x coordingate  ##
-##   and number 
-######################################################
-
 import json
-### from rich import print
+from rich import print
 import random
 
 def randColor():
@@ -40,8 +26,12 @@ def makeFeature(city):
       feature['properties'][key] = val
 
   return feature
+  
+  
+  
 
-with open("Assignments/P01/testdata.json") as f:
+
+with open("cities.json") as f:
   data = json.load(f)
 
 states = {}
