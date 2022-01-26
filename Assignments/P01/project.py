@@ -59,4 +59,3 @@ for state in states:
 for stateInfo in data:
   print(makeFeature(stateInfo))
   
-  
