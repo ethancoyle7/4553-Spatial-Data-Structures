@@ -116,15 +116,20 @@ class OrderedCities:
             InputData['marker-symbol'] = InputData['rank']
 
             # append the features of each city for nice usng
-            self.GeoJsonList['features'].append({
+            self.GeoJsonList['features'].append(
+                {
                 "type": "Feature",
                 "properties": InputData,
-                "geometry": {
+                "geometry": 
+                {
                     "type": "Point",
-                    "coordinates": [
+                    "coordinates": 
+                    [
                         InputData['longitude'],
                         InputData['latitude'],
-                    ]}})
+                    ]
+                }
+                })
         # Sorting by longitudes 
         # Property is argument and looking at property longitude
         self.CityRank = sorted(self.CityRank,key=lambda Property: Property['longitude'])
