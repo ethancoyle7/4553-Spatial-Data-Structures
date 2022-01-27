@@ -100,7 +100,8 @@ class OrderedCities:
         # return the formatted colors in formatted string
         return f'#%02X%02X%02X' % (Red(),Blue(),Green())
 
-    # to convert to a geo json style format 
+    # to convert to a geo json style format
+    
     def FileConversion(self):
         self.GeoJsonList = {
             "type": "FeatureCollection",
@@ -152,10 +153,10 @@ class OrderedCities:
                 }
             )
         
-        with open('Assignments/P01/outputfile.json', 'w') as file:
+        with open('Assignments/P01/output.geojson', 'w') as file:
             # open up the output file and then dump the conversion inside
             file.write(json.dumps(self.GeoJsonList, indent=4))
-
+        
 if __name__ == '__main__':
     # object called cities of the OrderedCities class
     Cities = OrderedCities()
