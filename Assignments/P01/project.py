@@ -1,7 +1,23 @@
+#############################################
+## Author - Ethan Coyle                     #
+## Instr  - Dr. Griffin                     #
+## Class  - CMPS 4553 Spatial DS            #
+## Assign - Convert JSON to GEOJSON         #
+## Due    - 2/1/2022                        #
+## About  - the purpose of this program is  #
+##          to read in a json file and      #
+##          convert it to a proper geojson  #
+##          format to be viewed by the      #
+##          user to better visualize        #
+##          the grographical data in the    #
+##          file.                           #
+##                                          #
+#############################################
+
+## start our inport for using in the program
 import json
 import random as rand
-from rich import print
-
+from rich import print # nice easy printing visually appealing
 
 # create a class to read the input data and do some conversions with it
 class OrderedCities:
@@ -143,6 +159,10 @@ class OrderedCities:
 if __name__ == '__main__':
     # object called cities of the OrderedCities class
     Cities = OrderedCities()
+
+    # perform the tasks in order to convert to geojson
+    # each call goes to the function definition to do the 
+    # implementation task by calling the object.(calling function)()
     Cities.ReadInput()
     Cities.FilterCity()
     Cities.rank_cities()
