@@ -1,6 +1,6 @@
 import json
 import random as rand
-from rich import print, console
+from rich import print
 
 
 # create a class to read the input data and do some conversions with it
