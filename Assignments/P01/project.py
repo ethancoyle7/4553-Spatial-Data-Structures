@@ -12,6 +12,14 @@
 ##          the grographical data in the    #
 ##          file.                           #
 ##                                          #
+## Instructions:                            #
+##       click run on the program           #
+##       no special tasks needed            #
+##       try excepts added for input and    #
+##       output checking for valid files    #
+##       output file will display geojson   #
+##       file associated with mapping       #
+##       Github automatically creates map   #
 #############################################
 
 ## start our inport for using in the program
@@ -27,7 +35,7 @@ class OrderedCities:
         self.StateName = {}
         self.MaxPopulationCities = {}
         self.CityRank = []
-        self.GeoJsonList = []
+        self.JsonListToGeoList = []
 
     # function definintion to read the input file 
     # we also need to check for invalid file types so we read the 
@@ -39,33 +47,43 @@ class OrderedCities:
                 # assign the json loaded data into a file called InputData for use
                 InputData = json.load(data)
         # if cant then toss an error
-        except EnvironmentError as e:
-            print(f'Error, unable to open the specified folder: Error Type = {e}')
+        except FileNotFoundError:
+            print("Error! Error! Error! File not found \n")
+            
         # for each city in data
+        # if the city is not in then append it to the list of city names
         for city in InputData:
             if not city['state'] in self.StateName:
                 state = city['state']
                 self.StateName[state] = []
+            # append the city and state names
             self.StateName[city['state']].append(city)
 
     # function definition to filter through the cities and the items
     # will determine the cities by their population
     def FilterCity(self):
+
+        # loop through the data
         for state, InputData in self.StateName.items():
             max = -1 # default max value
             for data in InputData:
-                # where the data falls withing the long and lat lines
-                if data['population'] > max and data['longitude'] < 110 \
-                        and data['latitude'] < 50 and data['latitude'] > 25:
-                    max = int(data['population'])
-                    self.MaxPopulationCities[state] = data
-            # for data, value in self.MaxPopulationCities.items():
-            #     print(data, value)
-
-    # function definition to parse through the cities by population a
-    # will rank them according to the values low to high
+                # if the pop is greater than previous max
+                if data['population'] > max:
+                    # if the longitude is less than 110
+                    if data['longitude'] < 110:
+                        # if the longitude less than 50
+                        if data['latitude'] < 50:
+                            #if the lat is greater than 25
+                            if data['latitude'] > 25:
+                                # assign the integer population to max
+                                max = int(data['population'])
+                                # assign the data to population state
+                                self.MaxPopulationCities[state] = data
+            
     def rank_cities(self):
         
+        # append the population of the cities to list in order to rank
+        # according to the population
         for key, value in self.MaxPopulationCities.items():
             self.CityRank.append(value)
 
@@ -78,14 +96,13 @@ class OrderedCities:
         self.CityRank = sorted(self.CityRank,key=lambda data: data['population'])
 
         # Set the ranking of the Cities, will begin at 1 being the smallest
-        num = 1
-        # for each item inside of this ranked cities assign a number
+        RankingOrder = 1
+        # for each item inside of this ranked cities assign a RankingOrderber
         for item in self.CityRank:
-            item['rank'] = num
-            num += 1 
-            # ranking them by number 
-        # print out the sorted ranked list
-        print(self.CityRank)
+            item['rank'] = RankingOrder
+            RankingOrder += 1 
+            # ranking them by RankingOrderber 
+        # to print out the sorted ranked list print(self.CityRank)
 
     # function definition for the color generation
     # here we have red green and blue colors
@@ -101,9 +118,13 @@ class OrderedCities:
         return f'#%02X%02X%02X' % (Red(),Blue(),Green())
 
     # to convert to a geo json style format
-    
+    # function definition will convert to a suitable
+    # file formatting which can be used in geojson.io
+    # in the case of Github display will be displayed in output
+    #box
     def FileConversion(self):
-        self.GeoJsonList = {
+
+        self.JsonListToGeoList = {
             "type": "FeatureCollection",
             "features": []
             # have type feature collection and then added features
@@ -116,7 +137,11 @@ class OrderedCities:
             InputData['marker-symbol'] = InputData['rank']
 
             # append the features of each city for nice usng
-            self.GeoJsonList['features'].append(
+            # geojson list will be of type feature and have properties
+            # from the input data which include the markers and sizes
+            # then will have a type point to poistion on the latitude and
+            # longitude
+            self.JsonListToGeoList['features'].append(
                 {
                 "type": "Feature",
                 "properties": InputData,
@@ -132,14 +157,17 @@ class OrderedCities:
                 })
         # Sorting by longitudes 
         # Property is argument and looking at property longitude
-        self.CityRank = sorted(self.CityRank,key=lambda Property: Property['longitude'])
-        print(self.CityRank)
-       
+        self.CityRank = sorted(self.CityRank,key=lambda CityRank: CityRank['longitude'])
+        # to view the sorted ranks by population use print(self.CityRank)
+        # for i in the range of the length of the specified CityRank
         for i in range(len(self.CityRank)):
             # assigning the rank if it is not in the length-1 or else
-            
+            # we need to remove hawaii and alaska
             if_i = i+1 if i is not (len(self.CityRank) - 1) else i
-            self.GeoJsonList['features'].append(
+            # append the features to each and call the generated random
+            # colors for red,green and blue and create the line string 
+            # for connectivity
+            self.JsonListToGeoList['features'].append(
                 {
                     "type": "Feature",
                     "properties":{
@@ -157,19 +185,24 @@ class OrderedCities:
                     }
                 }
             )
+        # open up the output file and then dump the conversion inside of the 
+            # converted json to geojson list to the output using keyword dumps
+        try:
+            with open('Assignments/P01/output.geojson', 'w') as file:
+                file.write(json.dumps(self.JsonListToGeoList, indent=4))
+        except IOError:
+            print("unsuccessful at pushing to the ouput.\
+                   SOMETHING WENT WRONG BONEHEAD\n")
+        print("Congratulations, Check the output now\n\n")
         
-        with open('Assignments/P01/output.geojson', 'w') as file:
-            # open up the output file and then dump the conversion inside
-            file.write(json.dumps(self.GeoJsonList, indent=4))
-        
-if __name__ == '__main__':
-    # object called cities of the OrderedCities class
-    Cities = OrderedCities()
-
-    # perform the tasks in order to convert to geojson
-    # each call goes to the function definition to do the 
-    # implementation task by calling the object.(calling function)()
-    Cities.ReadInput()
-    Cities.FilterCity()
-    Cities.rank_cities()
-    Cities.FileConversion()
+# now inside the main derivation of the object created main driver
+# object called cities of the OrderedCities class
+# perform the tasks in order to convert to geojson
+# each call goes to the function definition to do the 
+# implementation task by calling the object.(calling function)()
+Cities = OrderedCities()
+Cities.ReadInput()
+Cities.FilterCity()
+Cities.rank_cities()
+Cities.FileConversion()
+# end of the main driver and the program exitting now
