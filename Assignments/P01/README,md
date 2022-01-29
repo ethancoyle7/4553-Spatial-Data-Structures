@@ -1,8 +1,8 @@
 ### Files
-https://github.com/ethancoyle7/4553-Spatial-Data-Structures/blob/6707338444ea78380a458c5bd578af7e6e6773a0/Assignments/P01/output.geojson
+
 |   #   | File                                                                                                                                | Description                                                 |
 | :---: | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 |   1   | [Main.py](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/Main.py)                                    | Main file that process all data and makes the GeoJson       |
 |   2   | [cities_latlon_w_pop.json](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/cities_latlon_w_pop.json)  | File with data on all major cities                          |
-|   3   | [GeoJson Link](https://github.com/ethancoyle7/4553-Spatial-Data-Structures/blob/6707338444ea78380a458c5bd578af7e6e6773a0/Assignments/P01/output.geojson)                      | File that is used to mark the map                           |
+|   3   | [Routes.geojson](https://github.com/ethancoyle7/4553-Spatial-Data-Structures/blob/6707338444ea78380a458c5bd578af7e6e6773a0/Assignments/P01/output.geojson)                      | File that is used to mark the map                           |
 |   4   | [GeoImage.jpg](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/GeoImage.jpg)                          | Images of final map made from GeoJson file                  |
