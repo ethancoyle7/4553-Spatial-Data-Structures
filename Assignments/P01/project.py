@@ -80,13 +80,7 @@ for item in CityRank:
     item['rank'] = RankingOrder
     RankingOrder += 1 
 
-# setting the colors to random for rgb color schematic
-# each color is chosing a random integer between 0 and 255
-Red = lambda: rand.randint(0,255)
-Green = lambda: rand.randint(0,255)
-Blue = lambda: rand.randint(0,255)
-        # return the formatted colors in formatted string
-ColorGeneration= f'#%02X%02X%02X' % (Red(),Blue(),Green())
+
 # now we have our random colors for the markers so we proceed to the 
 print("Finally, we will convert to the GeoJson\n")
 
@@ -96,6 +90,13 @@ JsonListToGeoList = {
     
 }
 for InputData in CityRank:
+    # setting the colors to random for rgb color schematic
+# each color is chosing a random integer between 0 and 255
+    Red = lambda: rand.randint(0,255)
+    Green = lambda: rand.randint(0,255)
+    Blue = lambda: rand.randint(0,255)
+        # return the formatted colors in formatted string
+    ColorGeneration= f'#%02X%02X%02X' % (Red(),Blue(),Green())
     # get the color of the marker, the size and the symbol
     #list of features,property from the input and data figures 
     JsonListToGeoList['features'].append(
@@ -126,6 +127,13 @@ CityRank = sorted(CityRank,key=lambda CityRank: CityRank['longitude'])
 # longitude is the value we looking to sort by from the city rank
 for i in range(len(CityRank)):
     if i != len(CityRank) - 1:
+        # each color is chosing a random integer between 0 and 255
+        Red = lambda: rand.randint(0,255)
+        Green = lambda: rand.randint(0,255)
+        Blue = lambda: rand.randint(0,255)
+        # return the formatted colors in formatted string
+        ColorGeneration= f'#%02X%02X%02X' % (Red(),Blue(),Green())
+        
         JsonListToGeoList['features'].append(
         {
             "type": "Feature",
