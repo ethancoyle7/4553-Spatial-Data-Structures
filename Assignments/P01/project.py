@@ -79,19 +79,16 @@ RankingOrder = 1
 for item in CityRank:
     item['rank'] = RankingOrder
     RankingOrder += 1 
-
-
 # now we have our random colors for the markers so we proceed to the 
 print("Finally, we will convert to the GeoJson\n")
 
 JsonListToGeoList = {
     "type": "FeatureCollection",# have type feature collection and then added features
-    "features": []              # including long and lats etc.
-    
+    "features": []              # including long and lats etc. 
 }
 for InputData in CityRank:
     # setting the colors to random for rgb color schematic
-# each color is chosing a random integer between 0 and 255
+    # each color is chosing a random integer between 0 and 255
     Red = lambda: rand.randint(0,255)
     Green = lambda: rand.randint(0,255)
     Blue = lambda: rand.randint(0,255)
