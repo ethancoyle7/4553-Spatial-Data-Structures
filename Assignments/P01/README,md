@@ -1,8 +1,9 @@
-### Files
+## Below are links to various folders
+#### inside will be a list of input,output,and main cpp
 
-|   #   | File                                                                                                                                | Description                                                 |
-| :---: | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-|   1   | [Main.py](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/Main.py)                                    | Main file that process all data and makes the GeoJson       |
-|   2   | [cities_latlon_w_pop.json](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/cities_latlon_w_pop.json)  | File with data on all major cities                          |
-|   3   | [Routes.geojson](https://github.com/ethancoyle7/4553-Spatial-Data-Structures/blob/6707338444ea78380a458c5bd578af7e6e6773a0/Assignments/P01/output.geojson)                      | File that is used to mark the map                           |
-|   4   | [GeoImage.jpg](https://github.com/DakTheProgrammer/4553-Spatial-DS/blob/main/Assignments/P01/GeoImage.jpg)                          | Images of final map made from GeoJson file                  |
+|   #    | File Link       | Assignment Description                          |
+|------- |-------------------|-------------------------------------------------|
+| [01](.P01) |  [Banner](./P01) | [ Banner for Project 1](./P01)|
+| [02](.Main.py) |  [Program File](./Main.py) | [ Main Program](./Main.py)|
+| [03](.testdata.json) |  [INPUT](./testdata.json) | [ Input File ](./testdata.json)   |
+| [04](.output.geojson) |  [OUTPUT](./output.geojson) | [output link](./output.geojson)|
