@@ -134,7 +134,7 @@ class OrderedCities:
             # get the color of the marker, the size and the symbol
             InputData['marker-color'] = self.ColorGeneration()
             InputData['marker-size'] = "small"
-            InputData['marker-symbol'] = InputData['rank']
+            InputData['marker-symbol'] = InputData['rank']+1
 
             # append the features of each city for nice usng
             # geojson list will be of type feature and have properties
@@ -155,6 +155,8 @@ class OrderedCities:
                     ]
                 }
                 })
+
+                
         # Sorting by longitudes 
         # Property is argument and looking at property longitude
         self.CityRank = sorted(self.CityRank,key=lambda CityRank: CityRank['longitude'])
@@ -163,28 +165,26 @@ class OrderedCities:
         for i in range(len(self.CityRank)):
             # assigning the rank if it is not in the length-1 or else
             # we need to remove hawaii and alaska
-            if_i = i+1 if i is not (len(self.CityRank) - 1) else i
-            # append the features to each and call the generated random
-            # colors for red,green and blue and create the line string 
-            # for connectivity
-            self.JsonListToGeoList['features'].append(
+            
+            if i != len(self.CityRank) - 1:
+                self.JsonListToGeoList['features'].append(
                 {
                     "type": "Feature",
-                    "properties":{
+                    "properties": {
                         "stroke": self.ColorGeneration(),
                         "stroke-width": 2,
                     },
-                    "geometry":{
+                    "geometry": {
                         "type": "LineString",
-                        "coordinates":[
+                        "coordinates": [
                             [self.CityRank[i]['longitude'],
                             self.CityRank[i]['latitude']],
-                            [self.CityRank[if_i]['longitude'],
-                             self.CityRank[if_i]['latitude']],
+                            [self.CityRank[i + 1]['longitude'], 
+                            self.CityRank[i + 1]['latitude']]
                         ]
                     }
                 }
-            )
+                )
         # open up the output file and then dump the conversion inside of the 
             # converted json to geojson list to the output using keyword dumps
         try:
