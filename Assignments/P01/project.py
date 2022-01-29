@@ -1,26 +1,22 @@
-#############################################
-## Author - Ethan Coyle                     #
-## Instr  - Dr. Griffin                     #
-## Class  - CMPS 4553 Spatial DS            #
-## Assign - Convert JSON to GEOJSON         #
-## Due    - 2/1/2022                        #
-## About  - the purpose of this program is  #
-##          to read in a json file and      #
-##          convert it to a proper geojson  #
-##          format to be viewed by the      #
-##          user to better visualize        #
-##          the grographical data in the    #
-##          file.                           #
-##                                          #
-## Instructions:                            #
-##       click run on the program           #
-##       no special tasks needed            #
-##       try excepts added for input and    #
-##       output checking for valid files    #
-##       output file will display geojson   #
-##       file associated with mapping       #
-##       Github automatically creates map   #
-#############################################
+###################################################################
+## Author - Ethan Coyle                                           #
+## Instr  - Dr. Griffin                                           #
+## Class  - CMPS 4553 Spatial DS                                  #
+## Assign - Convert JSON to GEOJSON                               #
+## Due    - 2/1/2022                                              #
+##                                                                #
+###################################################################
+## About  - the purpose of this program is to read in a json file #
+##          and convert it to a proper geojson format to be viewed#
+##          by the user to better visualize the grographical data #
+##          in the file.                                          #
+##                                                                #
+## Instructions:                                                  #
+##       click run on the program(no special tasks needed)        #
+##       try excepts added for input and output checking for      #
+##       valid files output file will display geojson file        #
+##       associated with mapping Github automatically creates map #
+###################################################################
 import json
 import random as rand
 from rich import print # nice easy printing visually appealing
