@@ -1,9 +1,9 @@
 ###################################################################
-## Author - Ethan Coyle                                           #
-## Instr  - Dr. Griffin                                           #
-## Class  - CMPS 4553 Spatial DS                                  #
-## Assign - Convert JSON to GEOJSON                               #
-## Due    - 2/1/2022                                              #
+##                  Author - Ethan Coyle                          #
+##                  Instr  - Dr. Griffin                          #
+##                  Class  - CMPS 4553 Spatial DS                 #
+##                  Assign - Convert JSON to GEOJSON              #
+##                  Due    - 2/1/2022                             #
 ##                                                                #
 ###################################################################
 ## About  - the purpose of this program is to read in a json file #
