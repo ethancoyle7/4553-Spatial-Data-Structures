@@ -30,7 +30,7 @@ JsonListToGeoList = [] # converting from json to geojson
 print("First, Lets read the infile to see if working\n")
 # try reading the input file from the given file
 try:
-    with open('Assignments/P01/testdata.json', 'r') as data:
+    with open('Assignments/P01/input.json', 'r') as data:
         # assign the json loaded data into a file called InputData for use
         InputData = json.load(data)
 # if cant then toss an error
