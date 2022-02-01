@@ -37,7 +37,7 @@ try:
 except FileNotFoundError:
     print("Error! Error! Error! File not found \n")
 # if no errors present, proceed to the next step
-print("Now lets add the cities according to their state to the list of Statenames\n")
+print("Step 1. Now lets add the cities according to their state to the list of Statenames")
 
 for city in InputData:
     if not city['state'] in StateName: # if the city not there add it
@@ -47,7 +47,7 @@ for city in InputData:
     StateName[city['state']].append(city)
 
 # next we need to get rid of Alaska and Hawaii by looking at the longs and lats
-print("Now get rid of Hawaii and Alaska\n")
+print("Step 2. Now get rid of Hawaii and Alaska")
 # loop through the data
 for state, InputData in StateName.items():
     max = -1 # default max value
@@ -63,7 +63,7 @@ for state, InputData in StateName.items():
                         # assign the data to population state
                     MaxPopulationCities[state] = data
         # append the population of the cities to list in order to rank
-print("Now lets rank our cities based on their population\n")
+print("Step 3. Now lets rank our cities based on their population")
 for key, value in MaxPopulationCities.items():
     CityRank.append(value)
 # the city rank will now be sorted usin lamba key data and population is the data key
@@ -76,7 +76,7 @@ for item in CityRank:
     item['rank'] = RankingOrder
     RankingOrder += 1 
 # now we have our random colors for the markers so we proceed to the 
-print("Finally, we will convert to the GeoJson\n")
+print("Step 4. Finally, we will convert to the GeoJson\n")
 
 JsonListToGeoList = {
     "type": "FeatureCollection",# have type feature collection and then added features
@@ -153,5 +153,5 @@ try:
 except IOError:
     print("unsuccessful at pushing to the ouput.\
             SOMETHING WENT WRONG BONEHEAD\n")
-print("Congratulations, Check the output now\n\n")
+print("Step 5. Congratulations, Check the output now\n\n")
 # end of the driver and end of the program
