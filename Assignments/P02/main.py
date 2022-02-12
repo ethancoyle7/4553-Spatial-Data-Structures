@@ -1,5 +1,7 @@
 import pandas as pd
 import json
+import math
+
 #import geopandas as gpd
 # first read in the dataframe with the ufo sightings and print out 
 # the head to make sure that it is reading properly
@@ -51,6 +53,7 @@ cols = ['state', 'city', 'lat', 'lon']
 geojson = df_to_geojson(df, cols)
 print(geojson)
 
+# 
 try:
     with open('Assignments/P02/output.geojson', 'w') as file:
         file.write(json.dumps(geojson, indent=4))
