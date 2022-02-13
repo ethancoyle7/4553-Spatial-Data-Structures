@@ -12,6 +12,13 @@ print(df.head(20))
 # if not then we have to assign the changes to new dataframe
 df.drop(['shape','duration','date_time'], axis=1,inplace=True)
 print("Our new dataframe is :n\n", df)
+# df.drop(df[ df['lat'] < 50].index, inplace=True)
+
+# df.drop(df[ df['lon'] < 110].index, inplace=True)
+df.drop(df.index[df['lon'] >25], inplace=True)
+
+df.drop(df.index[df['lat'] <-124.7844079], inplace=True)
+
 
 # want to test the number of occurances in each state
 print("The number of occurances in each state are :\n")
@@ -31,14 +38,12 @@ def df_to_geojson(df, properties, lat='lat', lon='lon'):
 
     # loop through each row in the dataframe and convert each row to geojson format
     for _, row in df.iterrows():
-        if df['lon'] < 110:
-                # if the longitude less than 50
-                if df['lat'] < 50 and df['lat'] > 25:
+        
         # create a feature template to fill in
-                    feature = {'type':'Feature',
-                            'properties':{},
-                            'geometry':{'type':'Point',
-                                        'coordinates':[]}}
+        feature = {'type':'Feature',
+                   'properties':{},
+                   'geometry':{'type':'Point',
+                               'coordinates':[]}}
 
         # fill in the coordinates
         feature['geometry']['coordinates'] = [row[lon],row[lat]]
