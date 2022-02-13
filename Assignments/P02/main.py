@@ -18,29 +18,20 @@ leftborder = -124.7844079 # west long
 rightborder = -66.9513812 # east long
 bottom =  24.7433195 # south lat
 
-# # df.drop(df.index[df['lat'] >=leftborder], inplace=True) 
-# # df.drop(df.index[df['lat'] <=rightborder], inplace=True)  
-# # if bottom <= df['lat'] <= top and left <= df['lon'] <= right:
-# #     df.append(df)
-#df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] > 25)].index & df['lon'] >110)
+# drop uneccesary of the left bounding box border of us both past or before 
+# based on the top and bottom vals
 df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] >= top)].index)
 df = df.drop(df[(df['lon'] >= leftborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] >= leftborder) & (df['lat'] >= top)].index)
 
+# drop uneccesary of the right bounding box border of us both past or before 
+# based on the top and bottom vals
 df = df.drop(df[(df['lon'] >= rightborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] >= rightborder) & (df['lat'] >= top)].index)
 df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] >= top)].index)
-#df = df.drop(df[(df['lon'] <=leftborder) & (df['lat'] < bottom)])  
-# df.drop(df[ df['lon'] < 110].index, inplace=True)
-#bottom less than lat less than top
-#left less than lon which is less than right
-    
-# df.drop(df[ df['lon'] < 110].index, inplace=True)
-#df.drop(df.index[df['lon'] >50], inplace=True)
-#df.drop(df.index[df['lat'] <-124.7844079], inplace=True)
-#df.drop(df.index[df['lon'] <50], inplace=True)
+
 
 # want to test the number of occurances in each state
 print("The number of occurances in each state are :\n")
