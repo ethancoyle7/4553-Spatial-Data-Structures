@@ -27,7 +27,7 @@ df = df.drop(df[(df['lat'] <= 50) & (df['lat'] > 25) & (df['lon'] >110)].index)
 #bottom less than lat less than top
 #left less than lon which is less than right
     
-# df.drop(df[ df['lon'] < 110].index, inplace=True)
+df.drop(df[ df['lon'] <-80].index, inplace=True)
 #df.drop(df.index[df['lon'] >50], inplace=True)
 #df.drop(df.index[df['lat'] <-124.7844079], inplace=True)
 #df.drop(df.index[df['lon'] <50], inplace=True)
