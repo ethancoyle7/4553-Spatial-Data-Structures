@@ -25,8 +25,13 @@ bottom =  24.7433195 # south lat
 #df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] > 25)].index & df['lon'] >110)
 df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] <= leftborder) & (df['lat'] >= top)].index)
+df = df.drop(df[(df['lon'] >= leftborder) & (df['lat'] <= bottom)].index)
+df = df.drop(df[(df['lon'] >= leftborder) & (df['lat'] >= top)].index)
+
 df = df.drop(df[(df['lon'] >= rightborder) & (df['lat'] <= bottom)].index)
 df = df.drop(df[(df['lon'] >= rightborder) & (df['lat'] >= top)].index)
+df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] <= bottom)].index)
+df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] >= top)].index)
 #df = df.drop(df[(df['lon'] <=leftborder) & (df['lat'] < bottom)])  
 # df.drop(df[ df['lon'] < 110].index, inplace=True)
 #bottom less than lat less than top
