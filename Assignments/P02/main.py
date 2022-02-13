@@ -13,12 +13,24 @@ print(df.head(20))
 df.drop(['shape','duration','date_time'], axis=1,inplace=True)
 print("Our new dataframe is :n\n", df)
 # df.drop(df[ df['lat'] < 50].index, inplace=True)
+top = 49.3457868 # north lat
+leftborder = -124.7844079 # west long
+rightborder = -66.9513812 # east long
+bottom =  24.7433195 # south lat
 
+# # df.drop(df.index[df['lat'] >=leftborder], inplace=True) 
+# # df.drop(df.index[df['lat'] <=rightborder], inplace=True)  
+# # if bottom <= df['lat'] <= top and left <= df['lon'] <= right:
+# #     df.append(df)
+df = df.drop(df[(df['lat'] <= bottom) & (df['lat'] >= 110)].index)
+df = df.drop(df[(df['lon'] >= leftborder) & (df['lon'] <= rightborder)].index)
+#bottom less than lat less than top
+#left less than lon which is less than right
+    
 # df.drop(df[ df['lon'] < 110].index, inplace=True)
-df.drop(df.index[df['lon'] >25], inplace=True)
-
-df.drop(df.index[df['lat'] <-124.7844079], inplace=True)
-
+#df.drop(df.index[df['lon'] >50], inplace=True)
+#df.drop(df.index[df['lat'] <-124.7844079], inplace=True)
+#df.drop(df.index[df['lon'] <50], inplace=True)
 
 # want to test the number of occurances in each state
 print("The number of occurances in each state are :\n")
