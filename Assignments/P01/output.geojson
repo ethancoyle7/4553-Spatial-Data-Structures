@@ -4,7 +4,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#E8E2DF",
+                "marker-color": "#9B31EB",
                 "marker-size": "medium",
                 "marker-symbol": 2,
                 "city": "Burlington",
@@ -25,7 +25,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#F3955C",
+                "marker-color": "#851D0D",
                 "marker-size": "medium",
                 "marker-symbol": 3,
                 "city": "Charleston",
@@ -46,7 +46,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#C707EF",
+                "marker-color": "#6DD3ED",
                 "marker-size": "medium",
                 "marker-symbol": 4,
                 "city": "Cheyenne",
@@ -67,7 +67,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#AEBD70",
+                "marker-color": "#1E8D7E",
                 "marker-size": "medium",
                 "marker-symbol": 5,
                 "city": "Portland",
@@ -88,7 +88,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#F94D28",
+                "marker-color": "#CAC880",
                 "marker-size": "medium",
                 "marker-symbol": 6,
                 "city": "Wilmington",
@@ -109,7 +109,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#193413",
+                "marker-color": "#EA0838",
                 "marker-size": "medium",
                 "marker-symbol": 7,
                 "city": "Billings",
@@ -130,7 +130,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#B69CDE",
+                "marker-color": "#6F6B5B",
                 "marker-size": "medium",
                 "marker-symbol": 8,
                 "city": "Manchester",
@@ -151,7 +151,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#5FBE92",
+                "marker-color": "#EAD97B",
                 "marker-size": "medium",
                 "marker-symbol": 9,
                 "city": "Fargo",
@@ -172,7 +172,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#BF6BEC",
+                "marker-color": "#1AF5C7",
                 "marker-size": "medium",
                 "marker-symbol": 10,
                 "city": "Columbia",
@@ -193,7 +193,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#C76F3F",
+                "marker-color": "#9D646D",
                 "marker-size": "medium",
                 "marker-symbol": 11,
                 "city": "Bridgeport",
@@ -214,7 +214,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#ED0581",
+                "marker-color": "#2C91AE",
                 "marker-size": "medium",
                 "marker-symbol": 12,
                 "city": "Sioux Falls",
@@ -235,7 +235,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#58D0B6",
+                "marker-color": "#4888FF",
                 "marker-size": "medium",
                 "marker-symbol": 13,
                 "city": "Jackson",
@@ -256,7 +256,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#328243",
+                "marker-color": "#F055C7",
                 "marker-size": "medium",
                 "marker-symbol": 14,
                 "city": "Providence",
@@ -277,7 +277,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#C8D151",
+                "marker-color": "#7C8632",
                 "marker-size": "medium",
                 "marker-symbol": 15,
                 "city": "Salt Lake City",
@@ -298,7 +298,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#9462CA",
+                "marker-color": "#CDA0F0",
                 "marker-size": "medium",
                 "marker-symbol": 16,
                 "city": "Little Rock",
@@ -319,7 +319,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#F70FAD",
+                "marker-color": "#0BED83",
                 "marker-size": "medium",
                 "marker-symbol": 17,
                 "city": "Des Moines",
@@ -340,7 +340,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#19B145",
+                "marker-color": "#389622",
                 "marker-size": "medium",
                 "marker-symbol": 18,
                 "city": "Birmingham",
@@ -361,7 +361,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#4BAA43",
+                "marker-color": "#2FBA26",
                 "marker-size": "medium",
                 "marker-symbol": 19,
                 "city": "Boise City",
@@ -382,7 +382,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#38779B",
+                "marker-color": "#E89AF2",
                 "marker-size": "medium",
                 "marker-symbol": 20,
                 "city": "Newark",
@@ -403,7 +403,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#E3B29D",
+                "marker-color": "#307A70",
                 "marker-size": "medium",
                 "marker-symbol": 21,
                 "city": "New Orleans",
@@ -424,7 +424,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#9D6B21",
+                "marker-color": "#499658",
                 "marker-size": "medium",
                 "marker-symbol": 22,
                 "city": "Wichita",
@@ -445,7 +445,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#9B07FD",
+                "marker-color": "#C02DB6",
                 "marker-size": "medium",
                 "marker-symbol": 23,
                 "city": "Minneapolis",
@@ -466,7 +466,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#EE2FBA",
+                "marker-color": "#72097C",
                 "marker-size": "medium",
                 "marker-symbol": 24,
                 "city": "Omaha",
@@ -487,7 +487,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#18EC4B",
+                "marker-color": "#C1FCD6",
                 "marker-size": "medium",
                 "marker-symbol": 25,
                 "city": "Atlanta",
@@ -508,7 +508,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#104874",
+                "marker-color": "#4EF4F7",
                 "marker-size": "medium",
                 "marker-symbol": 26,
                 "city": "Virginia Beach",
@@ -529,7 +529,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#E3B4E6",
+                "marker-color": "#CE47EA",
                 "marker-size": "medium",
                 "marker-symbol": 27,
                 "city": "Kansas City",
@@ -550,7 +550,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#AC3E2F",
+                "marker-color": "#6DB465",
                 "marker-size": "medium",
                 "marker-symbol": 28,
                 "city": "Albuquerque",
@@ -571,7 +571,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#5C3F32",
+                "marker-color": "#8DF683",
                 "marker-size": "medium",
                 "marker-symbol": 29,
                 "city": "Milwaukee",
@@ -592,7 +592,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#EBC712",
+                "marker-color": "#20CFF2",
                 "marker-size": "medium",
                 "marker-symbol": 30,
                 "city": "Las Vegas",
@@ -613,7 +613,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#7B0A46",
+                "marker-color": "#FCC74F",
                 "marker-size": "medium",
                 "marker-symbol": 31,
                 "city": "Portland",
@@ -634,7 +634,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#F3A9AA",
+                "marker-color": "#FD3329",
                 "marker-size": "medium",
                 "marker-symbol": 32,
                 "city": "Louisville/Jefferson County",
@@ -655,7 +655,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#DF518C",
+                "marker-color": "#AFD7B1",
                 "marker-size": "medium",
                 "marker-symbol": 33,
                 "city": "Oklahoma City",
@@ -676,7 +676,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#6B8C9D",
+                "marker-color": "#982CA6",
                 "marker-size": "medium",
                 "marker-symbol": 34,
                 "city": "Baltimore",
@@ -697,7 +697,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#C6B7F2",
+                "marker-color": "#17C547",
                 "marker-size": "medium",
                 "marker-symbol": 35,
                 "city": "Boston",
@@ -718,7 +718,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#49CA12",
+                "marker-color": "#A1B111",
                 "marker-size": "medium",
                 "marker-symbol": 36,
                 "city": "Washington",
@@ -739,7 +739,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#150B64",
+                "marker-color": "#F7E7BC",
                 "marker-size": "medium",
                 "marker-symbol": 37,
                 "city": "Denver",
@@ -760,7 +760,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#70445D",
+                "marker-color": "#32D36F",
                 "marker-size": "medium",
                 "marker-symbol": 38,
                 "city": "Seattle",
@@ -781,7 +781,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#3D2C3F",
+                "marker-color": "#FA2FBE",
                 "marker-size": "medium",
                 "marker-symbol": 39,
                 "city": "Memphis",
@@ -802,7 +802,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#79B8C6",
+                "marker-color": "#0CEB61",
                 "marker-size": "medium",
                 "marker-symbol": 40,
                 "city": "Detroit",
@@ -823,7 +823,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#0C050E",
+                "marker-color": "#84CE6C",
                 "marker-size": "medium",
                 "marker-symbol": 41,
                 "city": "Charlotte",
@@ -844,7 +844,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#CCADA3",
+                "marker-color": "#772C6C",
                 "marker-size": "medium",
                 "marker-symbol": 42,
                 "city": "Columbus",
@@ -865,7 +865,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#90D1CB",
+                "marker-color": "#D452D7",
                 "marker-size": "medium",
                 "marker-symbol": 43,
                 "city": "Jacksonville",
@@ -886,7 +886,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#570E70",
+                "marker-color": "#9B621F",
                 "marker-size": "medium",
                 "marker-symbol": 44,
                 "city": "Indianapolis",
@@ -907,7 +907,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#9A0FF4",
+                "marker-color": "#A1A96A",
                 "marker-size": "medium",
                 "marker-symbol": 45,
                 "city": "Phoenix",
@@ -928,7 +928,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#13870F",
+                "marker-color": "#B09E51",
                 "marker-size": "medium",
                 "marker-symbol": 46,
                 "city": "Philadelphia",
@@ -949,7 +949,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#7B739A",
+                "marker-color": "#8B2320",
                 "marker-size": "medium",
                 "marker-symbol": 47,
                 "city": "Houston",
@@ -970,7 +970,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#B76B0E",
+                "marker-color": "#EADAC4",
                 "marker-size": "medium",
                 "marker-symbol": 48,
                 "city": "Chicago",
@@ -991,7 +991,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#8BCC95",
+                "marker-color": "#FA6A7D",
                 "marker-size": "medium",
                 "marker-symbol": 49,
                 "city": "Los Angeles",
@@ -1012,7 +1012,7 @@
         {
             "type": "Feature",
             "properties": {
-                "marker-color": "#948E4D",
+                "marker-color": "#49E511",
                 "marker-size": "medium",
                 "marker-symbol": 50,
                 "city": "New York",
@@ -1033,7 +1033,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#72FB3D",
+                "stroke": "#1D0C03",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1053,7 +1053,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#634BCB",
+                "stroke": "#665A90",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1073,7 +1073,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#8E6235",
+                "stroke": "#9DDB9A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1093,7 +1093,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#4F3A5F",
+                "stroke": "#971A2A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1113,7 +1113,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#BF89FD",
+                "stroke": "#235850",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1133,7 +1133,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#9E6A16",
+                "stroke": "#DE8DE1",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1153,7 +1153,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#7C30EC",
+                "stroke": "#DDD121",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1173,7 +1173,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#B2CAC5",
+                "stroke": "#F344FF",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1193,7 +1193,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#737115",
+                "stroke": "#DF5DD0",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1213,7 +1213,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#655081",
+                "stroke": "#62A398",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1233,7 +1233,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#FADA9F",
+                "stroke": "#6CA193",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1253,7 +1253,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#3C8B28",
+                "stroke": "#ABAAB8",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1273,7 +1273,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#06591B",
+                "stroke": "#D9D1BC",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1293,7 +1293,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#CBA8EF",
+                "stroke": "#E264C4",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1313,7 +1313,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#D141A0",
+                "stroke": "#13F35F",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1333,7 +1333,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#EB16AA",
+                "stroke": "#CA6C63",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1353,7 +1353,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#AC56B3",
+                "stroke": "#48B7E4",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1373,7 +1373,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#738CD2",
+                "stroke": "#652B22",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1393,7 +1393,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#868A8F",
+                "stroke": "#C21D9E",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1413,7 +1413,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#8C3F8A",
+                "stroke": "#826D6A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1433,7 +1433,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#EB3991",
+                "stroke": "#C8F95A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1453,7 +1453,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#F4629D",
+                "stroke": "#A0C21F",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1473,7 +1473,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#1CD69D",
+                "stroke": "#ADD46A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1493,7 +1493,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#6FA94D",
+                "stroke": "#408F3E",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1513,7 +1513,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#8615CE",
+                "stroke": "#FEB731",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1533,7 +1533,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#96CDF6",
+                "stroke": "#AE928C",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1553,7 +1553,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#948B62",
+                "stroke": "#F3CA04",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1573,7 +1573,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#72CDE0",
+                "stroke": "#D233EB",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1593,7 +1593,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#E15228",
+                "stroke": "#19D2A6",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1613,7 +1613,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#8D0E60",
+                "stroke": "#249688",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1633,7 +1633,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#833A95",
+                "stroke": "#F82DC8",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1653,7 +1653,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#EDA2A7",
+                "stroke": "#AC9493",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1673,7 +1673,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#208453",
+                "stroke": "#BD5AF7",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1693,7 +1693,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#2AE4DD",
+                "stroke": "#AFC46F",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1713,7 +1713,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#105A96",
+                "stroke": "#80A99C",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1733,7 +1733,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#5FD60D",
+                "stroke": "#B20216",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1753,7 +1753,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#A60643",
+                "stroke": "#BDAAB2",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1773,7 +1773,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#249510",
+                "stroke": "#7F89FD",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1793,7 +1793,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#A86CA4",
+                "stroke": "#85FFAB",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1813,7 +1813,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#D6AC53",
+                "stroke": "#277B2A",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1833,7 +1833,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#DDA7FF",
+                "stroke": "#ACADD4",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1853,7 +1853,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#2E69D0",
+                "stroke": "#1E0213",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1873,7 +1873,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#2821D5",
+                "stroke": "#8276A1",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1893,7 +1893,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#33E4F3",
+                "stroke": "#A585B0",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1913,7 +1913,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#DA82E8",
+                "stroke": "#0425B2",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1933,7 +1933,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#C02B07",
+                "stroke": "#CB7264",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1953,7 +1953,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#4E5106",
+                "stroke": "#176006",
                 "stroke-width": 2
             },
             "geometry": {
@@ -1973,7 +1973,7 @@
         {
             "type": "Feature",
             "properties": {
-                "stroke": "#EA2D9D",
+                "stroke": "#06968A",
                 "stroke-width": 2
             },
             "geometry": {

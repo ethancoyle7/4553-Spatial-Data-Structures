@@ -45,7 +45,10 @@ for city in InputData:
         StateName[state] = []
     # append the city and state names
     StateName[city['state']].append(city)
-
+# degrees for upper and lower bound of us excludes hawaii
+# and alaska
+top = 49.3457868 # north lat
+bottom =  24.7433195 # south lat
 # next we need to get rid of Alaska and Hawaii by looking at the longs and lats
 print("Step 2. Now get rid of Hawaii and Alaska")
 # loop through the data
@@ -57,7 +60,7 @@ for state, InputData in StateName.items():
             # if the longitude is less than 110
             if data['longitude'] < 110:
                 # if the longitude less than 50
-                if data['latitude'] < 50 and data['latitude'] > 25:
+                if data['latitude'] < top and data['latitude'] > bottom:
                         # assign the integer population to max
                     max = int(data['population'])
                         # assign the data to population state
@@ -76,7 +79,7 @@ for item in CityRank:
     item['rank'] = RankingOrder
     RankingOrder += 1 
 # now we have our random colors for the markers so we proceed to the 
-print("Step 4. Finally, we will convert to the GeoJson\n")
+print("Step 4. Finally, we will convert to the GeoJson")
 
 JsonListToGeoList = {
     "type": "FeatureCollection",# have type feature collection and then added features
