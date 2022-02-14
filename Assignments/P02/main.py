@@ -1,6 +1,5 @@
 import pandas as pd
 import json
-import math
 
 #import geopandas as gpd
 # first read in the dataframe with the ufo sightings and print out 
