@@ -36,7 +36,7 @@ df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] >= top)].index)
 print("The number of occurances in each state are :\n")
 print(df['state']. value_counts())
 print("The number of occurances in each city  are :\n")
-print(df['city']. value_counts())  
+print(df['city']. value_counts()) 
 
 df['lat'] = df['lat'].astype(float)
 df['lon'] = df['lon'].astype(float)
