@@ -23,6 +23,8 @@
 import pandas as pd
 import json
 
+
+
 #import geopandas as gpd
 # first read in the dataframe with the ufo sightings and print out 
 # the head to make sure that it is reading properly
