@@ -1,3 +1,25 @@
+###################################################################
+##                  Author - Ethan Coyle                          #
+##                  Instr  - Dr. Griffin                          #
+##                  Class  - CMPS 4553 Spatial DS                 #
+##                  Assign - Convert JSON to GEOJSON              #
+##                  Due    - 2/15/2022                            #
+##                                                                #
+###################################################################
+## About  - the purpose of this program is to read in a csv file  #
+#           and filter through all the reported ufo sightings and #
+#           convert it to a geo json format with bounding box     #
+#           inside of the us to map out all the sightings within  #
+#           the united states to see visually which states have   #
+#           reported citings                                      #
+##                                                                #
+## Instructions:                                                  #
+##       click run on the program(no special tasks needed)        #
+##       try excepts added for input and output checking for      #
+##       valid files output file will display geojson file        #
+##       associated with mapping Github automatically creates map #
+###################################################################
+# creating our inports
 import pandas as pd
 import json
 
@@ -6,12 +28,16 @@ import json
 # the head to make sure that it is reading properly
 df = pd.read_csv('Assignments/P02/UFOSightings.csv')
 print(df.head(20))
+
+
 # to make easier to look at this lets drop uneccesary collums
 # make the implace to be true so we dont have to worrry
 # if not then we have to assign the changes to new dataframe
 df.drop(['shape','duration','date_time'], axis=1,inplace=True)
 print("Our new dataframe is :n\n", df)
-# df.drop(df[ df['lat'] < 50].index, inplace=True)
+
+
+# initialize the bounding box for the united states
 top = 49.3457868 # north lat
 leftborder = -124.7844079 # west long
 rightborder = -66.9513812 # east long
@@ -35,6 +61,7 @@ df = df.drop(df[(df['lon'] <= rightborder) & (df['lat'] >= top)].index)
 # want to test the number of occurances in each state
 print("The number of occurances in each state are :\n")
 print(df['state']. value_counts())
+# number of occurances in city data
 print("The number of occurances in each city  are :\n")
 print(df['city']. value_counts()) 
 
@@ -63,20 +90,22 @@ def df_to_geojson(df, properties, lat='lat', lon='lon'):
         # for each column, get the value and add it as a new feature property
         for prop in properties:
             feature['properties'][prop] = row[prop]
-        
-        # add this feature (aka, converted dataframe row) to the list of features inside our dict
+        # add to dict list
         geojson['features'].append(feature)
     
-    return geojson
+    return geojson # return the converted geojson
 
 cols = ['state', 'city', 'lat', 'lon']
+# call to create the geojson stuff
 geojson = df_to_geojson(df, cols)
+# for visualization print out the geojson to terminal
 print(geojson)
 
-# 
+#open up and try to execute the importing of the output file
 try:
     with open('Assignments/P02/output.geojson', 'w') as file:
         file.write(json.dumps(geojson, indent=4))
+# if unsuccessful, throw error message
 except IOError:
     print("unsuccessful at pushing to the ouput.\
             SOMETHING WENT WRONG BONEHEAD\n")
