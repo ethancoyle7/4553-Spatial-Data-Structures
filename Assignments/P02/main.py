@@ -76,7 +76,7 @@ df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] <= bottom)].index)
 df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] >= top)].index)
 df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] <= bottom)].index)
 df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] >= top)].index)
-
+df3 = df3.drop(df3[(df3['lon'] == -8.5962) & (df3['lat'] == 42.3358)].index)
 
 # want to test the number of occurances in each state
 print("The number of occurances in each state are :\n")
