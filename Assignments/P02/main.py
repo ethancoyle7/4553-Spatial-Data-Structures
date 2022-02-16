@@ -76,6 +76,9 @@ df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] <= bottom)].index)
 df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] >= top)].index)
 df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] <= bottom)].index)
 df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] >= top)].index)
+
+# there is one outlier that didnt get removed so look at the outlier
+# lat and long and hard code in to remove it(over in europe)
 df3 = df3.drop(df3[(df3['lon'] == -8.5962) & (df3['lat'] == 42.3358)].index)
 
 # want to test the number of occurances in each state
@@ -108,12 +111,14 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
         featured = {'type':'Feature',
                    "properties":
                    {
+                    # what will show in the information icon when clicked
                     "marker-color": ColorGeneration,
                     "city": row['city'],
                     "state" : row['state'],
                     "longitude": row['lon'],
                     "latitude": row['lat']
-                    },        
+                    },     
+                    # whats the geometry look like? These are points   
                    'geometry':{'type':'Point',
                                'coordinates':[row['lon'],row['lat']]
                               }
