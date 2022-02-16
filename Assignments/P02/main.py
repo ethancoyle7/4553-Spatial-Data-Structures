@@ -55,21 +55,24 @@ print("Our new dataframe is :n\n", df3)
 
 
 # initialize the bounding box for the united states
-
+top = 49.3457868 # north lat
+leftborder = -124.7844079 # west long
+rightborder = -66.9513812 # east long
+bottom =  24.7433195 # south lat
 
 # drop uneccesary of the left bounding box border of us both past or before 
-# based on the df3['ymax'] and df3['ymin'] vals
-df3 = df3.drop(df3[(df3['lon'] <= df3['xmin']) & (df3['lat'] <= df3['ymin'])].index)
-df3 = df3.drop(df3[(df3['lon'] <= df3['xmin']) & (df3['lat'] >= df3['ymax'])].index)
-df3 = df3.drop(df3[(df3['lon'] >= df3['xmin']) & (df3['lat'] <= df3['ymin'])].index)
-df3 = df3.drop(df3[(df3['lon'] >= df3['xmin']) & (df3['lat'] >= df3['ymax'])].index)
+# based on the top and bottom vals
+df3 = df3.drop(df3[(df3['lon'] <= leftborder) & (df3['lat'] <= bottom)].index)
+df3 = df3.drop(df3[(df3['lon'] <= leftborder) & (df3['lat'] >= top)].index)
+df3 = df3.drop(df3[(df3['lon'] >= leftborder) & (df3['lat'] <= bottom)].index)
+df3 = df3.drop(df3[(df3['lon'] >= leftborder) & (df3['lat'] >= top)].index)
 
 # drop uneccesary of the right bounding box border of us both past or before 
-# based on the df3['ymax'] and df3['ymin'] vals
-df3 = df3.drop(df3[(df3['lon'] >= df3['xmax']) & (df3['lat'] <= df3['ymin'])].index)
-df3 = df3.drop(df3[(df3['lon'] >= df3['xmax']) & (df3['lat'] >= df3['ymax'])].index)
-df3 = df3.drop(df3[(df3['lon'] <= df3['xmax']) & (df3['lat'] <= df3['ymin'])].index)
-df3 = df3.drop(df3[(df3['lon'] <= df3['xmax']) & (df3['lat'] >= df3['ymax'])].index)
+# based on the top and bottom vals
+df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] <= bottom)].index)
+df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] >= top)].index)
+df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] <= bottom)].index)
+df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] >= top)].index)
 
 
 # want to test the number of occurances in each state
