@@ -114,16 +114,9 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                    'geometry':{'type':'Point',
                                'coordinates':
                                [[row['lon'],row['lat']]]
-                               },
+                               }}
                     
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[row['xmin'],row['ymin']],
-                                    [row['xmin'],row['ymax']],
-                                    [row['xmax'], row['ymin']],
-                                    [row['xmax'],row['ymax']]]}}
+                    
           
 
         # fill in the coordinates
