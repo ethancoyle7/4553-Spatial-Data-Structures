@@ -116,7 +116,10 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                                'coordinates':[]}}
 
         # fill in the coordinates
-        feature['geometry']['coordinates'] = [row['xmin'],row['ymin']]
+        feature['geometry']['coordinates'] = [row['xmin'],row['ymin'],
+                                              row['xmin'],row['ymax'],
+                                              row['xmax'], row['ymin'],
+                                              row['xmax'],row['ymax']]
 
         # for each column, get the value and add it as a new feature property
         for prop in properties:
