@@ -22,6 +22,7 @@
 # creating our inports
 import pandas as pd
 import json
+import random as rand
 ## geopandas isnt wanting to download so in order to complete run the
 ## program in a way such that will compare the citites.geojson to 
 ## and it longitudes and latitudes and compare values
@@ -95,15 +96,27 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
 
     # loop through each row in the dataframe and convert each row to geojson format
     for _, row in df3.iterrows():
-        
+        # setting the colors to random for rgb color schematic
+    # each color is chosing a random integer between 0 and 255
+        Red = lambda: rand.randint(0,255)
+        Green = lambda: rand.randint(0,255)
+        Blue = lambda: rand.randint(0,255)
+        # return the formatted colors in formatted string
+        ColorGeneration= f'#%02X%02X%02X' % (Red(),Blue(),Green())
         # create a feature template to fill in
         feature = {'type':'Feature',
-                   'properties':{},
+                   "properties":{
+                    "marker-color": ColorGeneration,
+                    "city": row['city'],
+                    "latitude": row['lat'],
+                    "longitude": row['lon'],
+                    "state" : row['state']
+            },        
                    'geometry':{'type':'Point',
                                'coordinates':[]}}
 
         # fill in the coordinates
-        feature['geometry']['coordinates'] = [row[lon],row[lat]]
+        feature['geometry']['coordinates'] = [row['xmin'],row['ymin']]
 
         # for each column, get the value and add it as a new feature property
         for prop in properties:
