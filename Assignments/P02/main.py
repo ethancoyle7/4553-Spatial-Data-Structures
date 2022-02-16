@@ -112,7 +112,9 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                     "city": row['city'],
                     "state" : row['state']
                     },  
-                    "type": "GeometryCollection", "geometries": [{ "type": "Point", "coordinates": [row['lon'],row['lat']]}, { "type": "Polygon", "coordinates": [ [ [ row['xmin'], row['ymin'] ], [ row['xmax'], row['ymax']], [ row['xmax'], row['ymin']], [ row['xmin'], row['ymax']]]] } ] }     
+                    "type": "GeometryCollection", "geometries": [
+                        { "type": "Point", "coordinates": [row['lon'],row['lat']]}, 
+                        { "type": "Polygon", "coordinates": [ [ [ row['xmin'], row['ymin'] ], [ row['xmin'], row['ymax']], [ row['xmax'], row['ymax']], [ row['xmin'], row['ymax']]]] } ] }     
                 # #    'geometry':{'type':'Point',
                 # #                'coordinates':[row['lon'],row['lat']]
                 # #               }
