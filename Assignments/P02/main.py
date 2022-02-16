@@ -110,7 +110,9 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                    {
                     "marker-color": ColorGeneration,
                     "city": row['city'],
-                    "state" : row['state']
+                    "state" : row['state'],
+                    "longitude": row['lon'],
+                    "latitude": row['lat']
                     },        
                    'geometry':{'type':'Point',
                                'coordinates':[row['lon'],row['lat']]
