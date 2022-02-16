@@ -111,14 +111,11 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                     "marker-color": ColorGeneration,
                     "city": row['city'],
                     "state" : row['state']
-                    },  
-                    "type": "GeometryCollection", "geometries": [
-                        { "type": "Point", "coordinates": [row['lon'],row['lat']]}, 
-                        { "type": "Polygon", "coordinates": [ [ [ row['xmin'], row['ymin'] ], [ row['xmin'], row['ymax']], [ row['xmax'], row['ymax']], [ row['xmin'], row['ymax']]]] } ] }     
-                # #    'geometry':{'type':'Point',
-                # #                'coordinates':[row['lon'],row['lat']]
-                # #               }
-                # #     }
+                    },        
+                   'geometry':{'type':'Point',
+                               'coordinates':[row['lon'],row['lat']]
+                              }
+                    }
         # for each column, get the value and add it as a new feature property
         
         # add to dict list
