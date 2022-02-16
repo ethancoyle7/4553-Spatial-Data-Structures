@@ -46,6 +46,7 @@ print(df2['state']) # this will be the value of comparison to the data
 df3 = pd.merge(df1, df2,
                    on='state',
                    how='right')
+df3.dropna(subset = ["city"], inplace=True)
 print('output now is :\n', df3)
 # to make easier to look at this lets drop uneccesary collums
 # make the implace to be true so we dont have to worrry
