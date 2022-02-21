@@ -23,6 +23,9 @@
 import pandas as pd
 import json
 import random as rand
+import numpy as np
+
+
 
 ## geopandas isnt wanting to download so in order to complete run the
 ## program in a way such that will compare the citites.geojson to 
@@ -37,7 +40,7 @@ print(df1.head(20))
 
 # read in the data associated with the bounding boxes of the united states
 # states
-df2= pd.read_csv('Assignments/P02/unitedstatesboundingboxes.csv')
+df2= pd.read_csv('Assignments/P02/StateCapitals.csv')
 print(df2.head(10))
 print(df2['state']) # this will be the value of comparison to the data
                      # inside of the csv file of cities
