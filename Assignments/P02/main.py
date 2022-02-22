@@ -24,6 +24,8 @@ import pandas as pd
 import json
 import random as rand
 import numpy as np
+from math import acos
+import math
 
 
 
@@ -58,7 +60,6 @@ print('output now is :\n', df3)
 # if not then we have to assign the changes to new dataframe
 df3.drop(['shape','duration','date_time'], axis=1,inplace=True)
 print("Our new dataframe is :n\n", df3)
-
 
 # initialize the bounding box for the united states
 top = 49.3457868 # north lat
@@ -96,13 +97,37 @@ df3['lon'] = df3['lon'].astype(float)
 df3['state'] = df3['state'].str.title()
 df3['city'] = df3['city'].str.title()
 
+# converting from df3 to list to be able to calculate the distance
+# will be read in meters
+LongitudeList1 = df3.Longitude.tolist()
+# print(LongitudeList1)
+LonList=df3.lon.tolist()
+LatitudeList1=df3.Latitude.tolist()
+LatList=df3.lat.tolist()
+distances=[]
+for i in range(len(LatList)):
+   
+    #print(LatList[i], LonList[i],LongitudeList1[i],LatitudeList1[i])
+    dlon = LonList[i] - LongitudeList1[i]
+    dlat= LatList[i]- LatitudeList1[i]
+    #change in coordinates
+    a = math.sin(dlat / 2)**2 + math.cos(LatitudeList1[i]) * math.cos(LatList[i]) * math.sin(dlon / 2)**2
+    #print(" A value is :", a)
+    #Haversine formula
+    c = 0.5 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = 6373 * c
+    # append the distances of the them to the list then
+    # add the list to the geojson file
+    distances.append(distance)
+df3['Distance From Capital'] = distances
 # convert our dataframe to a gejson
 def df_to_geojson(df3, properties, lat='lat', lon='lon'):
     # create a new python dict to contain our geojson data, using geojson format
     geojson = {'type':'FeatureCollection', 'features':[]}
-
+    
     # loop through each row in the dataframe and convert each row to geojson format
     for _, row in df3.iterrows():
+        
         # setting the colors to random for rgb color schematic
         # each color is chosing a random integer between 0 and 255
         Red = lambda: rand.randint(0,255)
@@ -119,7 +144,8 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                     "city": row['city'],
                     "state" : row['state'],
                     "longitude": row['lon'],
-                    "latitude": row['lat']
+                    "latitude": row['lat'],
+                    "distance": row['Distance From Capital']
                     },     
                     # whats the geometry look like? These are points   
                    'geometry':{'type':'Point',
