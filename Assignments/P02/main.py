@@ -29,6 +29,8 @@ import math
 
 
 
+
+
 ## geopandas isnt wanting to download so in order to complete run the
 ## program in a way such that will compare the citites.geojson to 
 ## and it longitudes and latitudes and compare values
@@ -102,6 +104,7 @@ df3['city'] = df3['city'].str.title()
 LongitudeList1 = df3.Longitude.tolist()
 # print(LongitudeList1)
 LonList=df3.lon.tolist()
+
 LatitudeList1=df3.Latitude.tolist()
 LatList=df3.lat.tolist()
 distances=[]
