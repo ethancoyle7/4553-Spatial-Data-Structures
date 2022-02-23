@@ -30,12 +30,12 @@ import geopandas as gpd # import our geopandas library
 
 # first read in the dataframe with the ufo sightings and print out 
 # the head to make sure that it is reading properly
-df1 = pd.read_csv('UFOSightings.csv')
+df1 = pd.read_csv('Assignments/P02/UFOSightings.csv')
 print(df1.head(20))
 
 # read in the data associated with the bounding boxes of the united states
 # states
-df2= pd.read_csv('StateCapitals.csv')
+df2= pd.read_csv('Assignments/P02/StateCapitals.csv')
 print(df2.head(10))
 print(df2['state']) # this will be the value of comparison to the data
                      # inside of the csv file of cities

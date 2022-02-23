@@ -99,33 +99,7 @@ df3['lon'] = df3['lon'].astype(float)
 df3['state'] = df3['state'].str.title()
 df3['city'] = df3['city'].str.title()
 
-# converting from df3 to list to be able to calculate the distance
-# will be read in meters
-LongitudeList1 = df3.Longitude.tolist()
-# print(LongitudeList1)
-LonList=df3.lon.tolist()
 
-LatitudeList1=df3.Latitude.tolist()
-LatList=df3.lat.tolist()
-distances=[]
-for i in range(len(LatList)):
-   
-    # #print(LatList[i], LonList[i],LongitudeList1[i],LatitudeList1[i])
-    # dlon = LonList[i] - LongitudeList1[i]
-    # dlat= LatList[i]- LatitudeList1[i]
-    # #change in coordinates
-    # a = math.sin(dlat / 2)**2 + math.cos(LatitudeList1[i]) * math.cos(LatList[i]) * math.sin(dlon / 2)**2
-    # #print(" A value is :", a)
-    # #Haversine formula
-    # c = 0.5 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    # distance = 6373 * c
-    # # append the distances of the them to the list then
-    # # add the list to the geojson file
-    # distances.append(distance)
-    eDistance = math.dist([LatList[i], LonList[i]], [LatitudeList1[i],LongitudeList1[i]])
-    #print(eDistance)
-df3['Distance From Capital'] = eDistance
-# convert our dataframe to a gejson
 def df_to_geojson(df3, properties, lat='lat', lon='lon'):
     # create a new python dict to contain our geojson data, using geojson format
     geojson = {'type':'FeatureCollection', 'features':[]}
@@ -149,8 +123,7 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                     "city": row['city'],
                     "state" : row['state'],
                     "longitude": row['lon'],
-                    "latitude": row['lat'],
-                    "distance": row['Distance From Capital']
+                    "latitude": row['lat']
                     },     
                     # whats the geometry look like? These are points   
                    'geometry':{'type':'Point',
