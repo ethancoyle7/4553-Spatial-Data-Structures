@@ -12,22 +12,6 @@
 #           inside of the us to map out all the sightings within  #
 #           the united states to see visually which states have   #
 #           reported citings                                      #
-# VERY IMPORTANT Note -                                           #
-#                      I only got thegeopandas for the distance   #
-#                      to work in replit and it is taking and     #
-#                      very long time to iterate through however  #
-#                      the distances are correct                  #
-#                      I have tried to implement geopandas in     #
-#                      vscode but it does not like the output     #
-# Replit Instructions                                             #
-#                     Here is the link to my replit account       #
-#                     where all the data is stored can be run and #
-#                     once it is done, the correct output will be #
-#                     displayed                                   #
-#Replit Link: https://replit.com/@ethancoyle71/geopandas#main.py  #
-#                                                                 #
-# The other main.py iterated through the file and produces the    #
-# correct result but is missing the distances                     #
 ##                                                                #
 ## Instructions:                                                  #
 ##       click run on the program(no special tasks needed)        #
@@ -142,7 +126,7 @@ for i in range(len(df3)):
   distance.pop(0)
   
   # append each distance to the list 
-  distances.append(distance)
+  distances.append(distance[1])
   #print(distances)
 # once the list is all appended, add to the collum in our dataframe
 df3['Distance From Capital'] = distances
@@ -188,6 +172,7 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
 
 cols = ['state', 'city', 'lat', 'lon']
 # call to create the geojson stuff
+
 geojson = df_to_geojson(df3, cols)
 # for visualization print out the geojson to terminal
 print(geojson)
