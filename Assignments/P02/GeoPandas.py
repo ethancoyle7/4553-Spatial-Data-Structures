@@ -161,8 +161,6 @@ def df_to_geojson(df3, properties, lat='lat', lon='lon'):
                     "marker-color": ColorGeneration,
                     "city": row['city'],
                     "state" : row['state'],
-                    "longitude": row['lon'],
-                    "latitude": row['lat'],
                     "distance": row['Distance From Capital']
                     },   # for each row add the calculated distance from geopandas  
                     # whats the geometry look like? These are points   
@@ -186,7 +184,7 @@ print(geojson)
 
 #open up and try to execute the importing of the output file
 try:
-    with open('distance.geojson', 'w') as file:
+    with open('Assignments/P02/distance.geojson', 'w') as file:
         file.write(json.dumps(geojson, indent=4))
 # if unsuccessful, throw error message
 except IOError:
