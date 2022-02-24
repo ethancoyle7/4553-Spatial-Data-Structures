@@ -186,7 +186,7 @@ print(geojson)
 
 #open up and try to execute the importing of the output file
 try:
-    with open('output.geojson', 'w') as file:
+    with open('distance.geojson', 'w') as file:
         file.write(json.dumps(geojson, indent=4))
 # if unsuccessful, throw error message
 except IOError:
