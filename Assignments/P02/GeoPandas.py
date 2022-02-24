@@ -18,6 +18,13 @@
 ##       try excepts added for input and output checking for      #
 ##       valid files output file will display geojson file        #
 ##       associated with mapping Github automatically creates map #
+## Important Note:                                                #
+##                geopandas was not working on vscode so I had to #
+##                run it using replit but it is taking forever but#
+##                calculates the correct results of the distances #
+##                from the capital and puts it into geojson file  #
+##                where will display the correct citites and sight#
+##                sightings in that city                          #
 ###################################################################
 # creating our inports
 import pandas as pd # for the dataframe
