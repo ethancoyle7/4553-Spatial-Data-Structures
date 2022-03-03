@@ -14,7 +14,20 @@ gdf2 = gpd.read_file('cities.geojson')
 gdf1 = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1.lon, df1.lat))
 # viewing the head of the geo dataframe
 gdf1.head()
-boundary = boundary.to_crs(epsg=3395)
+"#boundary = gpd.read_file(\"data/us_nation_border.geojson\")\n",
+boundary = gpd.read_file("us_border.shp")
+fig, ax = plt.subplots(figsize=(12, 10))
+boundary.plot(ax=ax, color= "gray")
+gdf2.plot(ax=ax, markersize=2.5, color="blue")
+ax.axis("off")
+plt.axis('equal')
+
+minx, miny, maxx, maxy = gdf2.total_bounds
+print(minx,miny,maxx,maxy)
+ax.set_xlim(minx-5, maxx+5)
+ax.set_ylim(miny, maxy)
+plt.show()
+boundary = boundary.to_crs("epsg=3395")
 gdf_proj = gdf2.to_crs(boundary.crs)
 boundary_shape = unary_union(boundary.geometry)
 coords = points_to_coords(gdf_proj.geometry)
