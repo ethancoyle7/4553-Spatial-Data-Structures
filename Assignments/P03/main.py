@@ -1,8 +1,16 @@
 # pandas data frame from cites in a csv\n",
+
+# link to replit running plot of diagram
+# https://replit.com/@ethancoyle71/anotherone#main.py
+
+
 import numpy as np
 import pandas as pd
 import geopandas as gpd
+import matplotlib
+matplotlib.use('TkAgg')# for replit to recognize the plot
 import matplotlib.pyplot as plt
+
 from shapely.ops import unary_union
 from geovoronoi import voronoi_regions_from_coords, points_to_coords
 from geovoronoi.plotting import subplot_for_map, plot_voronoi_polys_with_points_in_area
@@ -27,7 +35,7 @@ print(minx,miny,maxx,maxy)
 ax.set_xlim(minx-5, maxx+5)
 ax.set_ylim(miny, maxy)
 plt.show()
-boundary = boundary.to_crs("epsg=3395")
+boundary = boundary.to_crs(epsg=3395)
 gdf_proj = gdf2.to_crs(boundary.crs)
 boundary_shape = unary_union(boundary.geometry)
 coords = points_to_coords(gdf_proj.geometry)
@@ -39,4 +47,4 @@ plt.show()
 
 for i,poly in region_polys.items():
     print(poly)
-    
+plt.show() 
