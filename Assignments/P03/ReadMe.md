@@ -12,10 +12,9 @@
 | [06](.us_states_shp) |  [City Geojson List](./us_states_shp) | [state shape file](./us_states_shp)|
 | [06](.graph.png) |  [vornoi png](./graph.png) | [vornoi graph](./graph.png)|
 
-## Even with geo environment inside of vscode, the environment using conda does not like geovornoi
-## so inside of the main.py, the link to replit is added to link to working diagram.
+#### Even with geo environment inside of vscode, the environment using conda does not like geovornoi
+#### so inside of the main.py, the link to replit is added to link to working diagram.
+#### or, click below to take straight to the replit
 
-# or, click below to take straight to the replit
-
-[View City List in Geojson format](https://replit.com/@ethancoyle71/anotherone#main.py)
+[REPLIT LINK](https://replit.com/@ethancoyle71/anotherone#main.py)
 
