@@ -1,14 +1,23 @@
 # pandas data frame from cites in a csv\n",
 
+#################################################################
+## Name - Ethan Coyle                                           #
+## Inst.- Dr. Griffin                                           #
+## P03  - Graphic vornoi                                        #
+##                                                              #
+## The purpose of this assignment is to read in the data from   #
+## the cities.csv file and the data for the gities.geojson and  #
+## create a voronoi of the ufo data and the city boundaries     #
+#################################################################
+## vscode does not like geovoroni in the terminal even in 
+## geo environment so I had to run this in the replit  
 # link to replit running plot of diagram
 # https://replit.com/@ethancoyle71/anotherone#main.py
-
-
 import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib
-matplotlib.use('TkAgg')# for replit to recognize the plot
+matplotlib.use('TkAgg') ## required for replit to properly run the GUI because of prerequisites from matplot lib
 import matplotlib.pyplot as plt
 
 from shapely.ops import unary_union
@@ -30,21 +39,21 @@ gdf2.plot(ax=ax, markersize=2.5, color="blue")
 ax.axis("off")
 plt.axis('equal')
 
-minx, miny, maxx, maxy = gdf2.total_bounds
-print(minx,miny,maxx,maxy)
-ax.set_xlim(minx-5, maxx+5)
-ax.set_ylim(miny, maxy)
-plt.show()
+#minx, miny, maxx, maxy = gdf2.total_bounds
+#print(minx,miny,maxx,maxy)
+#ax.set_xlim(minx-5, maxx+5)
+#ax.set_ylim(miny, maxy)
+#plt.show()
 boundary = boundary.to_crs(epsg=3395)
 gdf_proj = gdf2.to_crs(boundary.crs)
 boundary_shape = unary_union(boundary.geometry)
 coords = points_to_coords(gdf_proj.geometry)
 region_polys, region_pts = voronoi_regions_from_coords(coords, boundary_shape)
 fig, ax = subplot_for_map(figsize=(12, 10))
-gdf1.plot(ax=ax, markersize=2.5, color="blue")
+#gdf1.plot(ax=ax, markersize=2.5, color="blue")
 plot_voronoi_polys_with_points_in_area(ax, boundary_shape, region_polys, coords, region_pts)
 plt.show()
 
 for i,poly in region_polys.items():
     print(poly)
-plt.show() 
+plt.savefig("graph.png")
