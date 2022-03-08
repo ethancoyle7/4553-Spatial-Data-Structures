@@ -42,7 +42,7 @@ gdf2.plot(ax=ax, markersize=2.5, color="blue")
 ax.axis("off")
 plt.axis('equal')
 
-
+# creating the boundary for the united states reading the boundary crs file
 boundary = boundary.to_crs(epsg=3395)
 gdf_proj = gdf2.to_crs(boundary.crs)
 boundary_shape = unary_union(boundary.geometry)
