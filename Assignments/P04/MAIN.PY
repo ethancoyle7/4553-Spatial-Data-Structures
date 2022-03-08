@@ -1,98 +1,157 @@
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
-from pydantic import BaseModel
-from typing import Optional
 import json
+import geopandas
+from shapely.geometry import box, Polygon, LineString, Point
 import sys
-import uvicorn
-
-from module import Feature
-from module import FeatureCollection
-from module import CountryReader
-
-description = """
-🚀
-The Bacon number of an actor is the number of degrees of separation he or she has from Bacon, as defined by the game. This is an application of the Erd
-ős number concept to the Hollywood movie industry. The higher the Bacon number, the greater the separation from Kevin Bacon the actor is.
-The computation of a Bacon number for actor X is a "shortest path" algorithm, applied to the co-stardom network:
-* Kevin Bacon himself has a Bacon number of 0.
-* Those actors who have worked directly with Kevin Bacon have a Bacon number of 1.
-* If the lowest Bacon number of any actor with whom X has appeared in any movie is N, X's Bacon number is N+1.
-## Examples
-#### Elvis Presley:
-* Elvis Presley was in Change of Habit (1969) with Edward Asner
-* Edward Asner was in JFK (1991) with Kevin Bacon
-Therefore, Asner has a Bacon number of 1, and Presley (who never appeared in a film with Bacon) has a Bacon number of 2.
-#### Ian McKellen:
-* Ian McKellen was in X-Men: Days of Future Past (2014) with Michael Fassbender and James McAvoy
-* McAvoy and Fassbender were in X-Men: First Class (2011) with Kevin Bacon
-Therefore, McAvoy and Fassbender have Bacon numbers of 1, and McKellen has a Bacon number of 2.
-"""
-
-app = FastAPI(
-    title="Spatial Country Game",
-    description=description,
-    version="0.0.1",
-    terms_of_service="http://killzonmbieswith.us/terms/",
-    contact={
-        "name": "Spatial Country Game",
-        "url": "http://killzonmbieswith.us/contact/",
-        "email": "chacha@killzonmbieswith.us",
-    },
-    license_info={
-        "name": "Apache 2.0",
-        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
-    },
-)
+import os
 
 
-#####################################################
 
 
-# class Country(BaseModel):
-#     name: Optional[str] = None
-#     continent: Optional[str] = None
+
+class CountryHelper:
+    def __init__(self, file_name, bbox=None):
+        self.countryNames = []
+        self.polygons = {}
+        self.data = []
+        self.polyCount = 0
+
+        self.fileName = file_name
+        self.loadFile()
+        self.loadCountryPolys()
+
+    def loadCountryPolys(self, file_name=None):
+        if not file_name is None:
+            self.loadFile(file_name)
+
+        self.polyCount = 0
+        for country in self.data:
+            name = country["properties"]["name"]
+            self.countryNames.append(name)
+            self.polygons[name] = []
+
+            for poly in country["geometry"]["coordinates"]:
+                if len(poly) == 1:
+                    self.polygons[name].append(
+                        {"id": self.polyCount, "coords": poly[0]}
+                    )
+                    self.polyCount += 1
+                else:
+                    for subpoly in poly:
+                        self.polygons[name].append(
+                            {"id": self.polyCount, "coords": subpoly}
+                        )
+                        self.polyCount += 1
+
+    def loadFile(self, file_name=None):
+        if not file_name:
+            file_name = self.fileName
+        else:
+            self.fileName = file_name
+
+        if not os.path.isfile(self.fileName):
+            print(f"Error: File {self.fileName} doesn't seem to exist!!")
+            sys.exit()
+
+        with open(self.fileName) as f:
+            self.data = json.load(f)
+
+        if "features" in self.data:
+            self.data = self.data["features"]
+
+        elif not isinstance(self.data, list):
+            print("Error? Is file correct format?")
+            sys.exit()
+
+    def getCountryNameIndex(self, name):
+        """Finds the index (integer) of a country by name
+        Args:
+            name (string): name of a country
+        Returns:
+            mixed: Either integer index of a country or None
+        Example:
+            getCountryNameIndex("Poland")
+            returns: 40
+        """
+        if name in self.countryNames:
+            return self.countryNames.index(name)
+        return None
+
+    def getCountryNames(self):
+        return self.countryNames
+
+    def getRawPolygons(self, country=None):
+        if not country:
+            return self.polygons
+
+        for c, p in self.polygons.items():
+            if c == country:
+                return p
+
+    def getCountryByPolyId(self, id):
+        for country, polys in self.polygons.items():
+            for poly in polys:
+                if poly["id"] == id:
+                    return country
+
+    def getCountriesBySpatialResult(self, spatResult):
+        results = []
+        ids = []
+
+        for i in range(len(spatResult)):
+            if spatResult[i] == True:
+                ids.append(i)
+
+        for country, polys in self.polygons.items():
+            for poly in polys:
+                if poly["id"] in ids:
+                    results.append(poly["id"])
+
+        return results
+
+    def getGeoPolygons(self):
+        results = []
+        for _, polys in self.polygons.items():
+            for poly in polys:
+                # print(poly)
+                # print("")
+                results.append(Polygon(poly["coords"]))
+        return results
+
+    def buildGeoJson(self, names, outname="outname.json"):
+        results = {"type": "FeatureCollection", "features": []}
+        for name in names:
+            for country in self.data:
+                if country["properties"]["name"] == name:
+                    results["features"].append(country)
+
+        with open(outname, "w") as f:
+            json.dump(results, f, indent=4)
 
 
-"""
-  _      ____   _____          _        __  __ ______ _______ _    _  ____  _____   _____
- | |    / __ \ / ____|   /\   | |      |  \/  |  ____|__   __| |  | |/ __ \|  __ \ / ____|
- | |   | |  | | |       /  \  | |      | \  / | |__     | |  | |__| | |  | | |  | | (___
- | |   | |  | | |      / /\ \ | |      | |\/| |  __|    | |  |  __  | |  | | |  | |\___ \
- | |___| |__| | |____ / ____ \| |____  | |  | | |____   | |  | |  | | |__| | |__| |____) |
- |______\____/ \_____/_/    \_\______| |_|  |_|______|  |_|  |_|  |_|\____/|_____/|_____/
-"""
+class SpatialIndexHelper(CountryHelper):
+    def __init__(self):
+        self.spi = geopandas.GeoSeries()
 
-None
+    def pointInPolygon(self, point):
+        result = self.spi.contains(Point(point[0], point[1]))
+        return result
 
+    def polygonTouches(self, polygon):
+        result = self.spi.touches(Polygon(polygon))
+        return result
 
-"""
-  _____   ____  _    _ _______ ______  _____
- |  __ \ / __ \| |  | |__   __|  ____|/ ____|
- | |__) | |  | | |  | |  | |  | |__  | (___
- |  _  /| |  | | |  | |  | |  |  __|  \___ \
- | | \ \| |__| | |__| |  | |  | |____ ____) |
- |_|  \_\\____/ \____/   |_|  |______|_____/
-"""
+    def polygonOverlaps(self, polygon):
+        result = self.spi.overlaps(Polygon(polygon))
+        return result
 
+    def lineIntersects(self, line):
+        result = self.spi.intersects(LineString(line))
+        return result
 
-@app.get("/")
-async def docs_redirect():
-    return RedirectResponse(url="/docs")
-
-
-@app.get("/country/")
-async def getCountry():
-    """
-    Description:
-        Get all docs dealing with Kevin Bacon movie titles
-    Params:
-    Returns:
-        dict / json
-    """
-    country = CountryReader
-    return None
+    def withinPolygon(self, polygon):
+        result = self.spi.within(Polygon(polygon))
+        return result
 
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host="127.0.0.1", port=8006, log_level="info", reload=True)
+    pass
