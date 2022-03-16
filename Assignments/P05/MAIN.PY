@@ -87,42 +87,15 @@ class GeoraphicData:
         IndexVal = i
         i += 1
     return MultiPolyGon[IndexVal][0]
-  def CalculateDistance(self, FirstPolyGon, SecondPolyGon, Value):
+  def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
     
-    if Value == True:
-            # we need to first get the center point of each polygon and then we need to assign it
-            # to variable labeled nicely for our polygons to easily ditinguish
-            PolyGon2Center = self.CalculateCenterPoint(FirstPolyGon)
-            PolyGon1Center = self.CalculateCenterPoint(SecondPolyGon)
-            # create box around both then we need to find some distance
-            BoundingBoxRectangle = [PolyGon1Center, [PolyGon1Center[0], PolyGon2Center[1]], PolyGon2Center, [PolyGon2Center[0], PolyGon1Center[1]]]
-            PolyRectangle = Polygon(BoundingBoxRectangle)
-            #using gdp get the points fom xy and the collumns and we assign each one to a variable container 
-            Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
-            Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
-            # we need to query the borders of each bounding box
-            Container1QueryBox = Container1.sindex.query(PolyRectangle)
-            Container2QueryBox = Container2.sindex.query(PolyRectangle)
-            # creating and empty list for our distance calulations
-            DistanceList = []
-            for firstpoint in Container1QueryBox:
-                for secondpoint in Container2QueryBox:
-                    # we need to find the distances between the two CoordPoints and append it to our empty list for distances
-                    DistanceList.append(math.sqrt(((Container1[firstpoint].x - Container2[secondpoint].x)**2)+((Container1[firstpoint].y-Container2[secondpoint].y)**2)))
-            BoundingBoxRectangle.append(BoundingBoxRectangle[0]) ## appending the value to the rectanglular bounding box
-            ContainerXYCoords = [] ## create empty list of x and y coordingates for our bounding boxe
-            for CoordPoints in Container1QueryBox: # for the coordinate points inside of the 1st box
-                ContainerXYCoords.append([Container1[CoordPoints].x, Container1[CoordPoints].y])# append to the container
-            for CoordPoints in Container2QueryBox:# in the second country box
-                ContainerXYCoords.append([Container2[CoordPoints].x, Container2[CoordPoints].y])# append to the container
-            self.PolyGonToGeoJson(PolyGons=[FirstPolyGon, SecondPolyGon, BoundingBoxRectangle], CoordPoints=ContainerXYCoords)
-    else:
-            Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
-            Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
-            DistanceList = []# empty distance list
-            for firstpoint in Container1:
-                for secondpoint in Container2: # appending the difference in CoordPoints x and y coords
-                    DistanceList.append(math.sqrt(((firstpoint.x - secondpoint.x)**2)+((firstpoint.y-secondpoint.y)**2)))
+
+    Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
+    Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
+    DistanceList = []# empty distance list
+    for firstpoint in Container1:
+        for secondpoint in Container2: # appending the difference in CoordPoints x and y coords
+            DistanceList.append(math.sqrt(((firstpoint.x - secondpoint.x)**2)+((firstpoint.y-secondpoint.y)**2)))
     # we need to sort all the distances that we calculated to find the shortest distance and return it back
     DistanceList.sort()
     return DistanceList[0]
@@ -232,6 +205,10 @@ ImportedData = GeoraphicData()#our python helper class pushed into
 # ╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝  ##
 ##############################################################################################
                                                                             
+#path through the api that leads to all the doc files inside of the requester root directory
+@HelperApi.get('/')
+async def RootFolder():# create a root folder for all the documents grabbed by the api
+    return RedirectResponse(url="/docs")# direct response to the documents folder ending in docs
 
 ## use api get method to retrieve the countires
 @HelperApi.get('/ListOfCountries/') # api helper getter to get the countries
@@ -243,7 +220,7 @@ async def countries(): # we need to give definition to the countries
 # api get feature working for below
 # use get method in api to get the polygon of specified country
 @HelperApi.get('/PolyGon/{country}')
-async def poly(country: str): # pass in the string of the country
+async def PolyGon(country: str): # pass in the string of the country
     country = country.title() # the title of the country
     country = ImportedData.PolyGon(country) # get the polygon 
     OutPut = {'detail': 'Success','polygon': country}# if successful, display the country polygon
@@ -252,7 +229,7 @@ async def poly(country: str): # pass in the string of the country
 ## this api method below working 
 #we need to find the center point of the given country
 @HelperApi.get('/CountryCenter/{country}')
-async def CountryCenter(country: str): # type in a country name
+async def Country_Center(country: str): # type in a country name
     country = country.title() # will look at the title and 
     country = ImportedData.PolyGon(country)# find the polygon of the country
     CountryCenter = ImportedData.CalculateCenterPoint(country) # call the center point method
@@ -262,15 +239,15 @@ async def CountryCenter(country: str): # type in a country name
 ## api get is working on the distance now
 ## api helper to get the distance between the polygons
 @HelperApi.get('/DistanceBetweenCountries/{FirstPolyGon},{SecondPolyGon}')
-async def distance(FirstPolyGon: str, SecondPolyGon: str):# to calculate the distance inside the api use two string country polygons
+async def Country_Distance(FirstPolyGon: str, SecondPolyGon: str):# to calculate the distance inside the api use two string country polygons
     SecondPoly= ImportedData.PolyGon(SecondPolyGon) ## get the polygon of the speicifed country
     FirstPoly= ImportedData.PolyGon(FirstPolyGon) ## get polygon of the other country inputted
-    DistanceBetween = ImportedData.CalculateDistance(FirstPoly, SecondPoly,False)# call the class method
+    DistanceBetween = ImportedData.CalculateDistance(FirstPoly, SecondPoly)# call the class method
     OutPut = {'detail': 'Success','distance': DistanceBetween}# if successful then print out the distance
     return OutPut# return the result
 
 #We want to see what continet a country is located inside 
 @HelperApi.get('/Continent/{country}')# creating the index for the continet in the api pass in the country
-async def continent(country: str): #  type in box for executable country finder
+async def Country_Continet(country: str): #  type in box for executable country finder
     OutPut = {'detail': 'Success','continent': ImportedData.FetchContinent(country.title())} # looks at the continent inside of the geospatial data
     return OutPut# return the result
