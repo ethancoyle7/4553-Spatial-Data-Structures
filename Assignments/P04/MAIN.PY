@@ -20,15 +20,25 @@
 ############################################################
 
 # creating our imports
-
 import geopandas as gdp  # for the gdp spatial data
-
 from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import math # for math calculation
 
 #create class called geographical data that handles helping class methods for processins
 # our data
+
+################################################
+##                                            ##
+##   ██████╗██╗      █████╗ ███████╗███████╗  ##
+##  ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝  ##
+##  ██║     ██║     ███████║███████╗███████╗  ##
+##  ██║     ██║     ██╔══██║╚════██║╚════██║  ##
+##  ╚██████╗███████╗██║  ██║███████║███████║  ##
+##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
+##                                            ##
+################################################
+                                        
 class GeoraphicData:
     #opening up the input and ouput with try except handling 
   def __init__(self):
@@ -68,79 +78,54 @@ class GeoraphicData:
         IndexVal = i
         i += 1
     return MultiPolyGon[IndexVal][0]
-  def CalculateDistance(self, FirstPolygon, SecondPolygon):
-        # getting the PointCenter of 2 polygons to be used in the distance calculator
-    Polygon2Center = self.CalculateCenterPoint(SecondPolygon)
-    Polygon1Center = self.CalculateCenterPoint(FirstPolygon)
-    PolygonList = [Polygon1Center, [Polygon1Center[0], Polygon2Center[1]], Polygon2Center, [Polygon2Center[0], Polygon1Center[1]]]
-    PolyGonBounds = Polygon(PolygonList)# get the bounds of the polygon list by creating a giant polygon
+  def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
+    Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
+    Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
+    DistanceList = []# empty distance list
+    for firstpoint in Container1:
+        for secondpoint in Container2: # appending the difference in CoordPoints x and y coords
+            DistanceList.append(math.sqrt(((firstpoint.x - secondpoint.x)**2)+((firstpoint.y-secondpoint.y)**2)))
+    # we need to sort all the distances that we calculated to find the shortest distance and return it back
+    DistanceList.sort()
+    return DistanceList[0]
 
-    Continent1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolygon], [y[1] for y in FirstPolygon]))
-    Continent2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolygon], [y[1] for y in SecondPolygon]))
-
-        #creating our spatial indexing with query on the boudngin boxes
-    Box1 = Continent1.sindex.query(PolyGonBounds)#Query the spatial index with a single geometry based on the bounding box:
-    Box2 = Continent2.sindex.query(PolyGonBounds)#Query the spatial index with a single geometry based on the bounding box:
-    DistanceList = [] # create an empty list to be appended to for the distances
-        #next lets get some distances betwee the CoordinatePoints
-    for point1 in Box1:
-      for point2 in Box2:
-                # get the distance between the CoordinatePoints between the first and second polygon based on the CoordinatePoints
-        DistanceList.append(math.sqrt(((Continent1[point1].x - Continent2[point2].x)**2)+((Continent1[point1].y-Continent2[point2].y)**2))) 
-    DistanceList.sort() # sort the sitances which will sort in descending order with shortes path
-    PolygonList.append(PolygonList[0]) # append the polygonlist 
-        # creating an empty list that gathers the CoordinatePoints in the polygon to the list to be appended and added to a list to 
-        # be used later
-    PolyGonPoints = []
-        # iterate over each of the CoordinatePoints in both boxes
-    for CoordinatePoints in Box1: # for each point x and y corrdinates of the first box, append to the polygon ppints
-      PolyGonPoints.append([Continent1[CoordinatePoints].x, Continent1[CoordinatePoints].y])
-
-      for CoordinatePoints in Box2: # for the second polygon  we do the same take the x and y coordinated and then append then 
-                            # to the polygon point list
-        PolyGonPoints.append([Continent2[CoordinatePoints].x, Continent2[CoordinatePoints].y])
-        # call the polgyon to geojson      taking as parameters the polgyons of the first
-        # polygon and the second polygon and the list that we created  of the polygonlist  as well as the CoordinatePoints for coordinates
-    self.PolyGonToGeoJson(PolyGons=[FirstPolygon, SecondPolygon, PolygonList], CoordinatePoints=PolyGonPoints)
-    return DistanceList[0]# returning the distance list back to the program
-
-  def PolyGonToGeoJson(self, PolyGons = None, CoordinatePoints = None):
+  def PolyGonToGeoJson(self, PolyGons = None, CoordPoints = None):
     # standardize our output file formatted in geojson formatting to be utilized 
     # inside of the mapping laytout of Countrys
-    OutPut = {
+    OutPut ={
                 # we have our feature which is a collection of features
             "type": "FeatureCollection",  # and we have our feature list
-            "features": [
-                
-            ]
-        }
+            "features": []
+            }
         # if there is a polygon and it isnt empty
     if PolyGons != None:
             # for each of the single polygons which were converted, inside of the polygons
       for SinglePolyGon in PolyGons:
               # append the features
         OutPut['features'].append({
-                  # features include type, properties, geometry(whcih include the coordinate points and the polygon as its type)
+                  # features include type, properties, geometry(whcih include the coordinate CoordPoints and the polygon as its type)
                 "type": "Feature",
                 "properties": {},
-                "geometry": {
+                "geometry": 
+                {
                 "type": "Polygon",
-                "coordinates": [
+                "coordinates": 
+                  [
                       SinglePolyGon
                   ]
-              }
+                }
           })
-        # if we have points and it is not empy
-    if CoordinatePoints != None:
-            # for each point in the coor points
-      for point in CoordinatePoints:
+        # if we have CoordPoints and it is not empy
+    if CoordPoints != None:
+            # for each point in the coor CoordPoints
+      for point in CoordPoints:
                 # append the features of the polys to the output file
         OutPut['features'].append({
                 "type": "Feature", # include the type which is feature
                 "properties": {},  # properties f the feature
                 "geometry": {      # what the geometry is 
                               "type": "Point", # type is point
-                              "coordinates": point #add the coordinate points
+                              "coordinates": point #add the coordinate CoordPoints
                             }
                 })
         #dump the contents to geojsonoutputfile indent it 4 to make it easier to read
@@ -150,7 +135,6 @@ class GeoraphicData:
     # he PointCenter point of the polygons which we converted to a singlepolygon passing in the parameters of the 
     # self and the singlepolygon that has all the data attached to it
   def CalculateCenterPoint(self, SinglePolyGon):
-    temp = SinglePolyGon # assign to a temporary value
     GeoData = gdp.GeoSeries(Polygon(SinglePolyGon)) # using gdp geoseries of each polygon of the singlepolygon list 
                                                         # assign it to geodata
         # using the geoseries , utilize pythons built in center calculator centroid to determine the center x and y coord
@@ -163,11 +147,11 @@ class GeoraphicData:
         # create an empty list for the data 
     OutPut = []
         # for each of the Continent inside of the input file
-    for WorldContinent in self.DataWorld:
+    for continents in self.DataWorld:
             # and for each of the Countrys inside of the input file
-      for Countrys in self.DataWorld[WorldContinent]:
+      for name in self.DataWorld[continents]:
                 # append the datat to the output list
-        OutPut.append(Countrys['properties']['PolyGonName'])
+        OutPut.append(name['properties']['name'])
         # return the list 
     return OutPut
   #find the specified country
@@ -197,5 +181,5 @@ if __name__ == "__main__":
     print("the data for the United Kingdom is :\n",GeoCountry.FetchContinent('United Kingdom'))
     second= GeoCountry.PolyGon('United States') ## get the polygon of the united states
     First= GeoCountry.PolyGon('Brazil') ## get thBrazile polygon of the united states
-    # calculate the distance points print to output file
+    # calculate the distance CoordPoints print to output file
     GeoCountry.CalculateDistance(First,second)
