@@ -10,9 +10,5 @@
 | [04](./A04) | [A04](./A04) | [Assignment 4](./A04) |
 | [09](./P01) | [P01](./P01) | [Project   #1](./P01) |
 | [10](./P02) | [P02](./P02) | [Project   #2](./P02) |
-| [11](./P03) | [P03](./P03) | [Project   #3](./P03) |
-| [12](./P04) | [P04](./P04) | [Project   #4](./P04) |
-| [13](./P05) | [P05](./P05) | [Project   #5](./P05) |
-| [14](./P06) | [P06](./P06) | [Project   #6](./P06) |
 
 #### these links above will redirect to respective folders
