@@ -232,11 +232,6 @@ ImportedData = GeoraphicData()#our python helper class pushed into
 # ╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝  ##
 ##############################################################################################
                                                                             
-#path through the api that leads to all the doc files inside of the requester root directory
-@HelperApi.get('/')
-async def RootFolder():# create a root folder for all the documents grabbed by the api
-    return RedirectResponse(url="/DocumentsFolder")# direct response to the documents folder ending in docs
-
 ## use api get method to retrieve the countires
 @HelperApi.get('/ListOfCountries/') # api helper getter to get the countries
 async def countries(): # we need to give definition to the countries
