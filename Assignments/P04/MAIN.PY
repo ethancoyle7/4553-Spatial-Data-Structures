@@ -22,7 +22,7 @@
 # creating our imports
 
 import geopandas as gdp  # for the gdp spatial data
-import numpy  as np# numpy and pandas array
+
 from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import math # for math calculation
