@@ -35,7 +35,7 @@ class GeoraphicData:
       # for the input file try to open the file
     try:
         # try to open the inputfile
-        with open('Assignments/P04/continentdata.json') as infile:
+        with open('Assignments/P04/GeographicData.json') as infile:
           self.DataWorld = json.load(infile)
         # if opening unsuccessful, toss an error
     except IOError:
