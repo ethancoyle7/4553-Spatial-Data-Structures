@@ -22,7 +22,7 @@ class Geography:
         # add exception handling on if there is and error opening up a outputfile
         try: 
       # open up and output file with the gejson format as a writeable file
-            self.output = open('Assignments/P04/OutPutFile.geojson', 'w')
+            self.output = open('Assignments/P05/OutPutFile.geojson', 'w')
         except IOError:
       # if unsuccessful, throw and input output exception
             print("there was an issue creating the output file\n")
