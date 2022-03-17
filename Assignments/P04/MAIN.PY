@@ -79,6 +79,7 @@ class GeoraphicData:
         i += 1
     return MultiPolyGon[IndexVal][0]
   def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
+    
     Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
     Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
     DistanceList = []# empty distance list
@@ -175,11 +176,12 @@ if __name__ == "__main__":
     GeoCountry= GeoraphicData() # assign value object of the class 
     # for testing sake lets try out four different Countrys and print out
     # to the terminal and see what we get
-    print("the data for the country Africa is :\n",GeoCountry.FetchContinent('China'))
+    print("the data for the country China is :\n",GeoCountry.FetchContinent('China'))
     print("the data for the united states is :\n",GeoCountry.FetchContinent('United States'))
     print("the data for the Russia is :\n",GeoCountry.FetchContinent('Russia'))
     print("the data for the United Kingdom is :\n",GeoCountry.FetchContinent('United Kingdom'))
     second= GeoCountry.PolyGon('United States') ## get the polygon of the united states
     First= GeoCountry.PolyGon('Brazil') ## get thBrazile polygon of the united states
     # calculate the distance CoordPoints print to output file
-    GeoCountry.CalculateDistance(First,second)
+    print(GeoCountry.CalculateDistance(First,second))
+    print(GeoCountry.PolyGon('United States'))
