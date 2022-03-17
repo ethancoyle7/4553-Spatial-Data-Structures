@@ -13,7 +13,7 @@ class Geography:
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P04/countries.geojson') as infile:
+            with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
                 print(self.DataWorld)
         # if opening unsuccessful, toss an error
@@ -56,24 +56,36 @@ class Geography:
        
             print(coords)
             
-    def SinglePolyGon(self, multi):
-        i = 0
-        max = 0
-        index = 0
-        
-        for poly in multi:
-            if len(poly[0]) > max:
-                max = len(poly[0])
-                index = i
-            i += 1
+        ## by inputting a name the user can get the geojson format to use and then display the graphical data
+    def OutPutGeojson(self,name):
+        for feature in self.DataWorld['features']:
+             #print(feature['geometry']['type'])# type of the country
+            if(feature['properties']['name']== name):
+                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
+            coordinates=feature['geometry']['coordinates']
 
-        return multi[index][0]
+        OutFile = {
+                "type": "FeatureCollection",
+                "features": []
+            }
+        OutFile['features'].append({
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": 
+                            coordinates
+                        
+                    }
+                })
+    # write to the ouput file
 
+        self.output.write(json.dumps(OutFile, indent=4))
         
-        # passing this back, we has the x and y coordinate of the countrys center point in x and y and we return it
-        #print(" our center point is: ",PointCenter)
+        
 if __name__ == "__main__":
     GeoCountry= Geography() # assign value object of the class 
     print(GeoCountry.getCountryList())
     GeoCountry.getPolyGon('Yemen')
-    GeoCountry.CalculateCenterPoint('Yemen')
+    ## GeoCountry.CalculateCenterPoint('Yemen')
+    GeoCountry.OutPutGeojson('Yemen')
