@@ -100,48 +100,6 @@ class GeoraphicData:
     DistanceList.sort()
     return DistanceList[0]
 
-  def PolyGonToGeoJson(self, PolyGons = None, CoordPoints = None):
-    # standardize our output file formatted in geojson formatting to be utilized 
-    # inside of the mapping laytout of Countrys
-    OutPut ={
-                # we have our feature which is a collection of features
-            "type": "FeatureCollection",  # and we have our feature list
-            "features": []
-            }
-        # if there is a polygon and it isnt empty
-    if PolyGons != None:
-            # for each of the single polygons which were converted, inside of the polygons
-      for SinglePolyGon in PolyGons:
-              # append the features
-        OutPut['features'].append({
-                  # features include type, properties, geometry(whcih include the coordinate CoordPoints and the polygon as its type)
-                "type": "Feature",
-                "properties": {},
-                "geometry": 
-                {
-                "type": "Polygon",
-                "coordinates": 
-                  [
-                      SinglePolyGon
-                  ]
-                }
-          })
-        # if we have CoordPoints and it is not empy
-    if CoordPoints != None:
-            # for each point in the coor CoordPoints
-      for point in CoordPoints:
-                # append the features of the polys to the output file
-        OutPut['features'].append({
-                "type": "Feature", # include the type which is feature
-                "properties": {},  # properties f the feature
-                "geometry": {      # what the geometry is 
-                              "type": "Point", # type is point
-                              "coordinates": point #add the coordinate CoordPoints
-                            }
-                })
-        #dump the contents to geojsonoutputfile indent it 4 to make it easier to read
-    self.output.write(json.dumps(OutPut, indent=4))
-
     #we need to find the PointCenter point of the polygon now so we create method to find 
     # he PointCenter point of the polygons which we converted to a singlepolygon passing in the parameters of the 
     # self and the singlepolygon that has all the data attached to it

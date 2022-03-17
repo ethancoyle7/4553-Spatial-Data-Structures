@@ -24,6 +24,7 @@ import geopandas as gdp  # for the gdp spatial data
 from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import math # for math calculation
+import pandas as pd
 
 #create class called geographical data that handles helping class methods for processins
 # our data
@@ -149,6 +150,7 @@ class GeoraphicData:
     for WorldContinent in self.DataWorld:
       for Countrys in self.DataWorld[WorldContinent]:
         if Countrys['properties']['name'] == NameOfCountry:
+
           return Countrys
   # finding the
   def FetchContinent(self, name):
@@ -176,7 +178,24 @@ if __name__ == "__main__":
     data=GeoCountry.PolyGon('Ukraine')
     #transform(lambda x, y: (y, x), data)
     
-    print(len(data))
-    print(data)
+    #print(len(data))
+    #print(data)
     GeoCountry.PolyGonToGeoJson(data)
+    
+    with open('Assignments/P04/countries.geojson') as json_file: 
+      datafile = json.load(json_file) 
+      #datafil=df[datafile]
+    print(datafile)
+    type(datafile)
+   
+    # iterate through the json file
+    for row in datafile:
+      for Countrys in datafile[row]:
+        print(Countrys)
+        
+    # for i in datafile:
+    
+    #   print(datafile['features'][i]['geometry']['coordinates'][i])
+    
+    #gdf['geometry']=gdf['geometry.coordinates'].apply(lambda l: MultiPolyGon(l))
     
