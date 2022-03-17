@@ -64,6 +64,7 @@ class GeoraphicData:
   def PolyGon(self, NameOfCountry):
     PolyGonName = self.CountryListNames(NameOfCountry)
     MultiPolyGon = PolyGonName['geometry']['coordinates']
+    #print(MultiPolyGon)
     SinglePolyGon = self.ToSinglePolygon(MultiPolyGon)
     return SinglePolyGon # return the polygon back
     #finds the DistanceList between 2 nations with a reduction formula using a box to reduce bordering CoordinatePoints
@@ -78,6 +79,7 @@ class GeoraphicData:
         max = len(PolyGons[0])
         IndexVal = i
         i += 1
+    print(" multi stuff :\n\n",MultiPolyGon[IndexVal][0])
     return MultiPolyGon[IndexVal][0]
   def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
     
@@ -189,9 +191,9 @@ if __name__ == "__main__":
     type(datafile)
    
     # iterate through the json file
-    for row in datafile:
-      for Countrys in datafile[row]:
-        print(Countrys)
+    # for row in datafile:
+    #   for Countrys in datafile[row]:
+    #     print(Countrys)
         
     # for i in datafile:
     

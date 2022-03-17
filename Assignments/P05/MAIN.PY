@@ -72,6 +72,7 @@ class GeoraphicData:
   def PolyGon(self, NameOfCountry):
     PolyGonName = self.CountryListNames(NameOfCountry)
     MultiPolyGon = PolyGonName['geometry']['coordinates']
+    print(MultiPolyGon)
     SinglePolyGon = self.ToSinglePolygon(MultiPolyGon)
     return SinglePolyGon # return the polygon back
     #finds the DistanceList between 2 nations with a reduction formula using a box to reduce bordering CoordinatePoints
