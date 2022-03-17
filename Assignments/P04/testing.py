@@ -37,7 +37,7 @@ class Geography:
                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
             coordinates=feature['geometry']['coordinates']
             return coordinates 
-    def CalculateCenterPoint(self, name):
+    def CalculateCenterPoint(self, name): # still testing to get the center point 
        
         MultiPolyGon= self.getPolyGon(name)
         print(" our multi is \n\n",len(MultiPolyGon))
@@ -51,7 +51,11 @@ class Geography:
         for coords in range(len(MultiPolyGon)):
        
             print(coords)
-            
+
+    # need distance method
+
+
+    
         ## by inputting a name the user can get the geojson format to use and then display the graphical data
     def OutPutGeojson(self,name):
         for feature in self.DataWorld['features']:
