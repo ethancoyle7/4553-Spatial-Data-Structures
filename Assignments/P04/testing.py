@@ -5,7 +5,7 @@ import json # json data
 import math # for math calculation
 
 class Geography:
-    def __init__(self):
+    def __init__(self): # working 
       # for the input file try to open the file
         try:
         # try to open the inputfile
@@ -23,22 +23,25 @@ class Geography:
       # if unsuccessful, throw and input output exception
             print("there was an issue creating the output file\n")
 
-    def getCountryList(self):
+    def getCountryList(self): # working
         DictList=[] 
         for feature in self.DataWorld['features']:
              #print(feature['geometry']['type'])# type of the country
             DictList.append(feature['properties']['name'])# name of the country
         return(DictList) # returns the dictionary list of all the country names
                 #print (feature['geometry']['coordinates']) # coordinates of the country
-    def getPolyGon(self,name):
+
+    def getPolyGon(self,name): # working
         for feature in self.DataWorld['features']:
              #print(feature['geometry']['type'])# type of the country
             if(feature['properties']['name']== name):
                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
             coordinates=feature['geometry']['coordinates']
             return coordinates 
+
+
+    # neeeding work 
     def CalculateCenterPoint(self, name): # still testing to get the center point 
-       
         MultiPolyGon= self.getPolyGon(name)
         print(" our multi is \n\n",len(MultiPolyGon))
         print(type(MultiPolyGon))
@@ -51,12 +54,23 @@ class Geography:
         for coords in range(len(MultiPolyGon)):
        
             print(coords)
-
-    # need distance method
-
-
+    # need distance method to work something wonkey now
+    def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
     
+
+        Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
+        Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
+        DistanceList = []# empty distance list
+        for firstpoint in Container1:
+            for secondpoint in Container2: # appending the difference in CoordPoints x and y coords
+                DistanceList.append(math.sqrt(((firstpoint.x - secondpoint.x)**2)+((firstpoint.y-secondpoint.y)**2)))
+    # we need to sort all the distances that we calculated to find the shortest distance and return it back
+        DistanceList.sort()
+        return DistanceList[0]
+
         ## by inputting a name the user can get the geojson format to use and then display the graphical data
+    
+    # working geojson # plug into geojson.io
     def OutPutGeojson(self,name):
         for feature in self.DataWorld['features']:
              #print(feature['geometry']['type'])# type of the country
@@ -89,3 +103,6 @@ if __name__ == "__main__":
     GeoCountry.getPolyGon('Yemen')
     ## GeoCountry.CalculateCenterPoint('Yemen')
     GeoCountry.OutPutGeojson('Yemen')
+    second= GeoCountry.getPolyGon('United States') ## get the polygon of the united states
+    First= GeoCountry.getPolyGon('Brazil') ## get thBrazile polygon of the united states
+    
