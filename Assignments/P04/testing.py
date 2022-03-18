@@ -1,8 +1,19 @@
-# creating our imports
+################################################
+##                                            ##
+##   ██████╗██╗      █████╗ ███████╗███████╗  ##
+##  ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝  ##
+##  ██║     ██║     ███████║███████╗███████╗  ##
+##  ██║     ██║     ██╔══██║╚════██║╚════██║  ##
+##  ╚██████╗███████╗██║  ██║███████║███████║  ##
+##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
+##                                            ##
+################################################
 import geopandas as gdp  # for the gdp spatial data
 from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
+import pandas as pd
 import math # for math calculation
+import csv
 
 class Geography:
     def __init__(self): # working 
@@ -41,19 +52,18 @@ class Geography:
 
 
     # neeeding work 
-    def CalculateCenterPoint(self, name): # still testing to get the center point 
-        MultiPolyGon= self.getPolyGon(name)
-        print(" our multi is \n\n",len(MultiPolyGon))
-        print(type(MultiPolyGon))
-        for x in MultiPolyGon:
-            print(x[20])
-        X_Y = []
-        for i in range(len(MultiPolyGon)):
-            X_Y.append((MultiPolyGon[i], MultiPolyGon[i]))
-        print(X_Y)
-        for coords in range(len(MultiPolyGon)):
-       
-            print(coords)
+    def GetCenterPoint(self, name): # still testing to get the center point 
+        coordinate=[]
+        df1 = pd.read_csv('Assignments/P04/countries.csv')
+        print(df1.head(20))
+        for i in range(len(df1.COUNTRY)):
+            if name == df1['COUNTRY'][i]:
+                XVal=df1['longitude'][i]
+                YVal=df1['latitude'][i]
+                coordinate.append((XVal,YVal))
+        return coordinate
+        
+                
     # need distance method to work something wonkey now
     def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
     
@@ -69,7 +79,7 @@ class Geography:
         return DistanceList[0]
 
         ## by inputting a name the user can get the geojson format to use and then display the graphical data
-    
+
     # working geojson # plug into geojson.io
     def OutPutGeojson(self,name):
         for feature in self.DataWorld['features']:
@@ -95,6 +105,7 @@ class Geography:
     # write to the ouput file
 
         self.output.write(json.dumps(OutFile, indent=4))
+        return OutFile
         
     
 if __name__ == "__main__":
@@ -105,4 +116,7 @@ if __name__ == "__main__":
     GeoCountry.OutPutGeojson('Yemen')
     second= GeoCountry.getPolyGon('United States') ## get the polygon of the united states
     First= GeoCountry.getPolyGon('Brazil') ## get thBrazile polygon of the united states
-    
+
+    first=GeoCountry.GetCenterPoint('Bolivia')
+    second=GeoCountry.GetCenterPoint('Belize')
+    print(GeoCountry.CalculateDistance(first,second))
