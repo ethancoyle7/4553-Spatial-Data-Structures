@@ -25,7 +25,7 @@ import uvicorn
 if __name__ == '__main__':
     ## to use the local host will be hosted on port 8080 and the MAIN.py is the api runner and it is being used as HelperApi
     ## we use the local host 127.0.0.1 for some reason vscode 
-    uvicorn.run("testing:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
+    uvicorn.run("main:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
 
 HelperApi = FastAPI()# getting our api running
 

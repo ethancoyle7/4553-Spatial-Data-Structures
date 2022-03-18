@@ -49,9 +49,9 @@ class Geography:
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P04/countries.geojson') as infile:
+            with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
-                print(self.DataWorld)
+                #print(self.DataWorld)
         # if opening unsuccessful, toss an error
         except IOError:
             print('there was an error with you file')
@@ -83,7 +83,7 @@ class Geography:
     # neeeding work 
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
-        df1 = pd.read_csv('Assignments/P04/countries.csv')
+        df1 = pd.read_csv('Assignments/P05/countries.csv')
         print(df1.head(20))
         for i in range(len(df1.COUNTRY)):
             if name == df1['COUNTRY'][i]:
@@ -116,7 +116,7 @@ class Geography:
         for feature in self.DataWorld['features']:
              #print(feature['geometry']['type'])# type of the country
             if(feature['properties']['name']== name):
-                print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
+                #print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
                 coordinates=feature['geometry']['coordinates']
 
                 OutFile = {
@@ -194,7 +194,6 @@ async def Country_Center(country: str): # type in a country name
 ## api helper to get the distance between the polygons
 @HelperApi.get('/FindDistance/{FirstPolyGon},{SecondPolyGon}')
 async def Country_Distance(FirstPoly: str, SecondPoly: str):# to calculate the distance inside the api use two string country polygons
-   
     DistanceBetween = ImportedData.CalculateDistance(FirstPoly, SecondPoly)# call the class method
     OutPut = {'detail': 'Success','distance': DistanceBetween}# if successful then print out the distance
     return OutPut# return the result
