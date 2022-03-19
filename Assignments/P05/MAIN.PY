@@ -26,16 +26,14 @@ import math # for math calculation
 #from the geohelper python import our class to be utilizes in our api
 #from GeoHelper import GeoraphicData
 
-################################################
-##                                            ##
-##   ██████╗██╗      █████╗ ███████╗███████╗  ##
-##  ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝  ##
-##  ██║     ██║     ███████║███████╗███████╗  ##
-##  ██║     ██║     ██╔══██║╚════██║╚════██║  ##
-##  ╚██████╗███████╗██║  ██║███████║███████║  ##
-##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
-##                                            ##
-################################################
+###########################################################################################################################################
+#  ██████╗██╗      █████╗ ███████╗███████╗     █████╗ ███╗   ██╗██████╗     ███╗   ███╗███████╗████████╗██╗  ██╗ ██████╗ ██████╗ ███████╗ #
+# ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝    ██╔══██╗████╗  ██║██╔══██╗    ████╗ ████║██╔════╝╚══██╔══╝██║  ██║██╔═══██╗██╔══██╗██╔════╝ #
+# ██║     ██║     ███████║███████╗███████╗    ███████║██╔██╗ ██║██║  ██║    ██╔████╔██║█████╗     ██║   ███████║██║   ██║██║  ██║███████╗ #
+# ██║     ██║     ██╔══██║╚════██║╚════██║    ██╔══██║██║╚██╗██║██║  ██║    ██║╚██╔╝██║██╔══╝     ██║   ██╔══██║██║   ██║██║  ██║╚════██║ #
+# ╚██████╗███████╗██║  ██║███████║███████║    ██║  ██║██║ ╚████║██████╔╝    ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝██████╔╝███████║ #
+#  ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ #
+###########################################################################################################################################                                                                                                                                   
 class Geography:
     def __init__(self): # working 
       # for the input file try to open the file
@@ -43,7 +41,7 @@ class Geography:
         # try to open the inputfile
             with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
-                print(self.DataWorld)
+                #clearprint(self.DataWorld)
         # if opening unsuccessful, toss an error
         except IOError:
             print('there was an error with you file')
@@ -72,19 +70,19 @@ class Geography:
             return coordinates 
 
 
-    # neeeding work 
+     # neeeding work 
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
-        df1 = pd.read_csv('Assignments/P05/countries.csv')
+        df1 = pd.read_csv('Assignments/P04/countries.csv')
         #print(df1.head(20))
         for i in range(len(df1.COUNTRY)):# for the length of the file
             if name == df1['COUNTRY'][i]: # if the name matches the data name
                 XVal=df1['longitude'][i] # the lognitude is the  x coord
                 YVal=df1['latitude'][i]  # lat is the y coord
-            coordinate.append((XVal,YVal)) # append these values to the list
+                coordinate.append((XVal,YVal)) # append these values to the list
                 #value= print(df1['longitude'][i],',', df1['latitude'][i])
 
-        return coordinate# return the list with the coordinates for center point
+        return XVal,YVal# return the list with the coordinates for center point
 
     # returning the country to the user read in the data name and return the continent it islocated on
     def GetContinent(self, name): # still testing to get the center point 
@@ -96,18 +94,16 @@ class Geography:
         return continent # return the continent name for better understanding of location
                 
     # need distance method to work something wonkey now
-    def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
-    
-
-        Container1 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in FirstPolyGon], [y[1] for y in FirstPolyGon]))
-        Container2 = gdp.GeoSeries(gdp.points_from_xy([x[0] for x in SecondPolyGon], [y[1] for y in SecondPolyGon]))
-        DistanceList = []# empty distance list
-        for firstpoint in Container1:
-            for secondpoint in Container2: # appending the difference in CoordPoints x and y coords
-                DistanceList.append(math.sqrt(((firstpoint.x - secondpoint.x)**2)+((firstpoint.y-secondpoint.y)**2)))
-    # we need to sort all the distances that we calculated to find the shortest distance and return it back
-        DistanceList.sort()
-        return DistanceList[0]
+     # need distance method to work something wonkey now
+    def CalculateDistance(self, Country1, Country2):
+        CountryDist=[]
+        CountryDist.append(Country1)
+        CountryDist.append(Country2)
+        for (x1, y1), (x2, y2) in zip(CountryDist, CountryDist[1:]):
+            DistanceValue = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            #DistanceValue*=0.000621371192 # convert to miles
+        #print(" distance is : \n\n", distance_formula,"\n\n")
+        return DistanceValue*69 # multiply by 69 to get mileage since it is a map
 
         ## by inputting a name the user can get the geojson format to use and then display the graphical data
 
@@ -141,17 +137,6 @@ class Geography:
     
 #loads up API
 if __name__ == '__main__':
-    #GeoCountry= Geography() # assign value object of the class 
-    # print(GeoCountry.getCountryList())
-    # GeoCountry.getPolyGon('Yemen')
-    # ## GeoCountry.CalculateCenterPoint('Yemen')
-    # GeoCountry.OutPutGeojson('Yemen')
-    # second= GeoCountry.getPolyGon('United States') ## get the polygon of the united states
-    # First= GeoCountry.getPolyGon('Brazil') ## get thBrazile polygon of the united states
-
-    # GeoCountry.GetCenterPoint('Bolivia')
-    ## to use the local host will be hosted on port 8080 and the MAIN.py is the api runner and it is being used as HelperApi
-    ## we use the local host 127.0.0.1 for some reason vscode 
     uvicorn.run("MAIN:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
     
     
@@ -170,7 +155,14 @@ HelperApi = FastAPI()# getting our api running
 @HelperApi.get('/')
 async def RootFolder():# create a root folder for all the documents grabbed by the api
     return RedirectResponse(url="/docs")# direct response to the documents folder ending in docs
-
+##################################################################################################
+#  ██████╗ ██████╗ ██╗   ██╗███╗   ██╗████████╗██████╗ ██╗   ██╗    ██╗     ██╗███████╗████████╗ #
+# ██╔════╝██╔═══██╗██║   ██║████╗  ██║╚══██╔══╝██╔══██╗╚██╗ ██╔╝    ██║     ██║██╔════╝╚══██╔══╝ #
+# ██║     ██║   ██║██║   ██║██╔██╗ ██║   ██║   ██████╔╝ ╚████╔╝     ██║     ██║███████╗   ██║    #
+# ██║     ██║   ██║██║   ██║██║╚██╗██║   ██║   ██╔══██╗  ╚██╔╝      ██║     ██║╚════██║   ██║    #
+# ╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║   ██║   ██║  ██║   ██║       ███████╗██║███████║   ██║    #
+#  ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝       ╚══════╝╚═╝╚══════╝   ╚═╝    #
+##################################################################################################                                                                                     
 ## use api get method to retrieve the countires
 @HelperApi.get('/ListOfCountries/') # api helper getter to get the countries
 async def countries(): # we need to give definition to the countries
@@ -180,28 +172,77 @@ async def countries(): # we need to give definition to the countries
 
 # api get feature working for below
 # use get method in api to get the polygon of specified country
+###############################################################
+# ██████╗  ██████╗ ██╗  ██╗   ██╗ ██████╗  ██████╗ ███╗   ██╗ #
+# ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔════╝ ██╔═══██╗████╗  ██║ #
+# ██████╔╝██║   ██║██║   ╚████╔╝ ██║  ███╗██║   ██║██╔██╗ ██║ #
+# ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██║   ██║██║   ██║██║╚██╗██║ #
+# ██║     ╚██████╔╝███████╗██║   ╚██████╔╝╚██████╔╝██║ ╚████║ #
+# ╚═╝      ╚═════╝ ╚══════╝╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ #
+###############################################################                                                          
 @HelperApi.get('/PolyGon/{country}')
 async def PolyGon(country: str): # pass in the string of the country
     country = country.title() # the title of the country
     country = ImportedData.getPolyGon(country) # get the polygon 
     OutPut = {'detail': 'Success','Polygon': country}# if successful, display the country polygon
     return OutPut
+################################################################################
+#  ██████╗ ██████╗ ███╗   ██╗████████╗██╗███╗   ██╗███████╗███╗   ██╗████████╗ #
+# ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██║████╗  ██║██╔════╝████╗  ██║╚══██╔══╝ #
+# ██║     ██║   ██║██╔██╗ ██║   ██║   ██║██╔██╗ ██║█████╗  ██╔██╗ ██║   ██║    #
+# ██║     ██║   ██║██║╚██╗██║   ██║   ██║██║╚██╗██║██╔══╝  ██║╚██╗██║   ██║    #
+# ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║██║ ╚████║███████╗██║ ╚████║   ██║    #
+#  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═══╝   ╚═╝    #
+################################################################################                                                                            
 @HelperApi.get('/Continet/{country}')# creating the index for the continet in the api pass in the country
-async def GeoJson(country: str): #  type in box for executable country finder
+async def ContinentLocator(country: str): #  type in box for executable country finder
     OutPut = ImportedData.GetContinent(country) # we want the geojson file for the given country
     return OutPut# return the result
+
+
+#########################################################################################################################
+#  ██████╗ ██████╗ ██╗   ██╗███╗   ██╗████████╗██████╗ ██╗   ██╗     ██████╗███████╗███╗   ██╗████████╗███████╗██████╗  #
+# ██╔════╝██╔═══██╗██║   ██║████╗  ██║╚══██╔══╝██╔══██╗╚██╗ ██╔╝    ██╔════╝██╔════╝████╗  ██║╚══██╔══╝██╔════╝██╔══██╗ #
+# ██║     ██║   ██║██║   ██║██╔██╗ ██║   ██║   ██████╔╝ ╚████╔╝     ██║     █████╗  ██╔██╗ ██║   ██║   █████╗  ██████╔╝ #
+# ██║     ██║   ██║██║   ██║██║╚██╗██║   ██║   ██╔══██╗  ╚██╔╝      ██║     ██╔══╝  ██║╚██╗██║   ██║   ██╔══╝  ██╔══██╗ #
+# ╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║   ██║   ██║  ██║   ██║       ╚██████╗███████╗██║ ╚████║   ██║   ███████╗██║  ██║ #
+#  ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝        ╚═════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ #
+#########################################################################################################################                                                                                                                   
 @HelperApi.get('/CountryCenter/{country}')
 async def Country_Center(country: str): # type in a country name
     country = country.title() # will look at the title and 
     CountryCenter = ImportedData.GetCenterPoint(country) # call the center point method
     OutPut = {'detail': 'Success','point': CountryCenter} # if successful, pass back the center point of the country
     return OutPut#resturn the result
+
+##################################################################
+# ██████╗ ██╗███████╗████████╗ █████╗ ███╗   ██╗ ██████╗███████╗ #
+# ██╔══██╗██║██╔════╝╚══██╔══╝██╔══██╗████╗  ██║██╔════╝██╔════╝ #
+# ██║  ██║██║███████╗   ██║   ███████║██╔██╗ ██║██║     █████╗   #
+# ██║  ██║██║╚════██║   ██║   ██╔══██║██║╚██╗██║██║     ██╔══╝   #
+# ██████╔╝██║███████║   ██║   ██║  ██║██║ ╚████║╚██████╗███████╗ #
+# ╚═════╝ ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ #
+##################################################################                
 ## api helper to get the distance between the polygons
-@HelperApi.get('/FindDistance/{FirstPolyGon},{SecondPolyGon}')
+@HelperApi.get('/FindDistance/{FirstCountry},{SecondCountry}')
 async def Country_Distance(FirstPoly: str, SecondPoly: str):# to calculate the distance inside the api use two string country polygons
-    DistanceBetween = ImportedData.CalculateDistance(FirstPoly, SecondPoly)# call the class method
+    # access the two containers to get the points from each one
+    Country1= ImportedData.GetCenterPoint(FirstPoly)
+    Country2= ImportedData.GetCenterPoint(SecondPoly)
+    DistanceBetween = ImportedData.CalculateDistance(Country1, Country2)# call the class method
     OutPut = {'detail': 'Success','distance': DistanceBetween}# if successful then print out the distance
     return OutPut# return the result
+
+
+#######################################################################################
+# ████████╗ ██████╗      ██████╗ ███████╗ ██████╗      ██╗███████╗ ██████╗ ███╗   ██╗ #
+# ╚══██╔══╝██╔═══██╗    ██╔════╝ ██╔════╝██╔═══██╗     ██║██╔════╝██╔═══██╗████╗  ██║ #
+#    ██║   ██║   ██║    ██║  ███╗█████╗  ██║   ██║     ██║███████╗██║   ██║██╔██╗ ██║ #
+#    ██║   ██║   ██║    ██║   ██║██╔══╝  ██║   ██║██   ██║╚════██║██║   ██║██║╚██╗██║ #
+#    ██║   ╚██████╔╝    ╚██████╔╝███████╗╚██████╔╝╚█████╔╝███████║╚██████╔╝██║ ╚████║ #
+#    ╚═╝    ╚═════╝      ╚═════╝ ╚══════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ #
+#######################################################################################
+                                                                                   
 #We want to see what continet a country is located inside 
 @HelperApi.get('/Geojson/{country}')# creating the index for the continet in the api pass in the country
 async def GeoJson(country: str): #  type in box for executable country finder
