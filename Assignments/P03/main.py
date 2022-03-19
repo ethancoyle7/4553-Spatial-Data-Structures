@@ -15,7 +15,9 @@
 # https://replit.com/@ethancoyle71/anotherone#main.py
 import numpy as np
 import pandas as pd
-import geopandas as gpd
+import shapely
+import json
+import geopandas as gdp
 import matplotlib
 matplotlib.use('TkAgg') ## required for replit to properly run the GUI because of prerequisites from matplot lib
 import matplotlib.pyplot as plt
@@ -28,14 +30,13 @@ from geovoronoi.plotting import subplot_for_map, plot_voronoi_polys_with_points_
 df1 = pd.read_csv("Assignments\P03\cities.csv")
 
 # geopandas data frame from a geojson file\n",
-gdf2 = gpd.read_file('Assignments\P03\cities.geojson')
-
-gdf1 = gpd.GeoDataFrame(df1, geometry=gpd.points_from_xy(df1.lon, df1.lat))
+gdf2 = gdp.read_file('Assignments\P03\cities.geojson')
+gdf1 = gdp.GeoDataFrame(df1, geometry=gdp.points_from_xy(df1.lon, df1.lat))
 # viewing the head of the geo dataframe
 gdf1.head()
 
 # read in the border shape file for the united states 
-boundary = gpd.read_file("us_border.shp")
+boundary = gdp.read_file("us_border.shp")
 fig, ax = plt.subplots(figsize=(12, 10))
 boundary.plot(ax=ax, color= "gray")
 gdf2.plot(ax=ax, markersize=2.5, color="blue")
@@ -52,9 +53,9 @@ fig, ax = subplot_for_map(figsize=(12, 10))
 #gdf1.plot(ax=ax, markersize=2.5, color="blue")
 plot_voronoi_polys_with_points_in_area(ax, boundary_shape, region_polys, coords, region_pts)
 plt.show()
-
+plot_voronoi_polys_with_points_in_area(ax, boundary_shape, region_polys, coords, region_pts)
 # lets see the polygon  vals
-for i,poly in region_polys.items():
-    print(poly)
-# save the plot figure to a file
+for i,PolyGonsData in region_polys.items():
+    print(PolyGonsData)
+#used to append dictionary
 plt.savefig("Assignments\P03\graph.png")
