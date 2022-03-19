@@ -73,7 +73,7 @@ class Geography:
      # neeeding work 
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
-        df1 = pd.read_csv('Assignments/P04/countries.csv')
+        df1 = pd.read_csv('Assignments/P05/countries.csv')
         #df1.drop(columns=['ISO','COUNTRYAFF','AFF_ISO']Inplace=True)
         df1.drop(['ISO','COUNTRYAFF','AFF_ISO'], axis=1,inplace=True)
         print(df1)
@@ -106,6 +106,7 @@ class Geography:
         for (x1, y1), (x2, y2) in zip(CountryDist, CountryDist[1:]):
             DistanceValue = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
             #DistanceValue*=0.000621371192 # convert to miles
+    
         #print(" distance is : \n\n", distance_formula,"\n\n")
         return DistanceValue*69 # multiply by 69 to get mileage since it is a map
 

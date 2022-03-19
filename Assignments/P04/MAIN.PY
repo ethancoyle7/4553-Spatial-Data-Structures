@@ -22,8 +22,6 @@ from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
-
-
 ################################################
 ##                                            ##
 ##   ██████╗██╗      █████╗ ███████╗███████╗  ##
@@ -149,6 +147,7 @@ if __name__ == '__main__':
     Country2=GeoCountry.GetCenterPoint('Brazil')
     DistanceBetween= GeoCountry.CalculateDistance(Country1,Country2)
     print("the distance between the countries is : \n", DistanceBetween)
+   
 
    
     
