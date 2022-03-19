@@ -7,147 +7,176 @@
 ##                                                                #
 ###################################################################
 ## About  - the purpose of this program is to read in a csv file  #
-#           and filter through all the reported ufo sightings and #
-#           convert it to a geo json format with bounding box     #
-#           inside of the us to map out all the sightings within  #
-#           the united states to see visually which states have   #
-#           reported citings                                      #
+#           and the city geojson file to calculate the ufo stats  #
+#           and pull out the top 100 clostest ufo data  and print #
+#           it to a json file to see which are the closest        #
 ##                                                                #
 ## Instructions:                                                  #
 ##       click run on the program(no special tasks needed)        #
 ##       try excepts added for input and output checking for      #
-##       valid files output file will display geojson file        #
-##       associated with mapping Github automatically creates map #
+##       valid files  and the associated output  will print output#
+##       so the user can assimilate which are the closts ufo      #
+##       sightings                                                #
+##                                                                #
+## Note - if user working in geo env might have to pip install    #
+##        shapely or if using conda use conda install shapely     #
+##                                                                #
 ###################################################################
-# creating our inports
-import pandas as pd
-import json
-import random as rand
-import numpy as np
-from math import acos
-import math
 
-
-
-
-
-## geopandas isnt wanting to download so in order to complete run the
-## program in a way such that will compare the citites.geojson to 
-## and it longitudes and latitudes and compare values
-
-
-#import geopandas as gpd
-# first read in the dataframe with the ufo sightings and print out 
-# the head to make sure that it is reading properly
-df1 = pd.read_csv('Assignments/P02/UFOSightings.csv')
-print(df1.head(20))
-
-# read in the data associated with the bounding boxes of the united states
-# states
-df2= pd.read_csv('Assignments/P02/StateCapitals.csv')
-print(df2.head(10))
-print(df2['state']) # this will be the value of comparison to the data
-                     # inside of the csv file of cities
-
-# given the merge, we merge the two together to merge the data frames together 
-# on the state name and create a new data frame that holds the values
-# including the max  and mins of the x and y
-df3 = pd.merge(df1, df2,
-                   on='state',
-                   how='right')
-df3.dropna(subset = ["city"], inplace=True)
-print('output now is :\n', df3)
-# to make easier to look at this lets drop uneccesary collums
-# make the implace to be true so we dont have to worrry
-# if not then we have to assign the changes to new dataframe
-df3.drop(['shape','duration','date_time'], axis=1,inplace=True)
-print("Our new dataframe is :n\n", df3)
-
-# initialize the bounding box for the united states
-top = 49.3457868 # north lat
-leftborder = -124.7844079 # west long
-rightborder = -66.9513812 # east long
-bottom =  24.7433195 # south lat
-
-# drop uneccesary of the left bounding box border of us both past or before 
-# based on the top and bottom vals
-df3 = df3.drop(df3[(df3['lon'] <= leftborder) & (df3['lat'] <= bottom)].index)
-df3 = df3.drop(df3[(df3['lon'] <= leftborder) & (df3['lat'] >= top)].index)
-df3 = df3.drop(df3[(df3['lon'] >= leftborder) & (df3['lat'] <= bottom)].index)
-df3 = df3.drop(df3[(df3['lon'] >= leftborder) & (df3['lat'] >= top)].index)
-
-# drop uneccesary of the right bounding box border of us both past or before 
-# based on the top and bottom vals
-df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] <= bottom)].index)
-df3 = df3.drop(df3[(df3['lon'] >= rightborder) & (df3['lat'] >= top)].index)
-df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] <= bottom)].index)
-df3 = df3.drop(df3[(df3['lon'] <= rightborder) & (df3['lat'] >= top)].index)
-
-# there is one outlier that didnt get removed so look at the outlier
-# lat and long and hard code in to remove it(over in europe)
-df3 = df3.drop(df3[(df3['lon'] == -8.5962) & (df3['lat'] == 42.3358)].index)
-
-# want to test the number of occurances in each state
-print("The number of occurances in each state are :\n")
-print(df3['state']. value_counts())
-# number of occurances in city data
-print("The number of occurances in each city  are :\n")
-print(df3['city']. value_counts()) 
-
-df3['lat'] = df3['lat'].astype(float)
-df3['lon'] = df3['lon'].astype(float)
-df3['state'] = df3['state'].str.title()
-df3['city'] = df3['city'].str.title()
-
-
-def df_to_geojson(df3, properties, lat='lat', lon='lon'):
-    # create a new python dict to contain our geojson data, using geojson format
-    geojson = {'type':'FeatureCollection', 'features':[]}
-    
-    # loop through each row in the dataframe and convert each row to geojson format
-    for _, row in df3.iterrows():
-        
-        # setting the colors to random for rgb color schematic
-        # each color is chosing a random integer between 0 and 255
-        Red = lambda: rand.randint(0,255)
-        Green = lambda: rand.randint(0,255)
-        Blue = lambda: rand.randint(0,255)
-        # return the formatted colors in formatted string
-        ColorGeneration= f'#%02X%02X%02X' % (Red(),Blue(),Green())
-        # create a feature template to fill in
-        featured = {'type':'Feature',
-                   "properties":
-                   {
-                    # what will show in the information icon when clicked
-                    "marker-color": ColorGeneration,
-                    "city": row['city'],
-                    "state" : row['state'],
-                    "longitude": row['lon'],
-                    "latitude": row['lat']
-                    },     
-                    # whats the geometry look like? These are points   
-                   'geometry':{'type':'Point',
-                               'coordinates':[row['lon'],row['lat']]
-                              }
-                    }
-        # for each column, get the value and add it as a new feature property
-        
-        # add to dict list
-        geojson['features'].append(featured)
-    
-    return geojson # return the converted geojson
-
-cols = ['state', 'city', 'lat', 'lon']
-# call to create the geojson stuff
-geojson = df_to_geojson(df3, cols)
-# for visualization print out the geojson to terminal
-print(geojson)
-
-#open up and try to execute the importing of the output file
+#############################################################
+# ██╗███╗   ███╗██████╗  ██████╗ ██████╗ ████████╗███████╗  #
+# ██║████╗ ████║██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝  #
+# ██║██╔████╔██║██████╔╝██║   ██║██████╔╝   ██║   ███████╗  #
+# ██║██║╚██╔╝██║██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║  #
+# ██║██║ ╚═╝ ██║██║     ╚██████╔╝██║  ██║   ██║   ███████║  #
+# ╚═╝╚═╝     ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝  #
+#############################################################
+                                                        
+import csv, json , geopandas
+from numpy import sort
+from statistics import mean
+from shapely.geometry import Point
+############################################################################
+# ██████╗  █████╗ ████████╗ █████╗     ███████╗██╗██╗     ███████╗███████╗ #
+# ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗    ██╔════╝██║██║     ██╔════╝██╔════╝ #
+# ██║  ██║███████║   ██║   ███████║    █████╗  ██║██║     █████╗  ███████╗ #
+# ██║  ██║██╔══██║   ██║   ██╔══██║    ██╔══╝  ██║██║     ██╔══╝  ╚════██║ #
+# ██████╔╝██║  ██║   ██║   ██║  ██║    ██║     ██║███████╗███████╗███████║ #
+# ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ #
+############################################################################                                                                   
 try:
-    with open('Assignments/P02/output.geojson', 'w') as file:
-        file.write(json.dumps(geojson, indent=4))
-# if unsuccessful, throw error message
+  with open('Assignments/P02/cities.geojson') as CityInFile:
+       CityData= json.load(CityInFile)
 except IOError:
-    print("unsuccessful at pushing to the ouput.\
-            SOMETHING WENT WRONG BONEHEAD\n")
+  print("there was an error reading in the data!!!")
+# now lets try to open up the csv file that has our csv ufo data
+try:
+  with open('Assignments/P02/UFOSightings.csv') as CSVInFile:
+    CsvData = csv.DictReader(CSVInFile, delimiter = ',')
+    UFOList = [] # creating an empty list for our uf data
+    for row in CsvData:
+        #loads csv dictionary into an array
+        UFOList.append(row) # for each row inside of our csv file lets append each
+                            # row to the list of ufo data so we can use it later
+except IOError:
+  print("that did not work maybe issue with the file name or path?")
+
+########################################
+# ██╗     ██╗███████╗████████╗███████╗ #
+# ██║     ██║██╔════╝╚══██╔══╝██╔════╝ #
+# ██║     ██║███████╗   ██║   ███████╗ #
+# ██║     ██║╚════██║   ██║   ╚════██║ #
+# ███████╗██║███████║   ██║   ███████║ #
+# ╚══════╝╚═╝╚══════╝   ╚═╝   ╚══════╝ #
+########################################                                 
+DataPoints = [] #  empty list for the data entry points
+DataNames = []  # empty list for our data names of cities
+AverageDistances = [] # empty list of the average ufo distances
+UFOPointList = [] # lets create a list for the points of the ufo sightings
+CityList= [] # empty list to hold our cities from the ufo data
+#########################################################################
+# ███╗   ███╗ █████╗ ██╗███╗   ██╗     ██████╗ ██████╗ ██████╗ ███████╗ #
+# ████╗ ████║██╔══██╗██║████╗  ██║    ██╔════╝██╔═══██╗██╔══██╗██╔════╝ #
+# ██╔████╔██║███████║██║██╔██╗ ██║    ██║     ██║   ██║██║  ██║█████╗   #
+# ██║╚██╔╝██║██╔══██║██║██║╚██╗██║    ██║     ██║   ██║██║  ██║██╔══╝   #
+# ██║ ╚═╝ ██║██║  ██║██║██║ ╚████║    ╚██████╗╚██████╔╝██████╔╝███████╗ #
+# ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝ #
+  #######################################################################
+                                                                                   
+# now that our infiles are read in properly remember out empty lists?
+# we now need to read in the features of the data and append some
+# values to the empty lists
+for CityFeature in CityData["features"]:
+    if CityFeature["geometry"]["type"] == "Point": # if the type of geometry is of type point
+      # append the coordinates to the the  datapoints list for each occurance 
+      DataPoints.append(CityFeature["geometry"]["coordinates"]) 
+      # for our empty list DataNames, append the ciy to the empty list
+      DataNames.append(CityFeature['properties']['city'])
+# for each point inside of the data points list, we append the converted point to points and 
+# add it to our list of cities
+for point in DataPoints:
+    CityList.append(Point(point))
+# using geopandas, we need to call geopandas and the geoseries from our recently appended
+  # list and then assign it to a geodata 
+GeoData = geopandas.GeoSeries(CityList)
+OutPutList = [] # empty list to be appended to later
+# loop through our geodata within the range of our geodata length
+for i in range(len(GeoData)):
+    # create and empty list called distance list that will hold our current distances 
+    # within the range of our geopandas geo frame 
+    DistanceList= []
+    # since our data was done using geopandas, we can use .distance to calculate the distance
+    GeoArray = GeoData.distance(GeoData[i])
+    # for easement sake, lets convert our values to an array
+    GeoArray = GeoArray.values 
+    # for i in the range of the length of our created geopandas data array
+    for i in range(len(GeoArray)):
+        if GeoArray[i] != 0: # if the value is not equal to 0
+            # we append the data names of that and the geoarray value and append it to the                  
+            # # distane we created forming a tuple that is appended to our distance list
+            DistanceList.append((DataNames[i], GeoArray[i]))
+    #we need to sort by the nearest city using lambda key expression
+    DistanceList.sort(key= lambda x: x[1])
+    #lets create a format for us to outpue to our json file
+    CityInformation = {
+        'City': DataNames[i], # pass in the city from datamames at that index
+        'Longitude': GeoData[i].x, # pass in the x value
+        'Latitude': GeoData[i].y, # pass in that y value
+        'Distance': DistanceList  # pass in the distance list associated with that
+    }
+    # append each of our data for the city to our outputlist
+    OutPutList.append(CityInformation)
+# lets ouput the calculated distance
+try:
+  with open('Assignments/P02/DISTANCES.json', 'w') as DistanceOutPut:
+    # dump out calculated distance to an output file
+    DistanceOutPut.write(json.dumps(OutPutList,indent = 4))    
+except IOError:
+  print('there was an error trying to create the output\n')
+finally:
+  print("Done with the distance output(hope that worked bonehead), now on to the ufo data\n")
+# we need to iterate through our ufo list data
+for point in UFOList: # for the values iterating through the ufo data,
+                      # append the longitude and latitude value to our ufo point list
+    UFOPointList.append(Point(float(point['lon']), float(point['lat'])))
+# lets create a geopandas series of our list of points
+UFOGeoData = geopandas.GeoSeries(UFOPointList)
+
+# lets loop through in the range of our geodata
+for i in range(len(GeoData)):
+    DataArray = UFOGeoData.distance(GeoData[i])
+    DataVals = DataArray.values
+    #we need to sort based on the closest so using sort function
+    # sorts in descending order
+    DataVals = sort(DataVals)
+    #we need to get the closest  from 0 to 100
+    ClosestDistances = DataVals[0:100]
+    #next we need to calculate the average of the closest 100 ufos
+    Average = round(mean(ClosestDistances), 18)
+    # we need to create another block to hold our city data with t     # the editted vales
+    CityData = {
+        'City': DataNames[i],# read in the data name
+        'Longitude': GeoData[i].x, # read in the x point
+        'Latitude': GeoData[i].y,  # read in the y point
+        'Average UFO': Average # read in the average ufo data
+    }
+    # now this is done created, append this to the average distance list 
+    AverageDistances.append(CityData)
+# finally, now that this is all done, lets open up an output file and add this to json output
+try:
+  with open('Assignments/P02/AVGUFODISTANCES.json', 'w') as FinalOutPut:
+    FinalOutPut.write(json.dumps(AverageDistances,indent = 4))    
+except IOError:
+  print('there was an error trying to create the output\n')
+finally:
+  print(" we are out of the try except block and done with the problem. I hope that all worked!")
+
+#######################################################################################
+# ███████╗███╗   ██╗██████╗      ██████╗ ███████╗    ███╗   ███╗ █████╗ ██╗███╗   ██╗ #
+# ██╔════╝████╗  ██║██╔══██╗    ██╔═══██╗██╔════╝    ████╗ ████║██╔══██╗██║████╗  ██║ #
+# █████╗  ██╔██╗ ██║██║  ██║    ██║   ██║█████╗      ██╔████╔██║███████║██║██╔██╗ ██║ #
+# ██╔══╝  ██║╚██╗██║██║  ██║    ██║   ██║██╔══╝      ██║╚██╔╝██║██╔══██║██║██║╚██╗██║ #
+# ███████╗██║ ╚████║██████╔╝    ╚██████╔╝██║         ██║ ╚═╝ ██║██║  ██║██║██║ ╚████║ #
+# ╚══════╝╚═╝  ╚═══╝╚═════╝      ╚═════╝ ╚═╝         ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ #
+#######################################################################################
+                                                                                   
