@@ -74,6 +74,10 @@ class Geography:
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
         df1 = pd.read_csv('Assignments/P04/countries.csv')
+        #df1.drop(columns=['ISO','COUNTRYAFF','AFF_ISO']Inplace=True)
+        df1.drop(['ISO','COUNTRYAFF','AFF_ISO'], axis=1,inplace=True)
+        print(df1)
+        #df1=df1.drop(labels='ISO','COUNTRYAFF','AFF_ISO', axis=1)
         #print(df1.head(20))
         for i in range(len(df1.COUNTRY)):# for the length of the file
             if name == df1['COUNTRY'][i]: # if the name matches the data name
@@ -125,7 +129,7 @@ class Geography:
                             "geometry": {
                             "type": "Polygon",
                             "coordinates": 
-                                coordinates
+                                coordinates # append the coordinates of the coordinates to that country name
                         
                             }
                         })
@@ -164,7 +168,7 @@ async def RootFolder():# create a root folder for all the documents grabbed by t
 #  ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝       ╚══════╝╚═╝╚══════╝   ╚═╝    #
 ##################################################################################################                                                                                     
 ## use api get method to retrieve the countires
-@HelperApi.get('/ListOfCountries/') # api helper getter to get the countries
+@HelperApi.get('/CountryList/') # api helper getter to get the countries
 async def countries(): # we need to give definition to the countries
     countries = ImportedData.getCountryList() # go to the method and iterate through infile and find the countries
     OutPut = {'detail': 'Success','countries': countries} # displays list of countries from the file
@@ -180,7 +184,7 @@ async def countries(): # we need to give definition to the countries
 # ██║     ╚██████╔╝███████╗██║   ╚██████╔╝╚██████╔╝██║ ╚████║ #
 # ╚═╝      ╚═════╝ ╚══════╝╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ #
 ###############################################################                                                          
-@HelperApi.get('/PolyGon/{country}')
+@HelperApi.get('/FindPolyGon/{country}')
 async def PolyGon(country: str): # pass in the string of the country
     country = country.title() # the title of the country
     country = ImportedData.getPolyGon(country) # get the polygon 
@@ -208,9 +212,9 @@ async def ContinentLocator(country: str): #  type in box for executable country 
 # ╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║   ██║   ██║  ██║   ██║       ╚██████╗███████╗██║ ╚████║   ██║   ███████╗██║  ██║ #
 #  ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝        ╚═════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ #
 #########################################################################################################################                                                                                                                   
-@HelperApi.get('/CountryCenter/{country}')
+@HelperApi.get('/FindCenter/{country}')
 async def Country_Center(country: str): # type in a country name
-    country = country.title() # will look at the title and 
+    #country = country.title() # will look at the title and 
     CountryCenter = ImportedData.GetCenterPoint(country) # call the center point method
     OutPut = {'detail': 'Success','point': CountryCenter} # if successful, pass back the center point of the country
     return OutPut#resturn the result
