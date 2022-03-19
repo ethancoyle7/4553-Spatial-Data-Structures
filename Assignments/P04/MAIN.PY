@@ -22,7 +22,6 @@ from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
-import csv
 
 
 ################################################
@@ -35,12 +34,6 @@ import csv
 ##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
 ##                                            ##
 ################################################
-import geopandas as gdp  # for the gdp spatial data
-from shapely.geometry import Polygon # for OutPut polygons
-import json # json data
-import pandas as pd
-import math # for math calculation
-import csv
 
 class Geography:
     def __init__(self): # working 

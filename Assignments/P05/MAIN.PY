@@ -17,15 +17,14 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 import uvicorn
+import geopandas as gdp  # for the gdp spatial data
+from shapely.geometry import Polygon # for OutPut polygons
+import json # json data
+import pandas as pd
+import math # for math calculation
 
 #from the geohelper python import our class to be utilizes in our api
 #from GeoHelper import GeoraphicData
-
-
-
-HelperApi = FastAPI()# getting our api running
-
-
 
 ################################################
 ##                                            ##
@@ -37,13 +36,6 @@ HelperApi = FastAPI()# getting our api running
 ##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
 ##                                            ##
 ################################################
-import geopandas as gdp  # for the gdp spatial data
-from shapely.geometry import Polygon # for OutPut polygons
-import json # json data
-import pandas as pd
-import math # for math calculation
-import csv
-
 class Geography:
     def __init__(self): # working 
       # for the input file try to open the file
@@ -51,7 +43,7 @@ class Geography:
         # try to open the inputfile
             with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
-                #print(self.DataWorld)
+                print(self.DataWorld)
         # if opening unsuccessful, toss an error
         except IOError:
             print('there was an error with you file')
@@ -84,16 +76,24 @@ class Geography:
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
         df1 = pd.read_csv('Assignments/P05/countries.csv')
-        print(df1.head(20))
-        for i in range(len(df1.COUNTRY)):
-            if name == df1['COUNTRY'][i]:
-                XVal=df1['longitude'][i]
-                YVal=df1['latitude'][i]
-                coordinate.append((XVal,YVal))
-                value= print(df1['longitude'][i],',', df1['latitude'][i])
+        #print(df1.head(20))
+        for i in range(len(df1.COUNTRY)):# for the length of the file
+            if name == df1['COUNTRY'][i]: # if the name matches the data name
+                XVal=df1['longitude'][i] # the lognitude is the  x coord
+                YVal=df1['latitude'][i]  # lat is the y coord
+            coordinate.append((XVal,YVal)) # append these values to the list
+                #value= print(df1['longitude'][i],',', df1['latitude'][i])
 
-        return coordinate
-        
+        return coordinate# return the list with the coordinates for center point
+
+    # returning the country to the user read in the data name and return the continent it islocated on
+    def GetContinent(self, name): # still testing to get the center point 
+        df2 = pd.read_csv('Assignments/P05/continents.csv')# read in the other data file
+        for i in range(len(df2.Country)): # for the whole length of the file checking
+            if name == df2['Country'][i]: # if the name match the continent in the data file, 
+               continent= df2['Continent'][i] # that continent is where is located 
+                #value= print(df2['longitude'][i],',', df2['latitude'][i])
+        return continent # return the continent name for better understanding of location
                 
     # need distance method to work something wonkey now
     def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
@@ -116,7 +116,7 @@ class Geography:
         for feature in self.DataWorld['features']:
              #print(feature['geometry']['type'])# type of the country
             if(feature['properties']['name']== name):
-                #print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
+                print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
                 coordinates=feature['geometry']['coordinates']
 
                 OutFile = {
@@ -141,7 +141,7 @@ class Geography:
     
 #loads up API
 if __name__ == '__main__':
-    GeoCountry= Geography() # assign value object of the class 
+    #GeoCountry= Geography() # assign value object of the class 
     # print(GeoCountry.getCountryList())
     # GeoCountry.getPolyGon('Yemen')
     # ## GeoCountry.CalculateCenterPoint('Yemen')
@@ -164,6 +164,7 @@ ImportedData = Geography()#our python helper class pushed into
 # ██║  ██║██║     ██║        ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝██████╔╝███████║  ##
 # ╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝  ##
 ##############################################################################################
+HelperApi = FastAPI()# getting our api running
                                                                             
 #path through the api that leads to all the doc files inside of the requester root directory
 @HelperApi.get('/')
@@ -185,6 +186,10 @@ async def PolyGon(country: str): # pass in the string of the country
     country = ImportedData.getPolyGon(country) # get the polygon 
     OutPut = {'detail': 'Success','Polygon': country}# if successful, display the country polygon
     return OutPut
+@HelperApi.get('/Continet/{country}')# creating the index for the continet in the api pass in the country
+async def GeoJson(country: str): #  type in box for executable country finder
+    OutPut = ImportedData.GetContinent(country) # we want the geojson file for the given country
+    return OutPut# return the result
 @HelperApi.get('/CountryCenter/{country}')
 async def Country_Center(country: str): # type in a country name
     country = country.title() # will look at the title and 
