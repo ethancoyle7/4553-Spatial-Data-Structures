@@ -126,15 +126,7 @@ for i in range(len(GeoData)):
     }
     # append each of our data for the city to our outputlist
     OutPutList.append(CityInformation)
-# lets ouput the calculated distance
-try:
-  with open('Assignments/P02/DISTANCES.json', 'w') as DistanceOutPut:
-    # dump out calculated distance to an output file
-    DistanceOutPut.write(json.dumps(OutPutList,indent = 4))    
-except IOError:
-  print('there was an error trying to create the output\n')
-finally:
-  print("Done with the distance output(hope that worked bonehead), now on to the ufo data\n")
+
 # we need to iterate through our ufo list data
 for point in UFOList: # for the values iterating through the ufo data,
                       # append the longitude and latitude value to our ufo point list
@@ -162,6 +154,25 @@ for i in range(len(GeoData)):
     }
     # now this is done created, append this to the average distance list 
     AverageDistances.append(CityData)
+
+#########################################################
+#  ██████╗ ██╗   ██╗████████╗██████╗ ██╗   ██╗████████╗ #
+# ██╔═══██╗██║   ██║╚══██╔══╝██╔══██╗██║   ██║╚══██╔══╝ #
+# ██║   ██║██║   ██║   ██║   ██████╔╝██║   ██║   ██║    #
+# ██║   ██║██║   ██║   ██║   ██╔═══╝ ██║   ██║   ██║    #
+# ╚██████╔╝╚██████╔╝   ██║   ██║     ╚██████╔╝   ██║    #
+#  ╚═════╝  ╚═════╝    ╚═╝   ╚═╝      ╚═════╝    ╚═╝    #
+#########################################################
+                                                     
+# lets ouput the calculated distance
+try:
+  with open('Assignments/P02/DISTANCES.json', 'w') as DistanceOutPut:
+    # dump out calculated distance to an output file
+    DistanceOutPut.write(json.dumps(OutPutList,indent = 4))    
+except IOError:
+  print('there was an error trying to create the output\n')
+finally:
+  print("Done with the distance output(hope that worked bonehead), now on to the ufo data\n")
 # finally, now that this is all done, lets open up an output file and add this to json output
 try:
   with open('Assignments/P02/AVGUFODISTANCES.json', 'w') as FinalOutPut:

@@ -82,16 +82,24 @@ class Geography:
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
         df1 = pd.read_csv('Assignments/P04/countries.csv')
-        print(df1.head(20))
-        for i in range(len(df1.COUNTRY)):
-            if name == df1['COUNTRY'][i]:
-                XVal=df1['longitude'][i]
-                YVal=df1['latitude'][i]
-                coordinate.append((XVal,YVal))
-                value= print(df1['longitude'][i],',', df1['latitude'][i])
+        #print(df1.head(20))
+        for i in range(len(df1.COUNTRY)):# for the length of the file
+            if name == df1['COUNTRY'][i]: # if the name matches the data name
+                XVal=df1['longitude'][i] # the lognitude is the  x coord
+                YVal=df1['latitude'][i]  # lat is the y coord
+                coordinate.append((XVal,YVal)) # append these values to the list
+                #value= print(df1['longitude'][i],',', df1['latitude'][i])
 
-        return coordinate
-        
+        return coordinate# return the list with the coordinates for center point
+
+    # returning the country to the user read in the data name and return the continent it islocated on
+    def GetContinent(self, name): # still testing to get the center point 
+        df2 = pd.read_csv('Assignments/P04/continents.csv')# read in the other data file
+        for i in range(len(df2.Country)): # for the whole length of the file checking
+            if name == df2['Country'][i]: # if the name match the continent in the data file, 
+               continent= df2['Continent'][i] # that continent is where is located 
+                #value= print(df2['longitude'][i],',', df2['latitude'][i])
+        return continent # return the continent name for better understanding of location
                 
     # need distance method to work something wonkey now
     def CalculateDistance(self, FirstPolyGon, SecondPolyGon):
@@ -148,3 +156,4 @@ if __name__ == '__main__':
     First= GeoCountry.getPolyGon('Brazil') ## get thBrazile polygon of the united states
 
     GeoCountry.GetCenterPoint('Bolivia') # get the center point for yemen
+    print(GeoCountry.GetContinent('United States'))
