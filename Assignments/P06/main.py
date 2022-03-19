@@ -168,7 +168,7 @@ class Geography:
     
 #loads up API
 if __name__ == '__main__':
-    uvicorn.run("MAIN:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
+    uvicorn.run("main:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
     
     
 ImportedData = Geography()#our python helper class pushed into 
