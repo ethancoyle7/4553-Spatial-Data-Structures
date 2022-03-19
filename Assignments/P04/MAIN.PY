@@ -22,22 +22,21 @@ from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
-################################################
-##                                            ##
-##   ██████╗██╗      █████╗ ███████╗███████╗  ##
-##  ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝  ##
-##  ██║     ██║     ███████║███████╗███████╗  ##
-##  ██║     ██║     ██╔══██║╚════██║╚════██║  ##
-##  ╚██████╗███████╗██║  ██║███████║███████║  ##
-##   ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  ##
-##                                            ##
-################################################
+
+###########################################################################################################################################
+#  ██████╗██╗      █████╗ ███████╗███████╗     █████╗ ███╗   ██╗██████╗     ███╗   ███╗███████╗████████╗██╗  ██╗ ██████╗ ██████╗ ███████╗ #
+# ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝    ██╔══██╗████╗  ██║██╔══██╗    ████╗ ████║██╔════╝╚══██╔══╝██║  ██║██╔═══██╗██╔══██╗██╔════╝ #
+# ██║     ██║     ███████║███████╗███████╗    ███████║██╔██╗ ██║██║  ██║    ██╔████╔██║█████╗     ██║   ███████║██║   ██║██║  ██║███████╗ #
+# ██║     ██║     ██╔══██║╚════██║╚════██║    ██╔══██║██║╚██╗██║██║  ██║    ██║╚██╔╝██║██╔══╝     ██║   ██╔══██║██║   ██║██║  ██║╚════██║ #
+# ╚██████╗███████╗██║  ██║███████║███████║    ██║  ██║██║ ╚████║██████╔╝    ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝██████╔╝███████║ #
+#  ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ #
+###########################################################################################################################################                                                                                                                                   
 class Geography:
     def __init__(self): # working 
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P04/countries.geojson') as infile:
+            with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
                 #clearprint(self.DataWorld)
         # if opening unsuccessful, toss an error
@@ -72,6 +71,10 @@ class Geography:
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
         df1 = pd.read_csv('Assignments/P04/countries.csv')
+        #df1.drop(columns=['ISO','COUNTRYAFF','AFF_ISO']Inplace=True)
+        df1.drop(['ISO','COUNTRYAFF','AFF_ISO'], axis=1,inplace=True)
+        print(df1)
+        #df1=df1.drop(labels='ISO','COUNTRYAFF','AFF_ISO', axis=1)
         #print(df1.head(20))
         for i in range(len(df1.COUNTRY)):# for the length of the file
             if name == df1['COUNTRY'][i]: # if the name matches the data name
@@ -100,11 +103,38 @@ class Geography:
         for (x1, y1), (x2, y2) in zip(CountryDist, CountryDist[1:]):
             DistanceValue = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
             #DistanceValue*=0.000621371192 # convert to miles
+    
         #print(" distance is : \n\n", distance_formula,"\n\n")
         return DistanceValue*69 # multiply by 69 to get mileage since it is a map
 
-        ## by inputting a name the user can get the geojson format to use and then display the graphical data
+    # method to find the direction of the country  passing in the two countrys 
+    def getDirection(self, FirstCountry, SecondCountry):
 
+        CountryDistance=[] # create and empty list 
+        CountryDistance.append(FirstCountry) # append the values of the center point 
+        CountryDistance.append(SecondCountry) # append the center point values to  the distance list
+        for (x1, y1), (x2, y2) in zip(CountryDistance, CountryDistance[1:]): # zip these into one list
+            # create some if statements to handle positioning
+            if x1 < x2 and y1 > y2:
+                CountryDirection = 'NorthWest' # located northwest
+            elif x1 > x2 and y1 > y2:
+                CountryDirection = 'NorthEast' # located northeast
+            elif x1 < x2 and y1 < y2:              
+                CountryDirection = 'SouthWest' # country is located to the  southwest
+            elif x1 > x2 and y1 < y2:
+                CountryDirection = 'SouthEast' # country located to south east
+            # if none of these conditions met, then 
+            else:
+                if x1 == x2 and y1 > y2:
+                    CountryDirection = 'North' # country is to the  north
+                elif x1 == x2 and y1 < y2:
+                    CountryDirection = 'South' # country is to the south
+                elif x1 < x2 and y1 == y2:
+                    CountryDirection = 'East'  # country is to the easst
+                elif x1 > x2 and y1 == y2:
+                    CountryDirection = 'West'  # country is to the west
+               
+        return CountryDirection # return the country direction
     # working geojson # plug into geojson.io
     def OutPutGeojson(self,name):
         for feature in self.DataWorld['features']:
@@ -123,7 +153,7 @@ class Geography:
                             "geometry": {
                             "type": "Polygon",
                             "coordinates": 
-                                coordinates
+                                coordinates # append the coordinates of the coordinates to that country name
                         
                             }
                         })
@@ -131,6 +161,8 @@ class Geography:
 
                 self.output.write(json.dumps(OutFile, indent=4))
                 return OutFile
+        
+    
     
 #loads up API
 if __name__ == '__main__':
