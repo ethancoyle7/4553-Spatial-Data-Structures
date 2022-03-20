@@ -6,6 +6,17 @@
 ## The purpose of this assignment is to read in the data from   #
 ## the cities.csv file and the data for the gities.geojson and  #
 ## create a voronoi of the ufo data and the city boundaries     #
+##                                                              #
+## Important user note : I could not get geovornoi to properly  #
+## work in my geo environment so i had to run this through repli#
+## I will attach my replit link to this as well because it does #
+## work inside of replit                                        #
+## if imports for the geovornoi are imported properly might not #
+## have to use replit link but that is the only way i got it to #
+## work                                                         #
+##                                                              #
+## Replit Link : https://replit.com/@ethancoyle71/stuff#main.py #
+##                                                              #
 #################################################################
 
 ########################################################
@@ -39,15 +50,15 @@ from geovoronoi.plotting import subplot_for_map, plot_voronoi_polys_with_points_
                                                           
 #We need to open up our file to be read in and used inside of main
 try:
-  USBorderShape=gdp.read_file("us_border.shp") # us border shape file
+  USBorderShape=gdp.read_file("Assignments/P03/us_border_shp/us_border.shp") # us border shape file
 except IOError:
   print("the data file wasnt read in please try another data file name")
 try:
-  GeoJsonCities = gdp.read_file("cities.geojson") # read in the city data from the geojson file
+  GeoJsonCities = gdp.read_file("Assignments/P03/cities.geojson") # read in the city data from the geojson file
 except IOError:
   print("the data file was not read in properly might wanna check the name")
 try:
-  UFOData = pd.read_csv("UFOData.csv")
+  UFOData = pd.read_csv("Assignments/P03/UFOSightings.csv")
   # reda in the ufo sightings to geopandas df and read in that gdp lon and lat
   UFOData = gdp.GeoDataFrame(UFOData, geometry=gdp.points_from_xy(UFOData.lon, UFOData.lat))
 except IOError:
@@ -78,7 +89,7 @@ rtree = gdp.GeoSeries(PolyRegions)
 # plot the vornoi with the axis, the border shape, the polygon regions, regionpts and the coordinates
 plot_voronoi_polys_with_points_in_area(ax, ShapeOfBorder, PolyRegions, Coordinates, RegionPoints)
 # save the figure as graph.png
-plt.savefig("graph.png")
+plt.savefig("Assignments/P03/graph.png")
 
 # create some empty list for our output and the list of points to be used inside of main
 OutFileList = []
@@ -134,7 +145,7 @@ for PolyGonData in range(0, Length):
 # try opening the output file
 try:
   # try opening file to filename as writeable to the outfile
-  with open('PointsInPolys.json', 'w') as outfile:
+  with open('Assignments/P03/PointsInPolys.json', 'w') as outfile:
       outfile.write(json.dumps(OutFileList,indent=4))
 except IOError:
   print("hmm did ufos take your dat file because there is an error")
