@@ -22,6 +22,7 @@ from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
+from fastapi.middleware.cors import CORSMiddleware # needed for the api
 
 #from the geohelper python import our class to be utilizes in our api
 #from GeoHelper import GeoraphicData
@@ -180,8 +181,37 @@ ImportedData = Geography()#our python helper class pushed into
 # ██║  ██║██║     ██║        ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝██████╔╝███████║  ##
 # ╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝  ##
 ##############################################################################################
-HelperApi = FastAPI()# getting our api running
-                                                                            
+# Needed for CORS
+origins = ["*"]
+
+description = """🚀
+## Worldle Clone
+### With Better Distance Calculations
+"""
+
+
+HelperApi = FastAPI(title="Worldle Clone",
+    description=description,
+    version="0.0.1",
+    terms_of_service="http://killzonmbieswith.us/worldleterms/",
+    contact={
+        "name": "Worldle Clone",
+        "url": "http://killzonmbieswith.us/worldle/contact/",
+        "email": "chacha@killzonmbieswith.us",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },)# getting our api running
+# Needed for CORS
+HelperApi.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+                                                                           
 #path through the api that leads to all the doc files inside of the requester root directory
 @HelperApi.get('/')
 async def RootFolder():# create a root folder for all the documents grabbed by the api
@@ -305,3 +335,8 @@ async def CountryDirection(CountryNo1: str, CountryNo2: str):
 async def GeoJson(country: str): #  type in box for executable country finder
     OutPut = ImportedData.OutPutGeojson(country) # we want the geojson file for the given country
     return OutPut# return the result
+
+
+
+
+
