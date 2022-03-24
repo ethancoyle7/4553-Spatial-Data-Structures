@@ -243,8 +243,8 @@
                     throw new Error('Something went wrong');
                 })
                 .then(function (data) {
-                    console.log(data);
-                    callback(data);
+                    console.log(data[0]['result']);
+                    callback(data[0]['result']);
                 }).catch((error) => {
                     let message = "<h1>Error: Connecting to: " + url + "</h1>"
                     message += "<h1>Is your API running?</h1>"
@@ -275,7 +275,7 @@
 
             console.log(name);
             // build the url to get the center of that country
-            let url = "http://127.0.0.1:8080/FindCenter/" + name + "?raw=true";
+            let url = "http://127.0.0.1:8080/FindCenter/";
 
             // call the api with the appropriate url and callback function to run on success
             apiCall(url, updatePolygonCenter)
@@ -289,7 +289,7 @@
             console.log("apiGetCountryPoly");
 
             let name = getDropDownCountryName();
-            let url = "http://127.0.0.1:8080/Geojson/" + name;
+            let url = "http://127.0.0.1:8080/FindPolyGon/" + name;
 
             // call api to get country shape and then send it to the showGeoJson function as a callback
             apiCall(url, showGeoJson);
