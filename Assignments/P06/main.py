@@ -146,6 +146,9 @@ class Geography:
             if(feature['properties']['name']== name):
                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
                 coordinates=feature['geometry']['coordinates']
+                # for i in range(len(coordinates)):
+                #     for j in range(len(coordinates[i])):
+                #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
 
                 OutFile = {
                         "type": "FeatureCollection",
@@ -164,6 +167,7 @@ class Geography:
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
+                
                 return OutFile
         
     
