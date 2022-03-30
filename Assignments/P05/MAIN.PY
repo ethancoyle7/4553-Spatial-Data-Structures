@@ -3,7 +3,7 @@
 ##                                                        ##
 ##  Ethan Coyle                                           ##
 ##  Dr. Griffin - CMPS 4551 Spatial Data Structures       ##
-##  P05 - APIHelper Class o help with geo spatial data    ##
+##  P06 - APIHelper Class o help with geo spatial data    ##
 ##                                                        ##
 ############################################################
 ##                                                        ##
@@ -22,6 +22,7 @@ from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
+from fastapi.middleware.cors import CORSMiddleware # needed for the api
 
 #from the geohelper python import our class to be utilizes in our api
 #from GeoHelper import GeoraphicData
@@ -39,7 +40,7 @@ class Geography:
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P05/countries.geojson') as infile:
+            with open('Assignments/P06/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
                 #clearprint(self.DataWorld)
         # if opening unsuccessful, toss an error
@@ -48,7 +49,7 @@ class Geography:
         # add exception handling on if there is and error opening up a outputfile
         try: 
       # open up and output file with the gejson format as a writeable file
-            self.output = open('Assignments/P05/OutPutFile.geojson', 'w')
+            self.output = open('Assignments/P06/OutPutFile.geojson', 'w')
         except IOError:
       # if unsuccessful, throw and input output exception
             print("there was an issue creating the output file\n")
@@ -73,7 +74,7 @@ class Geography:
      # neeeding work 
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
-        df1 = pd.read_csv('Assignments/P05/countries.csv')
+        df1 = pd.read_csv('Assignments/P06/countries.csv')
         #df1.drop(columns=['ISO','COUNTRYAFF','AFF_ISO']Inplace=True)
         df1.drop(['ISO','COUNTRYAFF','AFF_ISO'], axis=1,inplace=True)
         print(df1)
@@ -90,7 +91,7 @@ class Geography:
 
     # returning the country to the user read in the data name and return the continent it islocated on
     def GetContinent(self, name): # still testing to get the center point 
-        df2 = pd.read_csv('Assignments/P05/continents.csv')# read in the other data file
+        df2 = pd.read_csv('Assignments/P06/continents.csv')# read in the other data file
         for i in range(len(df2.Country)): # for the whole length of the file checking
             if name == df2['Country'][i]: # if the name match the continent in the data file, 
                continent= df2['Continent'][i] # that continent is where is located 
@@ -145,30 +146,51 @@ class Geography:
             if(feature['properties']['name']== name):
                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
                 coordinates=feature['geometry']['coordinates']
-
-                OutFile = {
-                        "type": "FeatureCollection",
-                        "features": []
-                    }
-                OutFile['features'].append({
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                            "type": "Polygon",
-                            "coordinates": 
-                                coordinates # append the coordinates of the coordinates to that country name
+                # for i in range(len(coordinates)):
+                #     for j in range(len(coordinates[i])):
+                #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
+                if(feature['geometry']['type']=='Polygon'):
+                    
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "Polygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
                         
-                            }
-                        })
+                                }
+                            })
+                else:
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "MultiPolygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
+                        
+                                }
+                            })
+
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
+                
                 return OutFile
         
     
 #loads up API
 if __name__ == '__main__':
-    uvicorn.run("MAIN:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
+    uvicorn.run("main:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
     
     
 ImportedData = Geography()#our python helper class pushed into 
@@ -180,8 +202,37 @@ ImportedData = Geography()#our python helper class pushed into
 # ██║  ██║██║     ██║        ██║ ╚═╝ ██║███████╗   ██║   ██║  ██║╚██████╔╝██████╔╝███████║  ##
 # ╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝  ##
 ##############################################################################################
-HelperApi = FastAPI()# getting our api running
-                                                                            
+# Needed for CORS
+origins = ["*"]
+
+description = """🚀
+## Worldle Clone
+### With Better Distance Calculations
+"""
+
+
+HelperApi = FastAPI(title="Worldle Clone",
+    description=description,
+    version="0.0.1",
+    terms_of_service="http://killzonmbieswith.us/worldleterms/",
+    contact={
+        "name": "Worldle Clone",
+        "url": "http://killzonmbieswith.us/worldle/contact/",
+        "email": "chacha@killzonmbieswith.us",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },)# getting our api running
+# Needed for CORS
+HelperApi.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+                                                                           
 #path through the api that leads to all the doc files inside of the requester root directory
 @HelperApi.get('/')
 async def RootFolder():# create a root folder for all the documents grabbed by the api
@@ -305,4 +356,8 @@ async def CountryDirection(CountryNo1: str, CountryNo2: str):
 async def GeoJson(country: str): #  type in box for executable country finder
     OutPut = ImportedData.OutPutGeojson(country) # we want the geojson file for the given country
     return OutPut# return the result
+
+
+
+
 

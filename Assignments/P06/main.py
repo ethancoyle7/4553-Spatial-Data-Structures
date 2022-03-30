@@ -149,21 +149,38 @@ class Geography:
                 # for i in range(len(coordinates)):
                 #     for j in range(len(coordinates[i])):
                 #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
-
-                OutFile = {
-                        "type": "FeatureCollection",
-                        "features": []
-                    }
-                OutFile['features'].append({
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                            "type": "Polygon",
-                            "coordinates": 
-                                coordinates # append the coordinates of the coordinates to that country name
+                if(feature['geometry']['type']=='Polygon'):
+                    
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "Polygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
                         
-                            }
-                        })
+                                }
+                            })
+                else:
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "MultiPolygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
+                        
+                                }
+                            })
+
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
