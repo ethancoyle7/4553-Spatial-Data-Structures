@@ -149,6 +149,7 @@ class Geography:
                 # for i in range(len(coordinates)):
                 #     for j in range(len(coordinates[i])):
                 #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
+
                 if(feature['geometry']['type']=='Polygon'):
                     
                     OutFile = {
@@ -180,7 +181,6 @@ class Geography:
                         
                                 }
                             })
-
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
