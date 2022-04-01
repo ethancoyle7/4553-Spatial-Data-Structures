@@ -244,24 +244,24 @@
                 })
                 .then(function (data) 
                 {
-                    CountryDistance = Math.floor(data['distance'] /1000)
+                    CountryDistance = Math.floor(data['distance'])
                     console.log(data)
                     console.log(CountryDistance)
 
                    
-                    if(CountryDistance <= 1)
+                    if(CountryDistance/1000 <= 1)
                         {   
                             PolyGonColor="#FC09F3" // pink color
                         }
-                    else if(CountryDistance <=2)
+                    else if(CountryDistance/1000 <=2)
                     {
                         PolyGonColor = "CCFFCC"// getting even lighter green
                     }
-                    else if(CountryDistance <= 3)
+                    else if(CountryDistance/1000 <= 3)
                     {
                         PolyGonColor = "#FFFF66"// getting even lighter yellow
                     }
-                    else if(CountryDistance <= 4)
+                    else if(CountryDistance/1000 <= 4)
                     {
                         PolyGonColor = "#66FFFF"// purple
                     }
@@ -297,35 +297,35 @@
                     
                     if(data['CountryDirection'] == 'North')// northern direction
                     {
-                        text = '⬆️'// display the north arrow
+                        text = CountryDistance+' miles  ⬆️ '// display the north arrow
                     }
                     else if(data['CountryDirection'] == 'South')// south direction
                     {
-                        text = '⬇️'// display the south arrow
+                        text = CountryDistance+' miles ⬇️ '// display the south arrow
                     }
                     else if(data['CountryDirection'] == 'East')//eastern direction
                     {
-                        text = '➡️'// display the east arrow
+                        text = CountryDistance+' miles ➡️ '// display the east arrow
                     }
                     else if(data['CountryDirection'] == 'West')// western direction
                     {
-                        text = '⬅️'// display the west arrow
+                        text = CountryDistance+' miles ⬅️ '// display the west arrow
                     }
                     if(data['CountryDirection'] == 'NorthWest')//northwestern direction
                     {
-                        text = '↖️'// display the north west arrow
+                        text = CountryDistance+' miles ↖️ '// display the north west arrow
                     }
                     else if(data['CountryDirection'] == 'SouthWest')// to the southwest
                     {
-                        text = '↙️'// display the south west arrow
+                        text = CountryDistance+' miles ↙️ '// display the south west arrow
                     }
                     else if(data['CountryDirection'] == 'SouthEast')// or the southeeast direction
                     {
-                        text = '↘️'//    display the south east arrow
+                        text = CountryDistance+' miles ↘️ '//    display the south east arrow
                     }
                     else // if none of these are true, then will be in the northeast direction
                     {
-                        text = '↗️' // northeastern direction
+                        text = CountryDistance+' miles ↗️ ' // northeastern direction
                     }
                     
 
