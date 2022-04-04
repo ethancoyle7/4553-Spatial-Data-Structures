@@ -31,7 +31,7 @@ import pygame, sys, random
 
 
 # define the pygame main window size.
-MAIN_WINDOW_SIZE = (250,250)
+MAIN_WINDOW_SIZE = (450,450)
 # this function will return a tuple with random x, y integer value.
 def RandomPoints(max_x ,max_y):
     # set at a rnd x and y point 
@@ -51,26 +51,28 @@ def RectangleCollision():
     
     # creating stuff for our rectangle
     # rectagle top left coordinates
-    Rectangle_left = 0  # x  
-    Rectangle_top = 0   # y
-    Rectangle_width = 100 # width
-    Rectangle_height = 100 # height
+    Rectangle_left = 0    
+    Rectangle_top = 0
+    # calculate the Rectangleangle object's width and height.
+    Rectangle_width = 100
+    Rectangle_height = 100
     # create the pygame.Rect object with the above values.
     # initialize our rectangle
     Rectangle = pygame.Rect(Rectangle_left, Rectangle_top, Rectangle_width, Rectangle_height)
     
    
-    
+    # how it will be moving on pointer down
+    moving_by_mouse = False
     
     # declare the point list to save all random generated points coordinates.
     ListOfPoints = []
     # We arer going to generate 100 random points.
-    NumPoints = 100
+    NumPoints = 300
     for i in range(NumPoints):
         # create a point with random coordinate values.
-        TempPoints = RandomPoints(MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1])
+        point_tmp = RandomPoints(MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1])
         # add the point to the list.
-        ListOfPoints.append(TempPoints) # append them to our points list
+        ListOfPoints.append(point_tmp) # append them to our points list
                                      # held within out window size we 
                                      # initialized earlier.    
     # now we need to draw the rectangle and the points.
@@ -86,9 +88,9 @@ def RectangleCollision():
             # for exitting the game
             if event.type == pygame.QUIT:# if the user clicks the X button
                 pygame.quit()# quit the game
-                sys.exit(0)# exit the program
+                sys.exit(0)# exit the program      
         # define the point circle radius.
-        point_radius = 6
+        RadiusOfPoints = 6
         # draw each point in the ListOfPoints.
         for point in ListOfPoints:
             # if the big red Rectangleangle collides the point.
@@ -97,12 +99,12 @@ def RectangleCollision():
                 # create a random color for the point.
                 point_color = pygame.Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
                 # draw the point as a circle.
-                pygame.draw.circle(main_window_screen, point_color, point, point_radius,0)
+                pygame.draw.circle(main_window_screen, point_color, point, RadiusOfPoints,0)
 
-                # pygame.draw.circle(main_window_screen, pygame.Color('green'), point, point_radius, 0)   
+                # pygame.draw.circle(main_window_screen, pygame.Color('green'), point, RadiusOfPoints, 0)   
             else:
                 # if the rectangle isnt hovering over the circles, then draw them as blue color.
-                pygame.draw.circle(main_window_screen, pygame.Color('blue'), point, point_radius, 0)   
+                pygame.draw.circle(main_window_screen, pygame.Color('blue'), point, RadiusOfPoints, 0)   
         # update the main window screen.
 
        
@@ -128,5 +130,4 @@ def RectangleCollision():
 # main driver draw the recttangle and the circles to be used with the mouse.
 if __name__ == '__main__':
     # go to the function definition, and draw the screen items.
-    RectangleCollision()# call the function
-    # if the user clicks the X button, quit the game.
+    RectangleCollision()
