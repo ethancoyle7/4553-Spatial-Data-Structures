@@ -33,21 +33,22 @@ import pygame, sys, random
 # define the pygame main window size.
 MAIN_WINDOW_SIZE = (450,450)
 # this function will return a tuple with random x, y integer value.
-def RandomPoints(max_x ,max_y):
+# make 
+def GeneratePoint(max_x ,max_y):
     # set at a rnd x and y point 
-    point_x = random.randint(0, max_x)
-    point_y = random.randint(0, max_y)
+    XVal = random.randint(0, max_x)
+    YVal = random.randint(0, max_y)
     # return that random spot
-    return (point_x, point_y)
+    return (XVal, YVal)
      
-def RectangleCollision():
+def PointQuery():
     
     # initialize pygame application.
     pygame.init()
     # create the pygame surface object
     WindowScreen = pygame.display.set_mode(MAIN_WINDOW_SIZE)
     # now we need to set a title to display at the top of the screen
-    pygame.display.set_caption('Pygame and Point Collision.')
+    pygame.display.set_caption('Pygame and Point Query.')
     
     # creating stuff for our rectangle
     # rectagle top left coordinates
@@ -66,9 +67,9 @@ def RectangleCollision():
     NumPoints = 300
     for i in range(NumPoints):
         # create a point with random coordinate values.
-        point_tmp = RandomPoints(MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1])
+        GeneratedPoint = GeneratePoint(MAIN_WINDOW_SIZE[0], MAIN_WINDOW_SIZE[1])
         # add the point to the list.
-        ListOfPoints.append(point_tmp) # append them to our points list
+        ListOfPoints.append(GeneratedPoint) # append them to our points list
                                      # held within out window size we 
                                      # initialized earlier.    
     # now we need to draw the rectangle and the points.
@@ -126,4 +127,4 @@ def RectangleCollision():
 # main driver draw the recttangle and the circles to be used with the mouse.
 if __name__ == '__main__':
     # go to the function definition, and draw the screen items.
-    RectangleCollision()
+    PointQuery()
