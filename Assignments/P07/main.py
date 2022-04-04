@@ -45,25 +45,21 @@ def RectangleCollision():
     # initialize pygame application.
     pygame.init()
     # create the pygame surface object
-    main_window_screen = pygame.display.set_mode(MAIN_WINDOW_SIZE)
+    WindowScreen = pygame.display.set_mode(MAIN_WINDOW_SIZE)
     # now we need to set a title to display at the top of the screen
     pygame.display.set_caption('Pygame and Point Collision.')
     
     # creating stuff for our rectangle
     # rectagle top left coordinates
-    Rectangle_left = 0    
-    Rectangle_top = 0
+    Rect_XVal = 0 # x   
+    Rect_YVal = 0   # y
     # calculate the Rectangleangle object's width and height.
-    Rectangle_width = 100
-    Rectangle_height = 100
+    Rect_Width = 100   # width
+    Rect_Height = 100  # height
     # create the pygame.Rect object with the above values.
     # initialize our rectangle
-    Rectangle = pygame.Rect(Rectangle_left, Rectangle_top, Rectangle_width, Rectangle_height)
-    
-   
-    # how it will be moving on pointer down
-    moving_by_mouse = False
-    
+    Rectangle = pygame.Rect(Rect_XVal, Rect_YVal, Rect_Width, Rect_Height)
+
     # declare the point list to save all random generated points coordinates.
     ListOfPoints = []
     # We arer going to generate 100 random points.
@@ -79,9 +75,9 @@ def RectangleCollision():
     # Main loop while true.
     while True:
         # fill the main window background color to gray.
-        main_window_screen.fill(pygame.Color('gray'))
+        WindowScreen.fill(pygame.Color('gray'))
         # draw the big red Rectangleangle on the main window screen. 
-        pygame.draw.rect(main_window_screen, pygame.Color('red'), Rectangle, 2)
+        pygame.draw.rect(WindowScreen, pygame.Color('red'), Rectangle, 2)
         
         # # process events.
         for event in pygame.event.get():
@@ -99,12 +95,12 @@ def RectangleCollision():
                 # create a random color for the point.
                 point_color = pygame.Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
                 # draw the point as a circle.
-                pygame.draw.circle(main_window_screen, point_color, point, RadiusOfPoints,0)
+                pygame.draw.circle(WindowScreen, point_color, point, RadiusOfPoints,0)
 
-                # pygame.draw.circle(main_window_screen, pygame.Color('green'), point, RadiusOfPoints, 0)   
+                # pygame.draw.circle(WindowScreen, pygame.Color('green'), point, RadiusOfPoints, 0)   
             else:
                 # if the rectangle isnt hovering over the circles, then draw them as blue color.
-                pygame.draw.circle(main_window_screen, pygame.Color('blue'), point, RadiusOfPoints, 0)   
+                pygame.draw.circle(WindowScreen, pygame.Color('blue'), point, RadiusOfPoints, 0)   
         # update the main window screen.
 
        
