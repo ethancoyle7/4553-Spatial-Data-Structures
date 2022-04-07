@@ -93,6 +93,7 @@ def PointQuery():
             # if the big red Rectangleangle collides the point.
             # the dots inside the rectangle will be drawn as green color
             if Rectangle.collidepoint(point):
+                print(point)
                 # create a random color for the point.
                 point_color = pygame.Color(random.randint(0,255), random.randint(0,255), random.randint(0,255))
                 # draw the point as a circle.
