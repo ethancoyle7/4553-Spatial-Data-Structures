@@ -105,17 +105,16 @@ PointList = []
 
 # for  the polygon data in the range of the lenngth of the polygon region
 for PolyGonData in range(0, Length):
-    #makes sure the right PolyGonData is used so output is accurate
-    if shapely.geometry.polygon.Polygon ==type(rtree[PolyGonData]):
-        PolygonType = 'SinglePolyGon'
+    if shapely.geometry.polygon.Polygon ==type(rtree[PolyGonData]): # if the polygon is a polygon
+        PolygonType = 'SinglePolyGon' # if the polygon is a single polygon
         PointsInPolyGon = np.asarray(rtree[PolyGonData].exterior.coords)
         PointsInPolyGon = PointsInPolyGon.tolist() # append coords to polygon point list
     else:
-        PolygonType = 'MultiPolyGon'
+        PolygonType = 'MultiPolyGon' # if the polygon is a multi polygon
         PointsInPolyGon = [] # empty list for out points in our polygon
         for data in rtree[PolyGonData]: # for the data inside of our rtree polygon
             Coordinates = np.asarray(data.exterior.coords) # convert the coordinates to numpy array of coords
-            Coordinates = Coordinates.tolist()
+            Coordinates = Coordinates.tolist() # convert the numpy array to a list
             PointsInPolyGon.append(Coordinates) # append the points to the polygon point list
 
     #we need to get all the ufo data through a query base 
@@ -129,10 +128,15 @@ for PolyGonData in range(0, Length):
             PointList.append([rtree[CoordinatePoints].x, rtree[CoordinatePoints].y])
     # output list to hold the key value pairs in json for the type, points in the polygon and the list of points
     OutFileList.append({
-        'Polygon Type ': PolygonType,
-        'Polygon Points': PointsInPolyGon,
-        'Point List': PointList
+        'Polygon Type ': PolygonType, # append the polygon type
+        'Polygon Points': PointsInPolyGon, # append the polygon points
+        'Point List': PointList # append the point list
     })
+    # add the outfile list of polygons to the graph plt
+    plt.plot(PointList[0], PointList[1], 'ro')
+
+
+
 #####################################################
 #  ██████╗ ██╗   ██╗████████╗██████╗ ██╗   ██╗████████╗ #
 # ██╔═══██╗██║   ██║╚══██╔══╝██╔══██╗██║   ██║╚══██╔══╝ #
@@ -151,3 +155,6 @@ except IOError:
   print("hmm did ufos take your dat file because there is an error")
 finally:
   print("we are all done now good bye chap")
+
+  # read in the pointsinpolys json and plot it on a voronoi diagram
+
