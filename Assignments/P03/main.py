@@ -156,5 +156,4 @@ except IOError:
 finally:
   print("we are all done now good bye chap")
 
-  # read in the pointsinpolys json and plot it on a voronoi diagram
 
