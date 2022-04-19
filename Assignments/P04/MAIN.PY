@@ -17,11 +17,18 @@
 ##                                                        ##
 ##                                                        ##
 ############################################################
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+import uvicorn
 import geopandas as gdp  # for the gdp spatial data
 from shapely.geometry import Polygon # for OutPut polygons
 import json # json data
 import pandas as pd
 import math # for math calculation
+from fastapi.middleware.cors import CORSMiddleware # needed for the api
+from math import radians, cos, sin, asin, sqrt
+#from the geohelper python import our class to be utilizes in our api
+#from GeoHelper import GeoraphicData
 
 ###########################################################################################################################################
 #  ██████╗██╗      █████╗ ███████╗███████╗     █████╗ ███╗   ██╗██████╗     ███╗   ███╗███████╗████████╗██╗  ██╗ ██████╗ ██████╗ ███████╗ #
@@ -36,7 +43,7 @@ class Geography:
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P05/countries.geojson') as infile:
+            with open('Assignments/P04/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
                 #clearprint(self.DataWorld)
         # if opening unsuccessful, toss an error
@@ -101,11 +108,17 @@ class Geography:
         CountryDist.append(Country1)
         CountryDist.append(Country2)
         for (x1, y1), (x2, y2) in zip(CountryDist, CountryDist[1:]):
-            DistanceValue = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-            #DistanceValue*=0.000621371192 # convert to miles
-    
-        #print(" distance is : \n\n", distance_formula,"\n\n")
-        return DistanceValue*69 # multiply by 69 to get mileage since it is a map
+        # convert decimal degrees to radians
+            x1, y1, x2, y2 = map(radians, [x1, y1, x2, y2])
+            # haversine formula
+            dlon = x2 - x1
+            dlat = y2 - y1
+            a = sin(dlat/2)**2+cos(y1)*cos(y2)*sin(dlon/2)**2
+            c = 2 * asin(sqrt(a))
+            r = 6371  # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
+            value= (c * r)/1.609 # convert to miles 
+        return value
+        
 
     # method to find the direction of the country  passing in the two countrys 
     def getDirection(self, FirstCountry, SecondCountry):
@@ -142,24 +155,45 @@ class Geography:
             if(feature['properties']['name']== name):
                 print("The name of the country is : ",name, " the coordinates are :\n\n",feature['geometry']['coordinates']) # pass back the coordinate of the specified name 
                 coordinates=feature['geometry']['coordinates']
+                # for i in range(len(coordinates)):
+                #     for j in range(len(coordinates[i])):
+                #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
 
-                OutFile = {
-                        "type": "FeatureCollection",
-                        "features": []
-                    }
-                OutFile['features'].append({
-                            "type": "Feature",
-                            "properties": {},
-                            "geometry": {
-                            "type": "Polygon",
-                            "coordinates": 
-                                coordinates # append the coordinates of the coordinates to that country name
+                if(feature['geometry']['type']=='Polygon'):
+                    
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "Polygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
                         
-                            }
-                        })
+                                }
+                            })
+                else:
+                    OutFile = {
+                            "type": "FeatureCollection",
+                            "features": []
+                        }
+                    OutFile['features'].append({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                "type": "MultiPolygon",
+                                "coordinates": 
+                                    coordinates # append the coordinates of the coordinates to that country name
+                        
+                                }
+                            })
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
+                
                 return OutFile
         
     

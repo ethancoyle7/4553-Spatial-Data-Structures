@@ -23,7 +23,7 @@ import json # json data
 import pandas as pd
 import math # for math calculation
 from fastapi.middleware.cors import CORSMiddleware # needed for the api
-
+from math import radians, cos, sin, asin, sqrt
 #from the geohelper python import our class to be utilizes in our api
 #from GeoHelper import GeoraphicData
 
@@ -40,7 +40,7 @@ class Geography:
       # for the input file try to open the file
         try:
         # try to open the inputfile
-            with open('Assignments/P06/countries.geojson') as infile:
+            with open('Assignments/P05/countries.geojson') as infile:
                 self.DataWorld = json.load(infile)
                 #clearprint(self.DataWorld)
         # if opening unsuccessful, toss an error
@@ -49,7 +49,7 @@ class Geography:
         # add exception handling on if there is and error opening up a outputfile
         try: 
       # open up and output file with the gejson format as a writeable file
-            self.output = open('Assignments/P06/OutPutFile.geojson', 'w')
+            self.output = open('Assignments/P05/OutPutFile.geojson', 'w')
         except IOError:
       # if unsuccessful, throw and input output exception
             print("there was an issue creating the output file\n")
@@ -74,7 +74,7 @@ class Geography:
      # neeeding work 
     def GetCenterPoint(self, name): # still testing to get the center point 
         coordinate=[]
-        df1 = pd.read_csv('Assignments/P06/countries.csv')
+        df1 = pd.read_csv('Assignments/P05/countries.csv')
         #df1.drop(columns=['ISO','COUNTRYAFF','AFF_ISO']Inplace=True)
         df1.drop(['ISO','COUNTRYAFF','AFF_ISO'], axis=1,inplace=True)
         print(df1)
@@ -91,7 +91,7 @@ class Geography:
 
     # returning the country to the user read in the data name and return the continent it islocated on
     def GetContinent(self, name): # still testing to get the center point 
-        df2 = pd.read_csv('Assignments/P06/continents.csv')# read in the other data file
+        df2 = pd.read_csv('Assignments/P05/continents.csv')# read in the other data file
         for i in range(len(df2.Country)): # for the whole length of the file checking
             if name == df2['Country'][i]: # if the name match the continent in the data file, 
                continent= df2['Continent'][i] # that continent is where is located 
@@ -105,11 +105,17 @@ class Geography:
         CountryDist.append(Country1)
         CountryDist.append(Country2)
         for (x1, y1), (x2, y2) in zip(CountryDist, CountryDist[1:]):
-            DistanceValue = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-            #DistanceValue*=0.000621371192 # convert to miles
-    
-        #print(" distance is : \n\n", distance_formula,"\n\n")
-        return DistanceValue*69 # multiply by 69 to get mileage since it is a map
+        # convert decimal degrees to radians
+            x1, y1, x2, y2 = map(radians, [x1, y1, x2, y2])
+            # haversine formula
+            dlon = x2 - x1
+            dlat = y2 - y1
+            a = sin(dlat/2)**2+cos(y1)*cos(y2)*sin(dlon/2)**2
+            c = 2 * asin(sqrt(a))
+            r = 6371  # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
+            value= (c * r)/1.609 # convert to miles 
+        return value
+        
 
     # method to find the direction of the country  passing in the two countrys 
     def getDirection(self, FirstCountry, SecondCountry):
@@ -149,6 +155,7 @@ class Geography:
                 # for i in range(len(coordinates)):
                 #     for j in range(len(coordinates[i])):
                 #         coordinates[i][j][0],coordinates[i][j][1]=coordinates[i][j][1],coordinates[i][j][0]
+
                 if(feature['geometry']['type']=='Polygon'):
                     
                     OutFile = {
@@ -180,7 +187,6 @@ class Geography:
                         
                                 }
                             })
-
     # write to the ouput file
 
                 self.output.write(json.dumps(OutFile, indent=4))
@@ -190,7 +196,7 @@ class Geography:
     
 #loads up API
 if __name__ == '__main__':
-    uvicorn.run("main:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
+    uvicorn.run("MAIN:HelperApi",host="127.0.0.1", port=8080, log_level="debug", reload=True)
     
     
 ImportedData = Geography()#our python helper class pushed into 
