@@ -3,294 +3,294 @@
         "City": "Portland",
         "Longitude": -122.676482,
         "Latitude": 45.523062,
-        "Average UFO": 0.016859891035451387
+        "Average UFO": 0.01686
     },
     {
         "City": "Seattle",
         "Longitude": -122.332071,
         "Latitude": 47.606209,
-        "Average UFO": 0.006675660533517651
+        "Average UFO": 0.00668
     },
     {
         "City": "Los Angeles",
         "Longitude": -118.243685,
         "Latitude": 34.052234,
-        "Average UFO": 0.036282210771418126
+        "Average UFO": 0.03628
     },
     {
         "City": "Boise City",
         "Longitude": -116.214607,
         "Latitude": 43.61871,
-        "Average UFO": 0.6715553920814321
+        "Average UFO": 0.67156
     },
     {
         "City": "Las Vegas",
         "Longitude": -115.13983,
         "Latitude": 36.169941,
-        "Average UFO": 0.05486425227943442
+        "Average UFO": 0.05486
     },
     {
         "City": "Phoenix",
         "Longitude": -112.074037,
         "Latitude": 33.448377,
-        "Average UFO": 0.09040822278573356
+        "Average UFO": 0.09041
     },
     {
         "City": "Salt Lake City",
         "Longitude": -111.891047,
         "Latitude": 40.760779,
-        "Average UFO": 0.1463706695846191
+        "Average UFO": 0.14637
     },
     {
         "City": "Billings",
         "Longitude": -108.50069,
         "Latitude": 45.783286,
-        "Average UFO": 2.604922209744055
+        "Average UFO": 2.60492
     },
     {
         "City": "Albuquerque",
         "Longitude": -106.605553,
         "Latitude": 35.085334,
-        "Average UFO": 0.2897921320706977
+        "Average UFO": 0.28979
     },
     {
         "City": "Denver",
         "Longitude": -104.990251,
         "Latitude": 39.739236,
-        "Average UFO": 0.06367873585108928
+        "Average UFO": 0.06368
     },
     {
         "City": "Cheyenne",
         "Longitude": -104.820246,
         "Latitude": 41.139981,
-        "Average UFO": 0.6959118009965073
+        "Average UFO": 0.69591
     },
     {
         "City": "Oklahoma City",
         "Longitude": -97.516428,
         "Latitude": 35.46756,
-        "Average UFO": 0.4523343083690526
+        "Average UFO": 0.45233
     },
     {
         "City": "Wichita",
         "Longitude": -97.336111,
         "Latitude": 37.688889,
-        "Average UFO": 0.7915288284980723
+        "Average UFO": 0.79153
     },
     {
         "City": "Fargo",
         "Longitude": -96.789803,
         "Latitude": 46.877186,
-        "Average UFO": 2.038244066036928
+        "Average UFO": 2.03824
     },
     {
         "City": "Sioux Falls",
         "Longitude": -96.731103,
         "Latitude": 43.544596,
-        "Average UFO": 1.7565521721851134
+        "Average UFO": 1.75655
     },
     {
         "City": "Omaha",
         "Longitude": -95.997988,
         "Latitude": 41.252363,
-        "Average UFO": 0.5872767693640176
+        "Average UFO": 0.58728
     },
     {
         "City": "Houston",
         "Longitude": -95.369803,
         "Latitude": 29.760427,
-        "Average UFO": 0.08318697633982684
+        "Average UFO": 0.08319
     },
     {
         "City": "Kansas City",
         "Longitude": -94.578567,
         "Latitude": 39.099727,
-        "Average UFO": 0.15385178764664617
+        "Average UFO": 0.15385
     },
     {
         "City": "Des Moines",
         "Longitude": -93.609106,
         "Latitude": 41.600545,
-        "Average UFO": 0.8149481520818057
+        "Average UFO": 0.81495
     },
     {
         "City": "Minneapolis",
         "Longitude": -93.265011,
         "Latitude": 44.977753,
-        "Average UFO": 0.24317969449233523
+        "Average UFO": 0.24318
     },
     {
         "City": "Little Rock",
         "Longitude": -92.289595,
         "Latitude": 34.746481,
-        "Average UFO": 0.5498069195436954
+        "Average UFO": 0.54981
     },
     {
         "City": "Jackson",
         "Longitude": -90.18481,
         "Latitude": 32.298757,
-        "Average UFO": 1.4006713983096095
+        "Average UFO": 1.40067
     },
     {
         "City": "New Orleans",
         "Longitude": -90.071532,
         "Latitude": 29.951066,
-        "Average UFO": 1.101603706907205
+        "Average UFO": 1.1016
     },
     {
         "City": "Memphis",
         "Longitude": -90.04898,
         "Latitude": 35.149534,
-        "Average UFO": 0.7659116405416182
+        "Average UFO": 0.76591
     },
     {
         "City": "Milwaukee",
         "Longitude": -87.906474,
         "Latitude": 43.038902,
-        "Average UFO": 0.3246729268652767
+        "Average UFO": 0.32467
     },
     {
         "City": "Chicago",
         "Longitude": -87.629798,
         "Latitude": 41.878114,
-        "Average UFO": 0.11493140128876504
+        "Average UFO": 0.11493
     },
     {
         "City": "Birmingham",
         "Longitude": -86.80249,
         "Latitude": 33.520661,
-        "Average UFO": 0.7693431300055433
+        "Average UFO": 0.76934
     },
     {
         "City": "Indianapolis",
         "Longitude": -86.158068,
         "Latitude": 39.768403,
-        "Average UFO": 0.31171513243685517
+        "Average UFO": 0.31172
     },
     {
         "City": "Louisville/Jefferson County",
         "Longitude": -85.758456,
         "Latitude": 38.252665,
-        "Average UFO": 0.4401329203811238
+        "Average UFO": 0.44013
     },
     {
         "City": "Atlanta",
         "Longitude": -84.387982,
         "Latitude": 33.748995,
-        "Average UFO": 0.20635623340473883
+        "Average UFO": 0.20636
     },
     {
         "City": "Detroit",
         "Longitude": -83.045754,
         "Latitude": 42.331427,
-        "Average UFO": 0.19821781795018031
+        "Average UFO": 0.19822
     },
     {
         "City": "Columbus",
         "Longitude": -82.998794,
         "Latitude": 39.961176,
-        "Average UFO": 0.22554243564443793
+        "Average UFO": 0.22554
     },
     {
         "City": "Jacksonville",
         "Longitude": -81.655651,
         "Latitude": 30.332184,
-        "Average UFO": 0.500807643657356
+        "Average UFO": 0.50081
     },
     {
         "City": "Charleston",
         "Longitude": -81.632623,
         "Latitude": 38.34982,
-        "Average UFO": 0.7691226536478046
+        "Average UFO": 0.76912
     },
     {
         "City": "Columbia",
         "Longitude": -81.034814,
         "Latitude": 34.00071,
-        "Average UFO": 0.9177894446832952
+        "Average UFO": 0.91779
     },
     {
         "City": "Charlotte",
         "Longitude": -80.843127,
         "Latitude": 35.227087,
-        "Average UFO": 0.31414829214582646
+        "Average UFO": 0.31415
     },
     {
         "City": "Washington",
         "Longitude": -77.036871,
         "Latitude": 38.907192,
-        "Average UFO": 0.12731862907073985
+        "Average UFO": 0.12732
     },
     {
         "City": "Baltimore",
         "Longitude": -76.612189,
         "Latitude": 39.290385,
-        "Average UFO": 0.2301834677616525
+        "Average UFO": 0.23018
     },
     {
         "City": "Virginia Beach",
         "Longitude": -75.977985,
         "Latitude": 36.852926,
-        "Average UFO": 0.5119893514584934
+        "Average UFO": 0.51199
     },
     {
         "City": "Wilmington",
         "Longitude": -75.539788,
         "Latitude": 39.739072,
-        "Average UFO": 0.3352740142393783
+        "Average UFO": 0.33527
     },
     {
         "City": "Philadelphia",
         "Longitude": -75.165222,
         "Latitude": 39.952584,
-        "Average UFO": 0.17041367736941526
+        "Average UFO": 0.17041
     },
     {
         "City": "Newark",
         "Longitude": -74.172367,
         "Latitude": 40.735657,
-        "Average UFO": 0.12671386863784018
+        "Average UFO": 0.12671
     },
     {
         "City": "New York",
         "Longitude": -74.005941,
         "Latitude": 40.712784,
-        "Average UFO": 0.03640803765676317
+        "Average UFO": 0.03641
     },
     {
         "City": "Burlington",
         "Longitude": -73.212072,
         "Latitude": 44.475882,
-        "Average UFO": 0.8688177634795364
+        "Average UFO": 0.86882
     },
     {
         "City": "Bridgeport",
         "Longitude": -73.195177,
         "Latitude": 41.186548,
-        "Average UFO": 0.2590896802200815
+        "Average UFO": 0.25909
     },
     {
         "City": "Manchester",
         "Longitude": -71.454789,
         "Latitude": 42.99564,
-        "Average UFO": 0.2714606908755664
+        "Average UFO": 0.27146
     },
     {
         "City": "Providence",
         "Longitude": -71.412834,
         "Latitude": 41.823989,
-        "Average UFO": 0.27498710651516384
+        "Average UFO": 0.27499
     },
     {
         "City": "Boston",
         "Longitude": -71.05888,
         "Latitude": 42.360082,
-        "Average UFO": 0.14744145713155776
+        "Average UFO": 0.14744
     },
     {
         "City": "Portland",
         "Longitude": -70.255326,
         "Latitude": 43.661471,
-        "Average UFO": 0.5233309420462803
+        "Average UFO": 0.52333
     }
 ]

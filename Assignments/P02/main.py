@@ -144,7 +144,7 @@ for i in range(len(GeoData)):
     #we need to get the closest  from 0 to 100
     ClosestDistances = DataVals[0:100]
     #next we need to calculate the average of the closest 100 ufos
-    Average = round(mean(ClosestDistances), 18)
+    Average = round(mean(ClosestDistances), 5)
     # we need to create another block to hold our city data with t     # the editted vales
     CityData = {
         'City': DataNames[i],# read in the data name
