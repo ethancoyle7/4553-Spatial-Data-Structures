@@ -15,5 +15,6 @@
 | [13](./P05) | [P05](./P05) | [Project   #5](./P05) |
 | [14](./P06) | [P06](./P06) | [Project   #6](./P06) |
 | [15](./P07) | [P07](./P07) | [Project   #7](./P07) |
+| [16](./P08) | [P08](./P08) | [Project   #8](./P08) |
 
 #### these links above will redirect to respective folders
