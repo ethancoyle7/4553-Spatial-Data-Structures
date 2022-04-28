@@ -61,11 +61,11 @@ except IOError:
 
 print("we done with reading from the input files now time to process some data")
 
-JsonStates = JsonStates['features'] # get the features from the json file
-DictOfStates = {} # create a dictionary to store the states
+
+# create basis feature collection for our geojson output
 GeojsonContainer = {
-            "type": "FeatureCollection",
-            "features": []
+            "type": "FeatureCollection", # type of the geojson file
+            "features": [] # features will be appended to the feature collections list of states and cities
          }
 ################################################
 #  ██████╗ ██╗   ██╗███████╗██████╗ ██╗   ██╗ ##
@@ -76,14 +76,14 @@ GeojsonContainer = {
 #  ╚══▀▀═╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ##
 ################################################
                                            
+JsonStates = JsonStates['features'] # get the features from the json file
+DictOfStates = {} # create a dictionary to store the states
 for state in JsonStates: # loop through the states
     state['properties']['population'] = 0 # add a population property to the state
     state['properties']['title'] = state['properties']['name'] # add a title property to the state
     state['properties']['stroke'] = "#555555" # add a stroke property to the state
     state['properties']['stroke-width'] = 1 # add a stroke-width property to the state
     state['properties']['fill'] = '#808000' # add a fill property olive color like a ripe little olive
-
-for state in JsonStates: # loop through the states
     DictOfStates[state['properties']['name']] = 0 # add the state to the dictionary
 StatePolyGon = gdp.GeoSeries(states['geometry']) # create a geoseries from the states geometries
 for i in range(len(JsonCities)): # loop through the cities
@@ -172,15 +172,17 @@ for city in JsonCities:
     CityData = {
         "type": "Feature",
         "properties":{},
-        "geometry":{
+        "geometry":
+        {
             "type": "Polygon",
-            "coordinates": [
+            "coordinates": 
+            [
                 [
-                    [city['longitude'] + .1, city['latitude']],
-                    [city['longitude'], city['latitude']+.1],
-                    [city['longitude'] - .1, city['latitude']],
-                    [city['longitude'], city['latitude']-.1],
-                    [city['longitude'] + .1, city['latitude']],
+                    [city['longitude'], city['latitude']],
+                    [city['longitude'], city['latitude']],
+                    [city['longitude'], city['latitude']],
+                    [city['longitude'], city['latitude']],
+                    [city['longitude'], city['latitude']],
                 ]
             ]
         }
